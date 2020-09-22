@@ -38,12 +38,12 @@
     },
     "autoload": {
         "psr-4": {
-            "CodelyTv\\PhpBootstrap\\": "src/"
+            "CodelyTv\\UserModelling\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "CodelyTv\\PhpBootstrapTest\\": "tests/"
+            "CodelyTv\\UserModelling\\Test\\": "tests/"
         }
     },
     "minimum-stability": "stable",

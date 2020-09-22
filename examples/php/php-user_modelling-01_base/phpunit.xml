@@ -3,10 +3,9 @@
         colors="true"
         beStrictAboutTestsThatDoNotTestAnything="true"
         beStrictAboutOutputDuringTests="true"
-        beStrictAboutTestSize="true"
         beStrictAboutChangesToGlobalState="true">
     <testsuites>
-        <testsuite name="phpBootstrap">
+        <testsuite name="UserModelling">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
