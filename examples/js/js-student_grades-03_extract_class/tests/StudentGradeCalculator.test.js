@@ -1,8 +1,9 @@
 import {StudentGradeCalculator} from '../src/StudentGradeCalculator';
+import {Teachers} from "../src/Teachers";
 
 describe('StudentGradeCalculator should', () => {
     it('fail given there are no exams', () => {
-        const calculator = new StudentGradeCalculator(2019);
+        const calculator = new StudentGradeCalculator(2019, new Teachers(), new Teachers());
         
         const examsGrades              = [];
         const hasReachedMinimumClasses = true;
@@ -11,7 +12,7 @@ describe('StudentGradeCalculator should', () => {
     });
     
     it('calculate same grade given one single exam and attending the minimum classes', () => {
-        const calculator = new StudentGradeCalculator(2019);
+        const calculator = new StudentGradeCalculator(2019, new Teachers());
         
         const examsGrades              = [[100, 5]];
         const hasReachedMinimumClasses = true;
@@ -20,7 +21,7 @@ describe('StudentGradeCalculator should', () => {
     });
     
     it('calculate average grade given different exam grades and attending the minimum classes', () => {
-        const calculator = new StudentGradeCalculator(2019);
+        const calculator = new StudentGradeCalculator(2019, new Teachers());
         
         const examsGrades              = [
             [10, 4],
@@ -40,7 +41,7 @@ describe('StudentGradeCalculator should', () => {
     });
     
     it('round up to 2 decimals given odd exam grades and attending the minimum classes', () => {
-        const calculator = new StudentGradeCalculator(2019);
+        const calculator = new StudentGradeCalculator(2019, new Teachers());
         
         const examsGrades              = [
             [50, 4],
@@ -54,7 +55,7 @@ describe('StudentGradeCalculator should', () => {
     // hasReachedMinimumClasses
     
     it('fail when there are no exams and has not attended the minimum classes', () => {
-        const calculator = new StudentGradeCalculator(2019);
+        const calculator = new StudentGradeCalculator(2019, new Teachers());
         
         const examsGrades              = [];
         const hasReachedMinimumClasses = false;
@@ -63,7 +64,7 @@ describe('StudentGradeCalculator should', () => {
     });
     
     it('fail given one single exam but not attending the minimum classes', () => {
-        const calculator = new StudentGradeCalculator(2019);
+        const calculator = new StudentGradeCalculator(2019, new Teachers());
         
         const examsGrades              = [[100, 5]];
         const hasReachedMinimumClasses = false;
@@ -72,7 +73,7 @@ describe('StudentGradeCalculator should', () => {
     });
     
     it('fail given different exam grades but not attending the minimum classes', () => {
-        const calculator = new StudentGradeCalculator(2019);
+        const calculator = new StudentGradeCalculator(2019, new Teachers());
         
         const examsGrades              = [
             [10, 4],
@@ -92,7 +93,7 @@ describe('StudentGradeCalculator should', () => {
     });
     
     it('fail given odd exam grades but not attending the minimum classes', () => {
-        const calculator = new StudentGradeCalculator(2019);
+        const calculator = new StudentGradeCalculator(2019, new Teachers());
         
         const examsGrades              = [[50, 5], [50, 4]];
         const hasReachedMinimumClasses = false;
@@ -103,7 +104,7 @@ describe('StudentGradeCalculator should', () => {
     // Weight
     
     it('validate all exam grades weight below 100', () => {
-        const calculator = new StudentGradeCalculator(2019);
+        const calculator = new StudentGradeCalculator(2019, new Teachers());
         
         const examsGrades              = [
             [10, 4],
@@ -115,7 +116,7 @@ describe('StudentGradeCalculator should', () => {
     });
     
     it('validate all exam grades weight over 100', () => {
-        const calculator = new StudentGradeCalculator(2019);
+        const calculator = new StudentGradeCalculator(2019, new Teachers());
         
         const examsGrades              = [
             [90, 4],
@@ -129,7 +130,7 @@ describe('StudentGradeCalculator should', () => {
     // hasToRaiseOnePoint
     
     it('not increase one extra point if there is not any benevolent teacher in the year to calculate grades', () => {
-        const calculator = new StudentGradeCalculator(2019);
+        const calculator = new StudentGradeCalculator(2019, new Teachers());
         
         const examsGrades              = [[100, 9.8]];
         const hasReachedMinimumClasses = true;
@@ -138,7 +139,7 @@ describe('StudentGradeCalculator should', () => {
     });
    
     it('increase one extra point if there is any benevolent teacher in the year to calculate grades', () => {
-        const calculator = new StudentGradeCalculator(2020);
+        const calculator = new StudentGradeCalculator(2020, new Teachers());
         
         const examsGrades              = [[100, 5]];
         const hasReachedMinimumClasses = true;
@@ -147,7 +148,7 @@ describe('StudentGradeCalculator should', () => {
     });
     
     it('maintain 10 as the maximum grade even if increasing one extra point', () => {
-        const calculator = new StudentGradeCalculator(2020);
+        const calculator = new StudentGradeCalculator(2020, new Teachers());
         
         const examsGrades              = [[100, 9.8]];
         const hasReachedMinimumClasses = true;

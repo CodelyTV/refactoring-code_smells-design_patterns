@@ -1,17 +1,15 @@
-import {Teachers} from "./Teachers";
-
 export class StudentGradeCalculator {
-    constructor(yearToCalculate) {
+    constructor(yearToCalculate, teachers) {
         this.yearToCalculate = yearToCalculate;
-        this.teachers = new Teachers();
+        this.teachers        = teachers;
     }
     
     calculate(examGrades, hasReachedMinimumClasses) {
         if (examGrades.length !== 0) {
- 
+            
             let gradesSum       = 0;
             let gradesWeightSum = 0;
-    
+            
             for (let examGrade of examGrades) {
                 gradesSum += (examGrade[0] * examGrade[1] / 100);
                 gradesWeightSum += examGrade[0];
