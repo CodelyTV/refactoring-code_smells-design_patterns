@@ -8,9 +8,9 @@ use InvalidArgumentException;
 
 abstract class StepType
 {
-    public const VIDEO_STEP_TYPE = 0;
-    public const QUIZ_STEP_TYPE = 1;
-    public const EXERCISE_STEP_TYPE = 2;
+    private const VIDEO_STEP_TYPE = 0;
+    private const QUIZ_STEP_TYPE = 1;
+    private const EXERCISE_STEP_TYPE = 2;
 
     public static function fromPrimitive(int $code, ?int $videoDurationInMinutes, ?array $quizQuestions)
     {
@@ -26,7 +26,5 @@ abstract class StepType
         }
     }
 
-    abstract public function code(): int;
-
-    abstract public function stepEstimatedCompletionMinutes(Step $instance): int;
+    abstract public function estimatedCompletionMinutes(): int;
 }

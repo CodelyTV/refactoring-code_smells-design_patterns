@@ -6,7 +6,8 @@ namespace CodelyTv\StepStrategy;
 
 final class QuizStepType extends StepType
 {
-    public const QUIZ_STEP_QUESTION_DURATION_ESTIMATION_IN_MINUTES = 3;
+    private const QUIZ_STEP_QUESTION_DURATION_ESTIMATION_IN_MINUTES = 3;
+
     private array $quizQuestions;
 
     public function __construct(array $quizQuestions)
@@ -14,13 +15,8 @@ final class QuizStepType extends StepType
         $this->quizQuestions = $quizQuestions;
     }
 
-    public function code(): int
+    public function estimatedCompletionMinutes(): int
     {
-        return StepType::QUIZ_STEP_TYPE;
-    }
-
-    public function stepEstimatedCompletionMinutes(Step $instance): int
-    {
-        return self::QUIZ_STEP_QUESTION_DURATION_ESTIMATION_IN_MINUTES * count($instance->quizQuestions);
+        return self::QUIZ_STEP_QUESTION_DURATION_ESTIMATION_IN_MINUTES * count($this->quizQuestions);
     }
 }
