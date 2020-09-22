@@ -6,6 +6,9 @@ namespace CodelyTv\UserModelling;
 
 final class User
 {
+    private const SPANISH_LANGUAGE = "es";
+    private const UNDERAGE_UNTIL_AGE = 18;
+
     private string $locale;
     private int    $age;
 
@@ -15,13 +18,15 @@ final class User
         $this->age    = $age;
     }
 
-    public function locale(): string
+    public function understandSpanish(): bool
     {
-        return $this->locale;
+        $language = substr($this->locale, 0, 2);
+
+        return $language === self::SPANISH_LANGUAGE;
     }
 
-    public function age(): int
+    public function isUnderage(): bool
     {
-        return $this->age;
+        return $this->age < self::UNDERAGE_UNTIL_AGE;
     }
 }
