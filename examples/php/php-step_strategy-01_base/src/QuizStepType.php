@@ -15,6 +15,6 @@ final class QuizStepType extends StepType
 
     public function code(): int
     {
-        return Step::QUIZ_STEP_TYPE;
+        return StepType::QUIZ_STEP_TYPE;
     }
 }

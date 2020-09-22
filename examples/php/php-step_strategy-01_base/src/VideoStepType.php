@@ -15,6 +15,6 @@ final class VideoStepType extends StepType
 
     public function code(): int
     {
-        return Step::VIDEO_STEP_TYPE;
+        return StepType::VIDEO_STEP_TYPE;
     }
 }

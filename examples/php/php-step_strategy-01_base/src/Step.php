@@ -9,10 +9,6 @@ final class Step
     private const EXERCISE_STEP_DURATION_ESTIMATION_IN_MINUTES = 30;
     private const QUIZ_STEP_QUESTION_DURATION_ESTIMATION_IN_MINUTES = 3;
 
-    public const VIDEO_STEP_TYPE = 0;
-    public const QUIZ_STEP_TYPE = 1;
-    public const EXERCISE_STEP_TYPE = 2;
-
     private string   $title;
     private StepType $type;
     private ?int     $videoDurationInMinutes;
@@ -31,13 +27,13 @@ final class Step
         $estimation = 0;
 
         switch ($this->type->code()) {
-            case self::VIDEO_STEP_TYPE:
+            case StepType::VIDEO_STEP_TYPE:
                 $estimation = $this->videoDurationInMinutes;
                 break;
-            case self::QUIZ_STEP_TYPE:
+            case StepType::QUIZ_STEP_TYPE:
                 $estimation = self::QUIZ_STEP_QUESTION_DURATION_ESTIMATION_IN_MINUTES * count($this->quizQuestions);
                 break;
-            case self::EXERCISE_STEP_TYPE:
+            case StepType::EXERCISE_STEP_TYPE:
                 $estimation = self::EXERCISE_STEP_DURATION_ESTIMATION_IN_MINUTES;
                 break;
         }
