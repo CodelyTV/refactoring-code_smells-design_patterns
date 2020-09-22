@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace CodelyTv\UserModelling;
 
+use InvalidArgumentException;
+
 final class Age
 {
     private const UNDERAGE_UNTIL_AGE = 18;
@@ -12,6 +14,10 @@ final class Age
 
     public function __construct(int $value)
     {
+        if ($value < 10) {
+            throw new InvalidArgumentException("User too young");
+        }
+
         $this->value = $value;
     }
 
