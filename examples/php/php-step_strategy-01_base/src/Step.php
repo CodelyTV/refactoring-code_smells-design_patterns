@@ -9,12 +9,12 @@ final class Step
     private const EXERCISE_STEP_DURATION_ESTIMATION_IN_MINUTES = 30;
     private const QUIZ_STEP_QUESTION_DURATION_ESTIMATION_IN_MINUTES = 3;
 
-    private const VIDEO_STEP_TYPE = 0;
-    private const QUIZ_STEP_TYPE = 1;
-    private const EXERCISE_STEP_TYPE = 2;
+    public const VIDEO_STEP_TYPE = 0;
+    public const QUIZ_STEP_TYPE = 1;
+    public const EXERCISE_STEP_TYPE = 2;
 
-    private string $title;
-    private int    $type;
+    private string  $title;
+    private int     $type;
     private ?int    $videoDurationInMinutes;
     private ?array  $quizQuestions;
 
