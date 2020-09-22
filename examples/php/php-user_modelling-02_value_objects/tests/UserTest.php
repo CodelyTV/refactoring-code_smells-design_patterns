@@ -22,7 +22,7 @@ final class UserTest extends TestCase
     /** @test */
     public function should_not_detect_english_from_great_britain_as_spanish_language(): void
     {
-        $user = new User("en_GB", new Age(20));
+        $user = User::signUp(new Locale("en_GB"), new Age(20));
 
         self::assertFalse($user->understandSpanish());
     }
@@ -30,7 +30,7 @@ final class UserTest extends TestCase
     /** @test */
     public function should_detect_underage_users_until_18_years_old(): void
     {
-        $user = new User("en_GB", new Age(17));
+        $user = User::signUp(new Locale("en_GB"), new Age(17));
 
         self::assertTrue($user->isUnderage());
     }
@@ -38,7 +38,7 @@ final class UserTest extends TestCase
     /** @test */
     public function should_not_detect_underage_users_starting_from_18_years_old(): void
     {
-        $user = new User("en_GB", new Age(18));
+        $user = User::signUp(new Locale("en_GB"), new Age(18));
 
         self::assertFalse($user->isUnderage());
     }

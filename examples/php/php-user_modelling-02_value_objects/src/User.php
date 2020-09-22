@@ -9,15 +9,18 @@ final class User
     private Locale $locale;
     private Age $age;
 
-    public function __construct(string $locale, Age $age)
+    private function __construct(Locale $locale, Age $age)
     {
-        $this->locale = new Locale($locale);
+        $this->locale = $locale;
         $this->age    = $age;
     }
 
-    public static function signUp(Locale $locale, Age $age)
+    public static function signUp(Locale $locale, Age $age): User
     {
-        return new self($locale->value(), $age);
+        // …
+        // Any kind of additional logic such as recording domain events, checking overall Aggregate consistency, etc.
+        // …
+        return new self($locale, $age);
     }
 
     public function understandSpanish(): bool
