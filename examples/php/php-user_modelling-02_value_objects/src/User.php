@@ -15,6 +15,11 @@ final class User
         $this->age    = $age;
     }
 
+    public static function signUp(Locale $locale, Age $age)
+    {
+        return new self($locale->value(), $age);
+    }
+
     public function understandSpanish(): bool
     {
         return $this->locale->understandSpanish();

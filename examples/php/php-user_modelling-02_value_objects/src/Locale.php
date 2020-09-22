@@ -15,6 +15,11 @@ final class Locale
         $this->value = $value;
     }
 
+    public function value(): string
+    {
+        return $this->value;
+    }
+
     public function understandSpanish(): bool
     {
         $language = substr($this->value, 0, 2);

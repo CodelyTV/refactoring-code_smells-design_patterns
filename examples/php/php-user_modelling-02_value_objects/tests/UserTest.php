@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace CodelyTv\UserModelling\Test;
 
 use CodelyTv\UserModelling\Age;
+use CodelyTv\UserModelling\Locale;
 use CodelyTv\UserModelling\User;
 use PHPUnit\Framework\TestCase;
 
@@ -13,7 +14,7 @@ final class UserTest extends TestCase
     /** @test */
     public function should_detect_spanish_from_spain_as_spanish_language(): void
     {
-        $user = new User("es_ES", new Age(20));
+        $user = User::signUp(new Locale("es_ES"), new Age(20));
 
         self::assertTrue($user->understandSpanish());
     }
