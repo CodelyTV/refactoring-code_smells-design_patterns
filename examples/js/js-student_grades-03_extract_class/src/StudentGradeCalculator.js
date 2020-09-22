@@ -1,39 +1,14 @@
+import {Teachers} from "./Teachers";
+
 export class StudentGradeCalculator {
-    allYearsTeachers = {
-        2020: [
-            ["Josefina", true],
-            ["Edonisio", true],
-            ["Edufasio", false],
-        ],
-        2019: [
-            ["Eduarda", false],
-            ["Abelardo", false],
-            ["Francisca", false],
-        ]
-    };
-    
     constructor(yearToCalculate) {
         this.yearToCalculate = yearToCalculate;
+        this.teachers = new Teachers();
     }
     
     calculate(examGrades, hasReachedMinimumClasses) {
         if (examGrades.length !== 0) {
-            let hasToIncreaseOneExtraPoint = false;
-            
-            for (let [year, teachers] of Object.entries(this.allYearsTeachers)) {
-                if (!(this.yearToCalculate != year)) {
-                    for (let teacher of teachers) {
-                        if (teacher[1] != true) {
-                            continue;
-                        }
-                        
-                        hasToIncreaseOneExtraPoint = true;
-                    }
-                } else {
-                    continue;
-                }
-            }
-            
+ 
             let gradesSum       = 0;
             let gradesWeightSum = 0;
     
@@ -44,7 +19,7 @@ export class StudentGradeCalculator {
             
             if (gradesWeightSum === 100) {
                 if (hasReachedMinimumClasses) {
-                    if (hasToIncreaseOneExtraPoint) {
+                    if (this.teachers.isThereAnyBenevolent(this.yearToCalculate)) {
                         return Math.min(10, gradesSum + 1);
                     } else {
                         return gradesSum;
