@@ -13,15 +13,15 @@ final class Step
     public const QUIZ_STEP_TYPE = 1;
     public const EXERCISE_STEP_TYPE = 2;
 
-    private string  $title;
-    private int     $type;
-    private ?int    $videoDurationInMinutes;
-    private ?array  $quizQuestions;
+    private string   $title;
+    private StepType $type;
+    private ?int     $videoDurationInMinutes;
+    private ?array   $quizQuestions;
 
-    public function __construct(string $title, int $type, ?int $videoDurationInMinutes, ?array $quizQuestions)
+    public function __construct(string $title, int $typeCode, ?int $videoDurationInMinutes, ?array $quizQuestions)
     {
         $this->title                  = $title;
-        $this->type                   = $type;
+        $this->type                   = StepType::fromPrimitive($typeCode, $videoDurationInMinutes, $quizQuestions);
         $this->videoDurationInMinutes = $videoDurationInMinutes;
         $this->quizQuestions          = $quizQuestions;
     }
@@ -30,7 +30,7 @@ final class Step
     {
         $estimation = 0;
 
-        switch ($this->type) {
+        switch ($this->type->code()) {
             case self::VIDEO_STEP_TYPE:
                 $estimation = $this->videoDurationInMinutes;
                 break;
