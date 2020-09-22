@@ -12,4 +12,9 @@ final class ExerciseStepType extends StepType
     {
         return self::EXERCISE_STEP_DURATION_ESTIMATION_IN_MINUTES;
     }
+
+    protected static function code(): int
+    {
+        return 2;
+    }
 }
