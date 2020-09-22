@@ -26,24 +26,7 @@ abstract class StepType
         }
     }
 
-    public function stepEstimatedCompletionMinutes(Step $instance)
-    {
-        $estimation = 0;
-
-        switch ($instance->type->code()) {
-            case self::VIDEO_STEP_TYPE:
-                $estimation = $instance->videoDurationInMinutes;
-                break;
-            case self::QUIZ_STEP_TYPE:
-                $estimation = QuizStepType::QUIZ_STEP_QUESTION_DURATION_ESTIMATION_IN_MINUTES * count($instance->quizQuestions);
-                break;
-            case self::EXERCISE_STEP_TYPE:
-                $estimation = ExerciseStepType::EXERCISE_STEP_DURATION_ESTIMATION_IN_MINUTES;
-                break;
-        }
-
-        return $estimation;
-    }
-
     abstract public function code(): int;
+
+    abstract public function stepEstimatedCompletionMinutes(Step $instance): int;
 }
