@@ -38,13 +38,7 @@ public class StudentGradeCalculator {
             return 0f;
         }
 
-        int gradesWeightSum = gradesWeightSum(examsGrades);
-
-        if (gradesWeightSum > 100) {
-            throw new GradesWeightOverMaxException();
-        } else if (gradesWeightSum < 100) {
-            throw new GradesWeightBelowMinException();
-        }
+        ensureGradesWeightSumIs100percent(examsGrades);
 
         float gradesSum = gradesSum(examsGrades);
 
@@ -53,6 +47,16 @@ public class StudentGradeCalculator {
         }
 
         return gradesSum;
+    }
+
+    private void ensureGradesWeightSumIs100percent(List<Pair<Integer, Float>> examsGrades) {
+        int gradesWeightSum = gradesWeightSum(examsGrades);
+
+        if (gradesWeightSum > 100) {
+            throw new GradesWeightOverMaxException();
+        } else if (gradesWeightSum < 100) {
+            throw new GradesWeightBelowMinException();
+        }
     }
 
     private float gradesSum(List<Pair<Integer, Float>> examsGrades) {
