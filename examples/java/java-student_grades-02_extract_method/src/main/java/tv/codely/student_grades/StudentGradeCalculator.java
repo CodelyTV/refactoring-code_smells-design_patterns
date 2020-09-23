@@ -63,11 +63,7 @@ public class StudentGradeCalculator {
     }
 
     private int gradesWeightSum(List<Pair<Integer, Float>> examsGrades) {
-        int gradesWeightSum = 0;
-        for (Pair<Integer, Float> examGrade : examsGrades) {
-            gradesWeightSum += examGrade.first();
-        }
-        return gradesWeightSum;
+        return examsGrades.stream().map(Pair::first).reduce(Integer::sum).get();
     }
 
     private boolean hasToIncreaseOneExtraPoint() {
