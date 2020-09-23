@@ -41,9 +41,9 @@ public class StudentGradeCalculator {
         int gradesWeightSum = gradesWeightSum(examsGrades);
 
         if (gradesWeightSum > 100) {
-            return -1f;
+            throw new GradesWeightOverMaxException();
         } else if (gradesWeightSum < 100) {
-            return -2f;
+            throw new GradesWeightBelowMinException();
         }
 
         float gradesSum = gradesSum(examsGrades);

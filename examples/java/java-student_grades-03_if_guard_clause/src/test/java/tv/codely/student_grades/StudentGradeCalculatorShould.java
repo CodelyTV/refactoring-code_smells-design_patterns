@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class StudentGradeCalculatorShould {
     @Test
@@ -127,7 +128,10 @@ public class StudentGradeCalculatorShould {
         );
         final boolean hasReachedMinimumClasses = true;
 
-        assertEquals(-2, studentGradeCalculator.calculateGrades(examsGrades, hasReachedMinimumClasses));
+        assertThrows(
+            GradesWeightBelowMinException.class,
+            () -> studentGradeCalculator.calculateGrades(examsGrades, hasReachedMinimumClasses)
+        );
     }
 
     @Test
@@ -140,7 +144,10 @@ public class StudentGradeCalculatorShould {
         );
         final boolean hasReachedMinimumClasses = true;
 
-        assertEquals(-1, studentGradeCalculator.calculateGrades(examsGrades, hasReachedMinimumClasses));
+        assertThrows(
+            GradesWeightOverMaxException.class,
+            () -> studentGradeCalculator.calculateGrades(examsGrades, hasReachedMinimumClasses)
+        );
     }
 
     // hasToRaiseOnePoint
