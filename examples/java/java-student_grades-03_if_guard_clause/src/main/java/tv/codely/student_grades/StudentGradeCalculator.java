@@ -30,28 +30,29 @@ public class StudentGradeCalculator {
     }
 
     public float calculateGrades(final List<Pair<Integer, Float>> examsGrades, final boolean hasReachedMinimumClasses) {
-        if (!examsGrades.isEmpty()) {
-            float gradesSum       = gradesSum(examsGrades);
-            int   gradesWeightSum = gradesWeightSum(examsGrades);
-
-            if (gradesWeightSum == 100) {
-                if (hasReachedMinimumClasses) {
-                    if (hasToIncreaseOneExtraPoint()) {
-                        return Float.min(10f, gradesSum + 1);
-                    } else {
-                        return gradesSum;
-                    }
-                } else {
-                    return 0f;
-                }
-            } else if (gradesWeightSum > 100) {
-                return -1f;
-            } else {
-                return -2f;
-            }
-        } else {
+        if (examsGrades.isEmpty()) {
             return 0f;
         }
+
+        if (!hasReachedMinimumClasses) {
+            return 0f;
+        }
+
+        int gradesWeightSum = gradesWeightSum(examsGrades);
+
+        if (gradesWeightSum > 100) {
+            return -1f;
+        } else if (gradesWeightSum < 100) {
+            return -2f;
+        }
+
+        float gradesSum = gradesSum(examsGrades);
+
+        if (hasToIncreaseOneExtraPoint()) {
+            return Float.min(10f, gradesSum + 1);
+        }
+
+        return gradesSum;
     }
 
     private float gradesSum(List<Pair<Integer, Float>> examsGrades) {
