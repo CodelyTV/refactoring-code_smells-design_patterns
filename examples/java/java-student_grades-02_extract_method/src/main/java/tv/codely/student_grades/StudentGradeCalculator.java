@@ -31,8 +31,6 @@ public class StudentGradeCalculator {
 
     public float calculateGrades(final List<Pair<Integer, Float>> examsGrades, final boolean hasReachedMinimumClasses) {
         if (!examsGrades.isEmpty()) {
-            boolean hasToIncreaseOneExtraPoint = hasToIncreaseOneExtraPoint();
-
             float gradesSum       = 0f;
             int   gradesWeightSum = 0;
 
@@ -43,7 +41,7 @@ public class StudentGradeCalculator {
 
             if (gradesWeightSum == 100) {
                 if (hasReachedMinimumClasses) {
-                    if (hasToIncreaseOneExtraPoint) {
+                    if (hasToIncreaseOneExtraPoint()) {
                         return Float.min(10f, gradesSum + 1);
                     } else {
                         return gradesSum;
