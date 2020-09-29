@@ -23,7 +23,7 @@
   ·
   <a href="https://github.com/CodelyTV/refactoring-code-smells/stargazers">⭐ Star this repository</a>
   ·
-  <a href="https://github.com/CodelyTV/php-ddd-example/issues">☝️ Propose an example</a>
+  <a href="https://github.com/CodelyTV/refactoring-code-smells/issues">☝️ Propose an example</a>
 </p>
 
 ## 🧠 Concepts 
