@@ -3,25 +3,23 @@ package tv.codely.booking;
 import java.time.LocalDateTime;
 
 public final class Booking {
-    private final BookingId     id;
-    private final LocalDateTime startDate;
-    private final LocalDateTime endDate;
-    private final Customer      customer;
-    private final BookingType   bookingType;
-    private final Discount      discount;
-    private final Tax           tax;
+    private final BookingId   id;
+    private final DateRange   dateRange;
+    private final Customer    customer;
+    private final BookingType bookingType;
+    private final Discount    discount;
+    private final Tax         tax;
 
     public Booking(
         BookingId id,
-        DateRange bookingDateRange,
+        DateRange dateRange,
         Customer customer,
         BookingType bookingType,
         Discount discount,
         Tax tax
     ) {
         this.id          = id;
-        this.startDate   = bookingDateRange.startDate();
-        this.endDate     = bookingDateRange.endDate();
+        this.dateRange   = dateRange;
         this.customer    = customer;
         this.bookingType = bookingType;
         this.discount    = discount;
@@ -29,11 +27,11 @@ public final class Booking {
     }
 
     public BookingStatus statusFor(LocalDateTime date) {
-        if (date.isBefore(startDate)) {
+        if (date.isBefore(dateRange.startDate())) {
             return BookingStatus.NOT_STARTED;
         }
 
-        if (date.isAfter(startDate) && date.isBefore(endDate)) {
+        if (date.isAfter(dateRange.startDate()) && date.isBefore(dateRange.endDate())) {
             return BookingStatus.ACTIVE;
         }
 
