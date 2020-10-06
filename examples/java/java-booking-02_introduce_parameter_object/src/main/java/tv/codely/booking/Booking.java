@@ -17,8 +17,7 @@ public final class Booking {
 
     public Booking(
         BookingId id,
-        LocalDateTime startDate,
-        LocalDateTime endDate,
+        DateRange bookingDateRange,
         CustomerId customerId,
         CustomerName customerName,
         EmailAddress customerEmail,
@@ -29,8 +28,8 @@ public final class Booking {
         TaxValue taxValue
     ) {
         this.id            = id;
-        this.startDate     = startDate;
-        this.endDate       = endDate;
+        this.startDate     = bookingDateRange.startDate();
+        this.endDate       = bookingDateRange.endDate();
         this.customerId    = customerId;
         this.customerName  = customerName;
         this.customerEmail = customerEmail;
