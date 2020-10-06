@@ -10,16 +10,4 @@ public final class Customer {
         this.name         = name;
         this.emailAddress = emailAddress;
     }
-
-    public CustomerId id() {
-        return id;
-    }
-
-    public CustomerName name() {
-        return name;
-    }
-
-    public EmailAddress emailAddress() {
-        return emailAddress;
-    }
 }

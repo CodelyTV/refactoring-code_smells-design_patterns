@@ -8,12 +8,4 @@ public final class Discount {
         this.type  = type;
         this.value = value;
     }
-
-    public DiscountType type() {
-        return type;
-    }
-
-    public DiscountValue value() {
-        return value;
-    }
 }

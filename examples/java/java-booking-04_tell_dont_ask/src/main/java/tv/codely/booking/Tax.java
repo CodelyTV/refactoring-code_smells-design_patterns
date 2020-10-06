@@ -8,12 +8,4 @@ public final class Tax {
         this.type  = type;
         this.value = value;
     }
-
-    public TaxType type() {
-        return type;
-    }
-
-    public TaxValue value() {
-        return value;
-    }
 }
