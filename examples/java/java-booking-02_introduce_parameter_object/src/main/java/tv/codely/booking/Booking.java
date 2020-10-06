@@ -18,9 +18,7 @@ public final class Booking {
     public Booking(
         BookingId id,
         DateRange bookingDateRange,
-        CustomerId customerId,
-        CustomerName customerName,
-        EmailAddress customerEmail,
+        Customer customer,
         BookingType bookingType,
         DiscountType discountType,
         DiscountValue discountValue,
@@ -30,9 +28,9 @@ public final class Booking {
         this.id            = id;
         this.startDate     = bookingDateRange.startDate();
         this.endDate       = bookingDateRange.endDate();
-        this.customerId    = customerId;
-        this.customerName  = customerName;
-        this.customerEmail = customerEmail;
+        this.customerId    = customer.id();
+        this.customerName  = customer.name();
+        this.customerEmail = customer.emailAddress();
         this.bookingType   = bookingType;
         this.discountType  = discountType;
         this.discountValue = discountValue;

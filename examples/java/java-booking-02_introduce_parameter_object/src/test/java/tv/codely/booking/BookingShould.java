@@ -17,9 +17,11 @@ public final class BookingShould {
         var booking = new Booking(
             new BookingId("2c1e34d0-1430-4307-80bf-a71761f71390"),
             new DateRange(bookingStartDate, bookingEndDate),
-            new CustomerId("72cf3524-7838-45f3-8179-2e75abe5e81c"),
-            new CustomerName("Perico Los Palotes"),
-            new EmailAddress("perico.los.palotes@mail.com"),
+            new Customer(
+                new CustomerId("72cf3524-7838-45f3-8179-2e75abe5e81c"),
+                new CustomerName("Perico Los Palotes"),
+                new EmailAddress("perico.los.palotes@mail.com")
+            ),
             BookingType.VACATION,
             DiscountType.NONE,
             new DiscountValue(0),
@@ -40,9 +42,11 @@ public final class BookingShould {
         var booking = new Booking(
             new BookingId("2c1e34d0-1430-4307-80bf-a71761f71390"),
             new DateRange(bookingStartDate, bookingEndDate),
-            new CustomerId("72cf3524-7838-45f3-8179-2e75abe5e81c"),
-            new CustomerName("Perico Los Palotes"),
-            new EmailAddress("perico.los.palotes@mail.com"),
+            new Customer(
+                new CustomerId("72cf3524-7838-45f3-8179-2e75abe5e81c"),
+                new CustomerName("Perico Los Palotes"),
+                new EmailAddress("perico.los.palotes@mail.com")
+            ),
             BookingType.VACATION,
             DiscountType.NONE,
             new DiscountValue(0),
@@ -63,9 +67,11 @@ public final class BookingShould {
         var booking = new Booking(
             new BookingId("2c1e34d0-1430-4307-80bf-a71761f71390"),
             new DateRange(bookingStartDate, bookingEndDate),
-            new CustomerId("72cf3524-7838-45f3-8179-2e75abe5e81c"),
-            new CustomerName("Perico Los Palotes"),
-            new EmailAddress("perico.los.palotes@mail.com"),
+            new Customer(
+                new CustomerId("72cf3524-7838-45f3-8179-2e75abe5e81c"),
+                new CustomerName("Perico Los Palotes"),
+                new EmailAddress("perico.los.palotes@mail.com")
+            ),
             BookingType.VACATION,
             DiscountType.NONE,
             new DiscountValue(0),
