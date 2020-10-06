@@ -3,14 +3,14 @@ package tv.codely.chat_rollout;
 import java.util.Random;
 
 public final class ChatController {
-    private final int newChatRolloutPercentage;
+    private final ChatRolloutPercentageRepository rolloutRepository;
 
-    public ChatController(int newChatRolloutPercentage) {
-        this.newChatRolloutPercentage = newChatRolloutPercentage;
+    public ChatController(ChatRolloutPercentageRepository rolloutRepository) {
+        this.rolloutRepository = rolloutRepository;
     }
 
     public String pullMessages() {
-        if (new Random().nextInt(100) <= newChatRolloutPercentage) {
+        if (new Random().nextInt(100) <= rolloutRepository.percentage()) {
             return "Messages from the NEW chat system";
         } else {
             return "Messages from the OLD chat system";
