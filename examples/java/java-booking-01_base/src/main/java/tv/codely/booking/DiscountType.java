@@ -1,4 +1,5 @@
 package tv.codely.booking;
 
-public final class DiscountType {
+public enum DiscountType {
+    NONE
 }

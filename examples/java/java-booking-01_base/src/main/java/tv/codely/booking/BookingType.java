@@ -1,4 +1,6 @@
 package tv.codely.booking;
 
-public final class BookingType {
+public enum BookingType {
+    VACATION,
+    WORK
 }

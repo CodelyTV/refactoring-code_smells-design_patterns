@@ -1,4 +1,5 @@
 package tv.codely.booking;
 
-public final class TaxType {
+public enum TaxType {
+    NONE
 }
