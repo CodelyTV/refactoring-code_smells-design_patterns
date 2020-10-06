@@ -31,10 +31,14 @@ public final class Booking {
             return BookingStatus.NOT_STARTED;
         }
 
-        if (date.isAfter(dateRange.startDate()) && date.isBefore(dateRange.endDate())) {
+        if (isBetween(date, dateRange)) {
             return BookingStatus.ACTIVE;
         }
 
         return BookingStatus.FINISHED;
+    }
+
+    private boolean isBetween(LocalDateTime date, DateRange dateRange) {
+        return date.isAfter(dateRange.startDate()) && date.isBefore(dateRange.endDate());
     }
 }
