@@ -11,11 +11,11 @@ public final class DateRange {
         this.endDate   = endDate;
     }
 
-    public LocalDateTime startDate() {
-        return startDate;
+    public boolean isBetween(LocalDateTime date) {
+        return date.isAfter(startDate) && date.isBefore(endDate);
     }
 
-    public LocalDateTime endDate() {
-        return endDate;
+    public boolean isAfter(LocalDateTime date) {
+        return date.isBefore(startDate);
     }
 }
