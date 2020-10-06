@@ -6,9 +6,7 @@ public final class Booking {
     private final BookingId     id;
     private final LocalDateTime startDate;
     private final LocalDateTime endDate;
-    private final CustomerId    customerId;
-    private final CustomerName  customerName;
-    private final EmailAddress  customerEmail;
+    private final Customer      customer;
     private final BookingType   bookingType;
     private final Discount      discount;
     private final Tax           tax;
@@ -21,15 +19,13 @@ public final class Booking {
         Discount discount,
         Tax tax
     ) {
-        this.id            = id;
-        this.startDate     = bookingDateRange.startDate();
-        this.endDate       = bookingDateRange.endDate();
-        this.customerId    = customer.id();
-        this.customerName  = customer.name();
-        this.customerEmail = customer.emailAddress();
-        this.bookingType   = bookingType;
-        this.discount      = discount;
-        this.tax           = tax;
+        this.id          = id;
+        this.startDate   = bookingDateRange.startDate();
+        this.endDate     = bookingDateRange.endDate();
+        this.customer    = customer;
+        this.bookingType = bookingType;
+        this.discount    = discount;
+        this.tax         = tax;
     }
 
     public BookingStatus statusFor(LocalDateTime date) {
