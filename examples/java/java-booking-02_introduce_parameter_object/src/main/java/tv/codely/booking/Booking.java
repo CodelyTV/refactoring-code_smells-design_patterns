@@ -20,8 +20,7 @@ public final class Booking {
         DateRange bookingDateRange,
         Customer customer,
         BookingType bookingType,
-        DiscountType discountType,
-        DiscountValue discountValue,
+        Discount discount,
         TaxType taxType,
         TaxValue taxValue
     ) {
@@ -32,8 +31,8 @@ public final class Booking {
         this.customerName  = customer.name();
         this.customerEmail = customer.emailAddress();
         this.bookingType   = bookingType;
-        this.discountType  = discountType;
-        this.discountValue = discountValue;
+        this.discountType  = discount.type();
+        this.discountValue = discount.value();
         this.taxType       = taxType;
         this.taxValue      = taxValue;
     }

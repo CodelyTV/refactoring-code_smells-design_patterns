@@ -23,8 +23,7 @@ public final class BookingShould {
                 new EmailAddress("perico.los.palotes@mail.com")
             ),
             BookingType.VACATION,
-            DiscountType.NONE,
-            new DiscountValue(0),
+            new Discount(DiscountType.NONE, new DiscountValue(0)),
             TaxType.NONE,
             new TaxValue(0)
         );
@@ -48,8 +47,7 @@ public final class BookingShould {
                 new EmailAddress("perico.los.palotes@mail.com")
             ),
             BookingType.VACATION,
-            DiscountType.NONE,
-            new DiscountValue(0),
+            new Discount(DiscountType.NONE, new DiscountValue(0)),
             TaxType.NONE,
             new TaxValue(0)
         );
@@ -73,8 +71,7 @@ public final class BookingShould {
                 new EmailAddress("perico.los.palotes@mail.com")
             ),
             BookingType.VACATION,
-            DiscountType.NONE,
-            new DiscountValue(0),
+            new Discount(DiscountType.NONE, new DiscountValue(0)),
             TaxType.NONE,
             new TaxValue(0)
         );
