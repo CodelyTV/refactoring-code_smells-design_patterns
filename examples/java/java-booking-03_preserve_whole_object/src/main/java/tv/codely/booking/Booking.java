@@ -12,8 +12,7 @@ public final class Booking {
     private final BookingType   bookingType;
     private final DiscountType  discountType;
     private final DiscountValue discountValue;
-    private final TaxType       taxType;
-    private final TaxValue      taxValue;
+    private final Tax           tax;
 
     public Booking(
         BookingId id,
@@ -32,8 +31,7 @@ public final class Booking {
         this.bookingType   = bookingType;
         this.discountType  = discount.type();
         this.discountValue = discount.value();
-        this.taxType       = tax.type();
-        this.taxValue      = tax.value();
+        this.tax           = tax;
     }
 
     public BookingStatus statusFor(LocalDateTime date) {
