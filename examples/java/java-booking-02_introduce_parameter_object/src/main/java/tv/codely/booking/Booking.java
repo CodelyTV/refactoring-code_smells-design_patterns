@@ -21,8 +21,7 @@ public final class Booking {
         Customer customer,
         BookingType bookingType,
         Discount discount,
-        TaxType taxType,
-        TaxValue taxValue
+        Tax tax
     ) {
         this.id            = id;
         this.startDate     = bookingDateRange.startDate();
@@ -33,8 +32,8 @@ public final class Booking {
         this.bookingType   = bookingType;
         this.discountType  = discount.type();
         this.discountValue = discount.value();
-        this.taxType       = taxType;
-        this.taxValue      = taxValue;
+        this.taxType       = tax.type();
+        this.taxValue      = tax.value();
     }
 
     public BookingStatus statusFor(LocalDateTime date) {

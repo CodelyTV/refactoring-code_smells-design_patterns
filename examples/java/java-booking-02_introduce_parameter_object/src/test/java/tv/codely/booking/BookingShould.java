@@ -24,8 +24,7 @@ public final class BookingShould {
             ),
             BookingType.VACATION,
             new Discount(DiscountType.NONE, new DiscountValue(0)),
-            TaxType.NONE,
-            new TaxValue(0)
+            new Tax(TaxType.NONE, new TaxValue(0))
         );
 
         assertEquals(BookingStatus.NOT_STARTED, booking.statusFor(dateBeforeBookingHasStarted));
@@ -48,8 +47,7 @@ public final class BookingShould {
             ),
             BookingType.VACATION,
             new Discount(DiscountType.NONE, new DiscountValue(0)),
-            TaxType.NONE,
-            new TaxValue(0)
+            new Tax(TaxType.NONE, new TaxValue(0))
         );
 
         assertEquals(BookingStatus.ACTIVE, booking.statusFor(dateBetweenBooking));
@@ -72,8 +70,7 @@ public final class BookingShould {
             ),
             BookingType.VACATION,
             new Discount(DiscountType.NONE, new DiscountValue(0)),
-            TaxType.NONE,
-            new TaxValue(0)
+            new Tax(TaxType.NONE, new TaxValue(0))
         );
 
         assertEquals(BookingStatus.FINISHED, booking.statusFor(dateAfterBookingEnds));
