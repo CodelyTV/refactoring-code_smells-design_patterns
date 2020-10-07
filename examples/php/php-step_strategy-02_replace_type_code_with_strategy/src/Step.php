@@ -24,6 +24,11 @@ final class Step
 
     public function estimatedCompletionMinutes(): int
     {
+        return $this->stepEstimatedCompletionMinutes();
+    }
+
+    public function stepEstimatedCompletionMinutes()
+    {
         $estimation = 0;
 
         switch ($this->type->code()) {
