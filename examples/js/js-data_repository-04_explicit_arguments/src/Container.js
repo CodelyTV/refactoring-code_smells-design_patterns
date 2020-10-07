@@ -8,6 +8,12 @@ export class Container {
     mysqlDatabase = "super_project";
     mysqlPort     = 3306;
 
-    mysqlUserRepository = new MySqlUserRepository(this);
+    mysqlUserRepository = new MySqlUserRepository(
+        this.mysqlHost,
+        this.mysqlUser,
+        this.mysqlPassword,
+        this.mysqlDatabase,
+        this.mysqlPort
+    );
     usersSearcher       = new UsersSearcher(this.mysqlUserRepository);
 }
