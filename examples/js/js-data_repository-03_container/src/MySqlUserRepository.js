@@ -1,18 +1,12 @@
 export class MySqlUserRepository {
-    mysqlHost     = "localhost";
-    mysqlUser     = "root";
-    mysqlPassword = "";
-    mysqlDatabase = "super_project";
-    mysqlPort     = 3306;
-
-    constructor() {
+    constructor(container) {
         const Mysql     = require('sync-mysql');
         this.connection = new Mysql({
-            host: this.mysqlHost,
-            user: this.mysqlUser,
-            password: this.mysqlPassword,
-            database: this.mysqlDatabase,
-            port: this.mysqlPort
+            host: container.mysqlHost,
+            user: container.mysqlUser,
+            password: container.mysqlPassword,
+            database: container.mysqlDatabase,
+            port: container.mysqlPort
         });
     }
 
