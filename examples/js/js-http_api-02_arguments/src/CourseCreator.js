@@ -5,8 +5,8 @@ export class CourseCreator {
         this.repository = repository;
     }
 
-    create(request) {
-        const course = new Course(request.body.id, request.body.name, request.body.duration);
+    create(id, name, duration) {
+        const course = new Course(id, name, duration);
 
         this.repository.save(course);
     }

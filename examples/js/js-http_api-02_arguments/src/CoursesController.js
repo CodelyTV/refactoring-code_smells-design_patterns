@@ -4,7 +4,7 @@ export class CoursesController {
     }
 
     create(request) {
-        this.courseCreator.create(request);
+        this.courseCreator.create(request.body.id, request.body.name, request.body.duration);
 
         return {status: 201};
     }
