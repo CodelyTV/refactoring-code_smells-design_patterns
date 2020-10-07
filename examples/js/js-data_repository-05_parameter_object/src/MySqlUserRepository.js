@@ -1,12 +1,12 @@
 export class MySqlUserRepository {
-    constructor(mysqlHost, mysqlUser, mysqlPassword, mysqlDatabase, mysqlPort) {
+    constructor(config) {
         const Mysql     = require('sync-mysql');
         this.connection = new Mysql({
-            host: mysqlHost,
-            user: mysqlUser,
-            password: mysqlPassword,
-            database: mysqlDatabase,
-            port: mysqlPort
+            host: config.host,
+            user: config.user,
+            password: config.password,
+            database: config.database,
+            port: config.port
         });
     }
 
