@@ -6,6 +6,7 @@ namespace CodelyTv\StepStrategy;
 
 final class QuizStepType extends StepType
 {
+    public const QUIZ_STEP_QUESTION_DURATION_ESTIMATION_IN_MINUTES = 3;
     private array $quizQuestions;
 
     public function __construct(array $quizQuestions)
