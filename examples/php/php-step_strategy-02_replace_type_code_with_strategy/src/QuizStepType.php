@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace CodelyTv\StepStrategy;
 
-final class QuizStepType
+final class QuizStepType extends StepType
 {
     private array $quizQuestions;
 
