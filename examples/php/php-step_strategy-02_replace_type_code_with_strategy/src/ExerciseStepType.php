@@ -8,6 +8,6 @@ final class ExerciseStepType extends StepType
 {
     public function code(): int
     {
-        return Step::EXERCISE_STEP_TYPE;
+        return StepType::EXERCISE_STEP_TYPE;
     }
 }
