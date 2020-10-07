@@ -30,12 +30,16 @@ final class Step
     {
         $estimation = 0;
 
-        if ($this->type === self::VIDEO_STEP_TYPE) {
-            $estimation = $this->videoDurationInMinutes;
-        } elseif ($this->type === self::QUIZ_STEP_TYPE) {
-            $estimation = self::QUIZ_STEP_QUESTION_DURATION_ESTIMATION_IN_MINUTES * count($this->quizQuestions);
-        } elseif ($this->type === self::EXERCISE_STEP_TYPE) {
-            $estimation = self::EXERCISE_STEP_DURATION_ESTIMATION_IN_MINUTES;
+        switch ($this->type) {
+            case self::VIDEO_STEP_TYPE:
+                $estimation = $this->videoDurationInMinutes;
+                break;
+            case self::QUIZ_STEP_TYPE:
+                $estimation = self::QUIZ_STEP_QUESTION_DURATION_ESTIMATION_IN_MINUTES * count($this->quizQuestions);
+                break;
+            case self::EXERCISE_STEP_TYPE:
+                $estimation = self::EXERCISE_STEP_DURATION_ESTIMATION_IN_MINUTES;
+                break;
         }
 
         return $estimation;
