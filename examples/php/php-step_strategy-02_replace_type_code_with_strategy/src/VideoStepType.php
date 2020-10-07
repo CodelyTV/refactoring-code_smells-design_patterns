@@ -13,13 +13,8 @@ final class VideoStepType extends StepType
         $this->videoDurationInMinutes = $videoDurationInMinutes;
     }
 
-    public function code(): int
+    public function estimatedCompletionMinutes(): int
     {
-        return StepType::VIDEO_STEP_TYPE;
-    }
-
-    public function stepEstimatedCompletionMinutes(Step $instance): int
-    {
-        return $instance->videoDurationInMinutes;
+        return $this->videoDurationInMinutes;
     }
 }
