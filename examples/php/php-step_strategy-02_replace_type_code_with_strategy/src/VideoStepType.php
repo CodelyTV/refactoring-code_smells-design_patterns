@@ -17,4 +17,9 @@ final class VideoStepType extends StepType
     {
         return $this->videoDurationInMinutes;
     }
+
+    protected static function code(): int
+    {
+        return 0;
+    }
 }

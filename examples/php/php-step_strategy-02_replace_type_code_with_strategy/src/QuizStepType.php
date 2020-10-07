@@ -19,4 +19,9 @@ final class QuizStepType extends StepType
     {
         return self::QUIZ_STEP_QUESTION_DURATION_ESTIMATION_IN_MINUTES * count($this->quizQuestions);
     }
+
+    protected static function code(): int
+    {
+        return 1;
+    }
 }
