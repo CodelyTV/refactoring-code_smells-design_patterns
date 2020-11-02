@@ -8,49 +8,25 @@ use InvalidArgumentException;
 
 final class User
 {
-    private string $emailAddress;
+    private EmailAddress $emailAddress;
 
-    public function __construct(string $emailAddress)
+    public function __construct(EmailAddress $emailAddress)
     {
         self::ensureEmailIsValid($emailAddress);
 
         $this->emailAddress = $emailAddress;
     }
 
-    public static function ensureEmailIsValid(string $emailAddress): void
+    public static function ensureEmailIsValid(EmailAddress $emailAddress): void
     {
-        self::ensureEmailIsNotEmpty($emailAddress);
-        self::ensureEmailIsFormattedCorrectly($emailAddress);
-        self::ensureEmailHasCommonProvider($emailAddress);
-    }
-
-    private static function ensureEmailIsNotEmpty(string $emailAddress): void
-    {
-        if ('' === $emailAddress) {
-            throw new InvalidArgumentException('The email address is empty');
+        if (!$emailAddress->emailHasCommonProvider()) {
+            throw new InvalidArgumentException(
+                "The email address <{$emailAddress->value()}> has not a common provider"
+            );
         }
     }
 
-    private static function ensureEmailIsFormattedCorrectly(string $emailAddress): void
-    {
-        if (!filter_var($emailAddress, FILTER_VALIDATE_EMAIL)) {
-            throw new InvalidArgumentException("The email address <$emailAddress> is not valid");
-        }
-    }
-
-    private static function emailHasCommonProvider(string $emailAddress): bool
-    {
-        return strpos($emailAddress, '@yahoo') || strpos($emailAddress, '@gmail') || strpos($emailAddress, '@outlook');
-    }
-
-    private static function ensureEmailHasCommonProvider(string $emailAddress): void
-    {
-        if (!self::emailHasCommonProvider($emailAddress)) {
-            throw new InvalidArgumentException("The email address <$emailAddress> has not a common provider");
-        }
-    }
-
-    public function emailAddress(): string
+    public function emailAddress(): EmailAddress
     {
         return $this->emailAddress;
     }

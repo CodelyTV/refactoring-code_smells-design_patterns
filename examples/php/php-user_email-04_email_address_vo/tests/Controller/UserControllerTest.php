@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace CodelyTv\Tests\Controller;
 
 use CodelyTv\Controller\UserController;
+use CodelyTv\Model\EmailAddress;
 use CodelyTv\Model\User;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
@@ -18,7 +19,7 @@ final class UserControllerTest extends TestCase
 
         $emailAddress = 'codely@gmail.com';
 
-        self::assertEquals(new User('codely@gmail.com'), $controller->post($emailAddress));
+        self::assertEquals(new User(new EmailAddress('codely@gmail.com')), $controller->post($emailAddress));
     }
 
     /** @test */
