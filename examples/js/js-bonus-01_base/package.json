@@ -1,5 +1,5 @@
 {
-  "name": "student_grades",
+  "name": "bonus",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -24,9 +24,5 @@
     "@babel/preset-env": "^7.11.5",
     "@jest/globals": "^26.4.2",
     "jest": "^26.4.2"
-  },
-  "dependencies": {
-    "sync-mysql": "^3.0.1",
-    "sync-sql": "^1.0.2"
   }
 }
