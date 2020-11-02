@@ -1,27 +1,28 @@
-import {DailyBonusPointsCalculator} from "../src/DailyBonusPointsCalculator";
+import {NormalUserDailyBonusPointsCalculator}  from "../src/NormalUserDailyBonusPointsCalculator";
+import {PremiumUserDailyBonusPointsCalculator} from "../src/PremiumUserDailyBonusPointsCalculator";
 
 describe('DailyBonusPointsCalculator should', () => {
     it('Calculate points for a normal user on its first day', () => {
-        const calculator = new DailyBonusPointsCalculator();
+        const calculator = new NormalUserDailyBonusPointsCalculator();
         
-        expect(calculator.calculateNormal(1)).toBe(10);
+        expect(calculator.calculate(1)).toBe(10);
     });
     
     it('Calculate points for a normal user on its second consecutive week', () => {
-        const calculator = new DailyBonusPointsCalculator();
+        const calculator = new NormalUserDailyBonusPointsCalculator();
         
-        expect(calculator.calculateNormal(14)).toBe(140);
+        expect(calculator.calculate(14)).toBe(140);
     });
     
     it('Calculate points for a premium user on its first day', () => {
-        const calculator = new DailyBonusPointsCalculator();
+        const calculator = new PremiumUserDailyBonusPointsCalculator();
         
-        expect(calculator.calculatePremium(1)).toBe(20);
+        expect(calculator.calculate(1)).toBe(20);
     });
     
     it('Calculate points for a premium user on its second consecutive week', () => {
-        const calculator = new DailyBonusPointsCalculator();
+        const calculator = new PremiumUserDailyBonusPointsCalculator();
         
-        expect(calculator.calculatePremium(14)).toBe(630);
+        expect(calculator.calculate(14)).toBe(630);
     });
 });
