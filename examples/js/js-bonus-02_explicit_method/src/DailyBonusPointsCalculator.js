@@ -3,8 +3,8 @@ export class DailyBonusPointsCalculator {
     NORMAL_USER_POINTS_PER_DAY    = 10;
     PREMIUM_USER_WEEKS_MULTIPLIER = 1.5;
     
-    calculate(consecutiveDays, isPremium = false) {
-            return consecutiveDays * this.NORMAL_USER_POINTS_PER_DAY;
+    calculateNormal(consecutiveDays) {
+        return consecutiveDays * this.NORMAL_USER_POINTS_PER_DAY;
     }
     
     calculatePremium(consecutiveDays) {
