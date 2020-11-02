@@ -6,16 +6,14 @@ namespace CodelyTv\Model;
 
 final class Newsletter
 {
-    private EmailAddress $emailAddress;
+    private UserEmailAddress $emailAddress;
 
-    public function __construct(EmailAddress $emailAddress)
+    public function __construct(UserEmailAddress $emailAddress)
     {
-        User::ensureEmailIsValid($emailAddress);
-
         $this->emailAddress = $emailAddress;
     }
 
-    public function emailAddress(): EmailAddress
+    public function emailAddress(): UserEmailAddress
     {
         return $this->emailAddress;
     }

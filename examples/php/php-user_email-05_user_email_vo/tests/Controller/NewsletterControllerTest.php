@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace CodelyTv\Tests\Controller;
 
 use CodelyTv\Controller\NewsletterController;
-use CodelyTv\Model\EmailAddress;
 use CodelyTv\Model\Newsletter;
+use CodelyTv\Model\UserEmailAddress;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
@@ -19,7 +19,7 @@ final class NewsletterControllerTest extends TestCase
 
         $emailAddress = 'codely@gmail.com';
 
-        self::assertEquals(new Newsletter(new EmailAddress('codely@gmail.com')), $controller->post($emailAddress));
+        self::assertEquals(new Newsletter(new UserEmailAddress('codely@gmail.com')), $controller->post($emailAddress));
     }
 
     /** @test */
