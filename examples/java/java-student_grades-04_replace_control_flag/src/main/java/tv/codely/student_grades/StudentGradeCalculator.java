@@ -30,7 +30,8 @@ public class StudentGradeCalculator {
     }
 
     public float calculateGrades(final List<Pair<Integer, Float>> examsGrades, final boolean hasReachedMinimumClasses) {
-        if (examsGrades.isEmpty()) {
+        boolean hasNotDoneAnyExam = examsGrades.isEmpty();
+        if (hasNotDoneAnyExam) {
             return 0f;
         }
 
@@ -38,18 +39,18 @@ public class StudentGradeCalculator {
             return 0f;
         }
 
-        ensureGradesWeightSumIs100percent(examsGrades);
-
-        float gradesSum = gradesSum(examsGrades);
+        ensureGradesWeightsIsValid(examsGrades);
 
         if (hasToIncreaseOneExtraPoint()) {
-            return Float.min(10f, gradesSum + 1);
+            float increasedGrade = gradesSum(examsGrades) + 1;
+
+            return Float.min(10f, increasedGrade);
         }
 
-        return gradesSum;
+        return gradesSum(examsGrades);
     }
 
-    private void ensureGradesWeightSumIs100percent(List<Pair<Integer, Float>> examsGrades) {
+    private void ensureGradesWeightsIsValid(List<Pair<Integer, Float>> examsGrades) {
         int gradesWeightSum = gradesWeightSum(examsGrades);
 
         if (gradesWeightSum > 100) {
@@ -72,22 +73,21 @@ public class StudentGradeCalculator {
     }
 
     private boolean hasToIncreaseOneExtraPoint() {
-        boolean hasToIncreaseOneExtraPoint = false;
-
         for (Map.Entry<Integer, List<Pair<String, Boolean>>> yearlyTeachers : allYearsTeachers.entrySet()) {
-            if (!(yearToCalculate != yearlyTeachers.getKey())) {
-                List<Pair<String, Boolean>> teachers = yearlyTeachers.getValue();
-
-                for (Pair<String, Boolean> teacher : teachers) {
-                    if (teacher.second() != true) {
-                        continue;
-                    }
-                    hasToIncreaseOneExtraPoint = true;
-                }
-            } else {
+            if (yearToCalculate != yearlyTeachers.getKey()) {
                 continue;
             }
+
+            List<Pair<String, Boolean>> teachers = yearlyTeachers.getValue();
+
+            for (Pair<String, Boolean> teacher : teachers) {
+                Boolean isBenevolent = teacher.second();
+                if (isBenevolent) {
+                    return true;
+                }
+            }
         }
-        return hasToIncreaseOneExtraPoint;
+
+        return false;
     }
 }
