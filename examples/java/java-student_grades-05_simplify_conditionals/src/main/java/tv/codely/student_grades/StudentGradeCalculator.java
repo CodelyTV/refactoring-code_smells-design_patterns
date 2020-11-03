@@ -21,6 +21,19 @@ public class StudentGradeCalculator {
                 new Pair<>("Abelardo", false),
                 new Pair<>("Francisca", false)
             )
+        ),
+        new AbstractMap.SimpleImmutableEntry<>(
+            2018,
+            List.of(
+                new Pair<>("Javi", false),
+                new Pair<>("Rafa", false),
+                new Pair<>("Nico", false),
+                new Pair<>("Núria", false)
+            )
+        ),
+        new AbstractMap.SimpleImmutableEntry<>(
+            2017,
+            List.of(new Pair<>("Lerele", false))
         )
     );
     private final int                                       yearToCalculate;
@@ -82,7 +95,7 @@ public class StudentGradeCalculator {
 
             for (Pair<String, Boolean> teacher : teachers) {
                 Boolean isBenevolent = teacher.second();
-                if (isBenevolent) {
+                if (isBenevolent && yearToCalculate % 2 == 0 || teacher.first().equals("Núria")) {
                     return true;
                 }
             }

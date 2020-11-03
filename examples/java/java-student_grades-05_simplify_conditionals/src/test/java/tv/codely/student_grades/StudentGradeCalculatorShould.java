@@ -163,7 +163,7 @@ public class StudentGradeCalculatorShould {
     }
 
     @Test
-    void increase_one_extra_point_if_there_is_any_benevolent_teacher_in_the_year_to_calculate_grades() {
+    void increase_one_extra_point_if_there_is_any_benevolent_teacher_and_the_year_to_calculate_grades_is_even() {
         StudentGradeCalculator studentGradeCalculator = new StudentGradeCalculator(2020);
 
         final List<Pair<Integer, Float>> examsGrades              = List.of(new Pair<>(100, 5f));
@@ -180,5 +180,25 @@ public class StudentGradeCalculatorShould {
         final boolean                    hasReachedMinimumClasses = true;
 
         assertEquals(10, studentGradeCalculator.calculateGrades(examsGrades, hasReachedMinimumClasses));
+    }
+
+    @Test
+    void do_not_increase_one_extra_point_if_there_is_any_benevolent_teacher_but_the_year_to_calculate_grades_is_odd() {
+        StudentGradeCalculator studentGradeCalculator = new StudentGradeCalculator(2017);
+
+        final List<Pair<Integer, Float>> examsGrades              = List.of(new Pair<>(100, 5f));
+        final boolean                    hasReachedMinimumClasses = true;
+
+        assertEquals(5, studentGradeCalculator.calculateGrades(examsGrades, hasReachedMinimumClasses));
+    }
+
+    @Test
+    void increase_one_extra_point_if_there_is_not_any_benevolent_teacher_but_someone_is_called_nuria() {
+        StudentGradeCalculator studentGradeCalculator = new StudentGradeCalculator(2018);
+
+        final List<Pair<Integer, Float>> examsGrades              = List.of(new Pair<>(100, 5f));
+        final boolean                    hasReachedMinimumClasses = true;
+
+        assertEquals(6, studentGradeCalculator.calculateGrades(examsGrades, hasReachedMinimumClasses));
     }
 }
