@@ -43,8 +43,8 @@ public class StudentGradeCalculator {
     }
 
     public float calculateGrades(final List<Pair<Integer, Float>> examsGrades, final boolean hasReachedMinimumClasses) {
-        boolean hasNotDoneAnyExam = examsGrades.isEmpty();
-        if (hasNotDoneAnyExam) {
+        boolean hasDoneAnyExam = !examsGrades.isEmpty();
+        if (!hasDoneAnyExam) {
             return 0f;
         }
 
@@ -82,7 +82,7 @@ public class StudentGradeCalculator {
     }
 
     private int gradesWeightSum(List<Pair<Integer, Float>> examsGrades) {
-        return examsGrades.stream().map(Pair::first).reduce(Integer::sum).get();
+        return examsGrades.stream().map(Pair::first).reduce(Integer::sum).orElse(0);
     }
 
     private boolean hasToIncreaseOneExtraPoint() {
@@ -95,7 +95,9 @@ public class StudentGradeCalculator {
 
             for (Pair<String, Boolean> teacher : teachers) {
                 Boolean isBenevolent = teacher.second();
-                if (isBenevolent && yearToCalculate % 2 == 0 || teacher.first().equals("Núria")) {
+                boolean isEvenYear   = yearToCalculate % 2 == 0;
+
+                if ((isBenevolent && isEvenYear) || teacher.first().equals("Núria")) {
                     return true;
                 }
             }
