@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>tv.codely</RootNamespace>
+    <RootNamespace>CodelyTv.Booking</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

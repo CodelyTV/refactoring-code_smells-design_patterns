@@ -1,7 +1,7 @@
 ﻿using System;
 using Xunit;
 
-namespace tv.codely.Booking.Tests
+namespace CodelyTv.Booking.Tests
 {
     public sealed class BookingShould
     {

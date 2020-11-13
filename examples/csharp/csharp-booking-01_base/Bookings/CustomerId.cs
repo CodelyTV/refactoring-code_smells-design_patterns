@@ -1,4 +1,4 @@
-﻿namespace tv.codely.Booking
+﻿namespace CodelyTv.Booking
 {
     public sealed class CustomerId
     {
