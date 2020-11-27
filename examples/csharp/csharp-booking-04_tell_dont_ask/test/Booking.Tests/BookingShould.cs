@@ -32,7 +32,7 @@ namespace CodelyTv.Booking.Tests
         [Fact]
         private void GetTheCorrectStatusWhenTheBookingIsCurrentlyActive()
         {
-            var dateBeforeBookingHasStarted = new DateTime(2020, 6, 29, 15, 0, 0);
+            var dateBetweenBooking = new DateTime(2020, 6, 29, 15, 0, 0);
 
             var bookingStartDate = new DateTime(2020, 6, 26, 19, 0, 0);
             var bookingEndDate = new DateTime(2020, 7, 14, 16, 0, 0);
@@ -50,13 +50,13 @@ namespace CodelyTv.Booking.Tests
                 new Tax(TaxType.NONE, new TaxValue(0))
             );
 
-            Assert.Equal(BookingStatus.ACTIVE, booking.StatusFor(dateBeforeBookingHasStarted));
+            Assert.Equal(BookingStatus.ACTIVE, booking.StatusFor(dateBetweenBooking));
         }
 
         [Fact]
         private void GetTheCorrectStatusWhenTheBookingIsFinished()
         {
-            var dateBeforeBookingHasStarted = new DateTime(2020, 8, 30, 19, 0, 0);
+            var dateAfterBookingEnds = new DateTime(2020, 8, 30, 19, 0, 0);
 
             var bookingStartDate = new DateTime(2020, 6, 26, 19, 0, 0);
             var bookingEndDate = new DateTime(2020, 7, 14, 16, 0, 0);
@@ -74,7 +74,7 @@ namespace CodelyTv.Booking.Tests
                 new Tax(TaxType.NONE, new TaxValue(0))
             );
 
-            Assert.Equal(BookingStatus.FINISHED, booking.StatusFor(dateBeforeBookingHasStarted));
+            Assert.Equal(BookingStatus.FINISHED, booking.StatusFor(dateAfterBookingEnds));
         }
     }
 }
