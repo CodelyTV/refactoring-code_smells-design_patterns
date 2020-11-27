@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CodelyTv.Booking
+﻿namespace CodelyTv.Booking
 {
     public sealed class CustomerName
     {
