@@ -1,4 +1,6 @@
-﻿namespace CodelyTv.Booking
+﻿using System;
+
+namespace CodelyTv.Booking
 {
     public sealed class BookingId
     {
