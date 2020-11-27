@@ -1,4 +1,6 @@
-﻿namespace CodelyTv.Booking
+﻿using System;
+
+namespace CodelyTv.Booking
 {
     public sealed class BookingId
     {
@@ -6,4 +8,5 @@
 
         public BookingId(string value) => this.value = value;
     }
+
 }
