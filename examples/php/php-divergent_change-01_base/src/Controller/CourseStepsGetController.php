@@ -17,21 +17,29 @@ final class CourseStepsGetController
 
     public function get(string $courseId): string
     {
-        $csvSteps = $this->platform->findCourseSteps($courseId);
+        $csv = $this->platform->findCourseSteps($courseId);
 
         $results = '[';
 
-        foreach ($csvSteps as $index => $row) {
-            $type     = $row['type'];
+        $csvLines = explode(PHP_EOL, $csv);
+
+        foreach ($csvLines as $index => $row) {
+            $row = str_getcsv($row);
+
+            if (empty($csv)) {
+                continue;
+            }
+
+            $type     = $row[1];
             $duration = 0;
             $points   = 0;
 
             if ($type === 'video') {
-                $duration = $row['duration'] * 1.1; // 1.1 = due to video pauses
+                $duration = $row[3] * 1.1; // 1.1 = due to video pauses
             }
 
             if ($type === 'quiz') {
-                $duration = $row['questions'] * 0.5; // 0.5 = time in minutes per question
+                $duration = $row[2] * 0.5; // 0.5 = time in minutes per question
             }
 
             if ($type !== 'video' && $type !== 'quiz') {
@@ -39,27 +47,26 @@ final class CourseStepsGetController
             }
 
             if ($type === 'video') {
-                $points = $row['duration'] * 1.1 * 100;
+                $points = $row[3] * 1.1 * 100;
             }
 
             if ($type === 'quiz') {
-                $points = $row['questions'] * 0.5 * 10;
+                $points = $row[2] * 0.5 * 10;
             }
 
             $results .= json_encode(
                 [
-                    'id' => $row['id'],
-                    'type' => $row['type'],
+                    'id' => $row[0],
+                    'type' => $row[1],
                     'duration' => $duration,
                     'points' => $points
                 ],
                 JSON_THROW_ON_ERROR
             );
 
-            if ($index !== count($csvSteps) - 1) {
+            if ($index !== count($csvLines) - 1) {
                 $results .= ',';
             }
-
         }
 
         $results .= ']';

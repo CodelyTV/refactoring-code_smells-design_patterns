@@ -6,5 +6,5 @@ namespace CodelyTv\DivergentChange;
 
 interface Platform
 {
-    public function findCourseSteps(string $courseId): array;
+    public function findCourseSteps(string $courseId): string;
 }
