@@ -10,17 +10,23 @@ use PHPUnit\Framework\TestCase;
 
 final class CourseStepsGetTest extends TestCase
 {
+    private Platform $platform;
+    private CourseStepsGetController $courseStepGetController;
+
+    public function setUp(): void
+    {
+        $this->platform = $this->createMock(Platform::class);
+        $this->courseStepGetController = new CourseStepsGetController($this->platform);
+    }
+
     /** @test */
     public function shouldReturnEmptyStepList(): void
     {
-        $platform = $this->createMock(Platform::class);
-        $platform
-            ->method('findCourseSteps')
-            ->willReturn('');
+        $courseId = '8fe17ce6-1d33-4b6b-a27c-4e0d1f870a19';
+        $emptyCsv = '';
+        $this->givenPlatformReturnsCourseStepCsv($courseId, $emptyCsv);
 
-        $sut = new CourseStepsGetController($platform);
-
-        $results = $sut->get('73D74817-CC25-477D-BF3E-36130087293F');
+        $results = $this->courseStepGetController->get($courseId);
 
         self::assertSame('[]', $results);
     }
@@ -28,18 +34,12 @@ final class CourseStepsGetTest extends TestCase
     /** @test */
     public function shouldReturnExistingCourseSteps(): void
     {
-        $platform = $this->createMock(Platform::class);
-        $platform
-            ->method('findCourseSteps')
-            ->with('73D74817-CC25-477D-BF3E-36130087293F')
-            ->willReturn(
-                '"1","video","","13"
-                "2","quiz","5",""'
-            );
+        $courseId = '8fe17ce6-1d33-4b6b-a27c-4e0d1f870a19';
+        $csv      = '"1","video","","13"
+                     "2","quiz","5",""';
+        $this->givenPlatformReturnsCourseStepCsv($courseId, $csv);
 
-        $sut = new CourseStepsGetController($platform);
-
-        $results = $sut->get('73D74817-CC25-477D-BF3E-36130087293F');
+        $results = $this->courseStepGetController->get($courseId);
 
         $expected = '[{"id":"1","type":"video","duration":14.3,"points":1430},{"id":"2","type":"quiz","duration":2.5,"points":25}]';
         self::assertSame($expected, $results);
@@ -48,18 +48,20 @@ final class CourseStepsGetTest extends TestCase
     /** @test */
     public function shouldIgnoreStepsWithInvalidType(): void
     {
-        $platform = $this->createMock(Platform::class);
-        $platform
-            ->method('findCourseSteps')
-            ->with('73D74817-CC25-477D-BF3E-36130087293F')
-            ->willReturn(
-                '"1","survey","","13"'
-            );
+        $courseId = '8fe17ce6-1d33-4b6b-a27c-4e0d1f870a19';
+        $csv      = '"1","survey","","13"';
+        $this->givenPlatformReturnsCourseStepCsv($courseId, $csv);
 
-        $sut = new CourseStepsGetController($platform);
-
-        $results = $sut->get('73D74817-CC25-477D-BF3E-36130087293F');
+        $results = $this->courseStepGetController->get($courseId);
 
         self::assertSame('[]', $results);
+    }
+
+    private function givenPlatformReturnsCourseStepCsv(string $courseId, string $csv): void
+    {
+        $this->platform
+            ->method('findCourseSteps')
+            ->with($courseId)
+            ->willReturn($csv);
     }
 }
