@@ -8,12 +8,13 @@ use CodelyTv\DivergentChange\Platform;
 
 final class CourseStepsGetController
 {
-    const VIDEO_DURATION_PAUSES_MULTIPLIER  = 1.1;
-    const QUIZ_TIME_PER_QUESTION_MULTIPLIER = 0.5;
-    const STEP_TYPE_VIDEO                   = 'video';
-    const STEP_TYPE_QUIZ                    = 'quiz';
-    const VIDEO_POINTS_PER_MINUTE           = 100;
-    const QUIZ_POINTS_PER_MINUTE            = 10;
+    private const VIDEO_DURATION_PAUSES_MULTIPLIER  = 1.1;
+    private const QUIZ_TIME_PER_QUESTION_MULTIPLIER = 0.5;
+    private const STEP_TYPE_VIDEO                   = 'video';
+    private const STEP_TYPE_QUIZ                    = 'quiz';
+    private const VIDEO_POINTS_PER_MINUTE           = 100;
+    private const QUIZ_POINTS_PER_MINUTE            = 10;
+
     private Platform $platform;
 
     public function __construct(Platform $platform)
@@ -28,22 +29,15 @@ final class CourseStepsGetController
             return '[]';
         }
 
-        $csvLines = explode(PHP_EOL, $csv);
-
-        $parsedCsv = $this->parseCsv($csvLines);
+        $parsedCsv = $this->parseCsv($csv);
 
         $results = '[';
 
-        $csvLines = explode(PHP_EOL, $csv);
-
-        foreach ($csvLines as $index => $row) {
-            $row = str_getcsv($row);
-
-            if (empty($csv)) {
-                continue;
-            }
-
-            [$stepId, $type, $quizTotalQuestions, $videoDuration] = $row;
+        foreach ($parsedCsv as $index => $row) {
+            $stepId             = $row['stepId'];
+            $type               = $row['type'];
+            $quizTotalQuestions = $row['quizTotalQuestions'];
+            $videoDuration      = $row['videoDuration'];
 
             $stepDurationInMinutes = 0;
             $points                = 0;
@@ -78,7 +72,7 @@ final class CourseStepsGetController
                 JSON_THROW_ON_ERROR
             );
 
-            $hasMoreRows = $index !== count($csvLines) - 1;
+            $hasMoreRows = $index !== count($parsedCsv) - 1;
             if ($hasMoreRows) {
                 $results .= ',';
             }
@@ -89,8 +83,10 @@ final class CourseStepsGetController
         return $results;
     }
 
-    private function parseCsv(array $csvLines): array
+    private function parseCsv(string $csv): array
     {
+        $csvLines = explode(PHP_EOL, $csv);
+
         $parsedCsv = [];
         foreach ($csvLines as $row) {
             $row = str_getcsv($row);
