@@ -69,7 +69,7 @@ final class CourseStepsGetController
         foreach ($steps as $index => $step) {
             $results .= json_encode($step, JSON_THROW_ON_ERROR);
 
-            $hasMoreRows = $index !== count($parsedCsv) - 1;
+            $hasMoreRows = $index !== count($steps) - 1;
             if ($hasMoreRows) {
                 $results .= ',';
             }
