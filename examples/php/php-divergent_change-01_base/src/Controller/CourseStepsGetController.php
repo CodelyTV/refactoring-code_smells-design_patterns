@@ -10,6 +10,8 @@ final class CourseStepsGetController
 {
     const VIDEO_DURATION_PAUSES_MULTIPLIER  = 1.1;
     const QUIZ_TIME_PER_QUESTION_MULTIPLIER = 0.5;
+    const STEP_TYPE_VIDEO                   = 'video';
+    const STEP_TYPE_QUIZ                              = 'quiz';
     private Platform $platform;
 
     public function __construct(Platform $platform)
@@ -32,43 +34,43 @@ final class CourseStepsGetController
                 continue;
             }
 
-            $type     = $row[1];
-            $stepDurationInMinutes = 0;
-            $points   = 0;
+            [$stepId, $type, $quizTotalQuestions, $videoDuration] = $row;
 
-            $videoDuration = $row[3];
-            if ($type === 'video') {
+            $stepDurationInMinutes = 0;
+            $points                = 0;
+
+            if ($type === self::STEP_TYPE_VIDEO) {
                 $stepDurationInMinutes = $videoDuration * self::VIDEO_DURATION_PAUSES_MULTIPLIER;
             }
 
-            $quizTotalQuestions = $row[2];
-            if ($type === 'quiz') {
+            if ($type === self::STEP_TYPE_QUIZ) {
                 $stepDurationInMinutes = $quizTotalQuestions * self::QUIZ_TIME_PER_QUESTION_MULTIPLIER;
             }
 
-            if ($type !== 'video' && $type !== 'quiz') {
+            if ($type !== self::STEP_TYPE_VIDEO && $type !== self::STEP_TYPE_QUIZ) {
                 continue;
             }
 
-            if ($type === 'video') {
+            if ($type === self::STEP_TYPE_VIDEO) {
                 $points = $stepDurationInMinutes * 100;
             }
 
-            if ($type === 'quiz') {
+            if ($type === self::STEP_TYPE_QUIZ) {
                 $points = $quizTotalQuestions * self::QUIZ_TIME_PER_QUESTION_MULTIPLIER * 10;
             }
 
             $results .= json_encode(
                 [
-                    'id' => $row[0],
-                    'type' => $row[1],
+                    'id'       => $stepId,
+                    'type'     => $type,
                     'duration' => $stepDurationInMinutes,
-                    'points' => $points
+                    'points'   => $points,
                 ],
                 JSON_THROW_ON_ERROR
             );
 
-            if ($index !== count($csvLines) - 1) {
+            $hasMoreRows = $index !== count($csvLines) - 1;
+            if ($hasMoreRows) {
                 $results .= ',';
             }
         }
