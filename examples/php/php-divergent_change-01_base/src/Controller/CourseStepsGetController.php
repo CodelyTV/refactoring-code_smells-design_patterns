@@ -23,32 +23,19 @@ final class CourseStepsGetController
 
     public function get(string $courseId): string
     {
-        $csv = $this->platform->findCourseSteps($courseId);
-        if (empty($csv)) {
-            return '[]';
-        }
-
+        $csv       = $this->platform->findCourseSteps($courseId);
         $parsedCsv = $this->parseCsv($csv);
         $steps     = $this->createStepsFromPrimitives($parsedCsv);
 
-        $results = '[';
-
-        foreach ($steps as $index => $step) {
-            $results .= json_encode($step, JSON_THROW_ON_ERROR);
-
-            $hasMoreRows = $index !== count($steps) - 1;
-            if ($hasMoreRows) {
-                $results .= ',';
-            }
-        }
-
-        $results .= ']';
-
-        return $results;
+        return $this->toJson($steps);
     }
 
     private function parseCsv(string $csv): array
     {
+        if (empty($csv)) {
+            return [];
+        }
+
         $csvLines = explode(PHP_EOL, $csv);
 
         $parsedCsv = [];
@@ -108,6 +95,24 @@ final class CourseStepsGetController
                 'points'   => $points,
             ];
         }
+
         return $steps;
+    }
+
+    private function toJson(array $steps): string
+    {
+        $results = '[';
+
+        foreach ($steps as $index => $step) {
+            $results .= json_encode($step, JSON_THROW_ON_ERROR);
+
+            $hasMoreRows = $index !== count($steps) - 1;
+            if ($hasMoreRows) {
+                $results .= ',';
+            }
+        }
+
+        $results .= ']';
+        return $results;
     }
 }
