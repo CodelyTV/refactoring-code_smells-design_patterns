@@ -8,6 +8,7 @@ use CodelyTv\DivergentChange\Platform;
 
 final class CourseStepsGetController
 {
+    const VIDEO_DURATION_PAUSES_MULTIPLIER = 1.1;
     private Platform $platform;
 
     public function __construct(Platform $platform)
@@ -31,15 +32,16 @@ final class CourseStepsGetController
             }
 
             $type     = $row[1];
-            $duration = 0;
+            $stepDuration = 0;
             $points   = 0;
 
+            $videoDuration = $row[3];
             if ($type === 'video') {
-                $duration = $row[3] * 1.1; // 1.1 = due to video pauses
+                $stepDuration = $videoDuration * self::VIDEO_DURATION_PAUSES_MULTIPLIER;
             }
 
             if ($type === 'quiz') {
-                $duration = $row[2] * 0.5; // 0.5 = time in minutes per question
+                $stepDuration = $row[2] * 0.5; // 0.5 = time in minutes per question
             }
 
             if ($type !== 'video' && $type !== 'quiz') {
@@ -47,7 +49,7 @@ final class CourseStepsGetController
             }
 
             if ($type === 'video') {
-                $points = $row[3] * 1.1 * 100;
+                $points = $stepDuration * 100;
             }
 
             if ($type === 'quiz') {
@@ -58,7 +60,7 @@ final class CourseStepsGetController
                 [
                     'id' => $row[0],
                     'type' => $row[1],
-                    'duration' => $duration,
+                    'duration' => $stepDuration,
                     'points' => $points
                 ],
                 JSON_THROW_ON_ERROR
