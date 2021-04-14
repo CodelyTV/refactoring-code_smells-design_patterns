@@ -58,7 +58,7 @@ final class CourseStepsGetController
             }
 
             if ($type === self::STEP_TYPE_QUIZ) {
-                $points = $quizTotalQuestions * self::QUIZ_TIME_PER_QUESTION_MULTIPLIER * self::QUIZ_POINTS_PER_MINUTE;
+                $points = $stepDurationInMinutes * self::QUIZ_POINTS_PER_MINUTE;
             }
 
             $results .= json_encode(
