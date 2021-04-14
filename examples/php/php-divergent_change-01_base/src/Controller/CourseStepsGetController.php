@@ -11,7 +11,9 @@ final class CourseStepsGetController
     const VIDEO_DURATION_PAUSES_MULTIPLIER  = 1.1;
     const QUIZ_TIME_PER_QUESTION_MULTIPLIER = 0.5;
     const STEP_TYPE_VIDEO                   = 'video';
-    const STEP_TYPE_QUIZ                              = 'quiz';
+    const STEP_TYPE_QUIZ                    = 'quiz';
+    const VIDEO_POINTS_PER_MINUTE           = 100;
+    const QUIZ_POINTS_PER_MINUTE            = 10;
     private Platform $platform;
 
     public function __construct(Platform $platform)
@@ -52,11 +54,11 @@ final class CourseStepsGetController
             }
 
             if ($type === self::STEP_TYPE_VIDEO) {
-                $points = $stepDurationInMinutes * 100;
+                $points = $stepDurationInMinutes * self::VIDEO_POINTS_PER_MINUTE;
             }
 
             if ($type === self::STEP_TYPE_QUIZ) {
-                $points = $quizTotalQuestions * self::QUIZ_TIME_PER_QUESTION_MULTIPLIER * 10;
+                $points = $quizTotalQuestions * self::QUIZ_TIME_PER_QUESTION_MULTIPLIER * self::QUIZ_POINTS_PER_MINUTE;
             }
 
             $results .= json_encode(
