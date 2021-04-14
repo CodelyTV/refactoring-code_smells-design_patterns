@@ -27,28 +27,10 @@ final class CourseStepsGetController
         if (empty($csv)) {
             return '[]';
         }
-        $results = '[';
 
         $csvLines = explode(PHP_EOL, $csv);
 
-        $parsedCsv = [];
-        foreach ($csvLines as $row) {
-            $row = str_getcsv($row);
-
-            [$stepId, $type, $quizTotalQuestions, $videoDuration] = $row;
-
-            $isRecognizedStepType = $type !== self::STEP_TYPE_VIDEO && $type !== self::STEP_TYPE_QUIZ;
-            if ($isRecognizedStepType) {
-                continue;
-            }
-
-            $parsedCsv[] = [
-                'stepId'             => $stepId,
-                'type'               => $type,
-                'quizTotalQuestions' => $quizTotalQuestions,
-                'videoDuration'      => $videoDuration,
-            ];
-        }
+        $parsedCsv = $this->parseCsv($csvLines);
 
         $results = '[';
 
@@ -105,5 +87,29 @@ final class CourseStepsGetController
         $results .= ']';
 
         return $results;
+    }
+
+    private function parseCsv(array $csvLines): array
+    {
+        $parsedCsv = [];
+        foreach ($csvLines as $row) {
+            $row = str_getcsv($row);
+
+            [$stepId, $type, $quizTotalQuestions, $videoDuration] = $row;
+
+            $isRecognizedStepType = $type !== self::STEP_TYPE_VIDEO && $type !== self::STEP_TYPE_QUIZ;
+            if ($isRecognizedStepType) {
+                continue;
+            }
+
+            $parsedCsv[] = [
+                'stepId'             => $stepId,
+                'type'               => $type,
+                'quizTotalQuestions' => $quizTotalQuestions,
+                'videoDuration'      => $videoDuration,
+            ];
+        }
+
+        return $parsedCsv;
     }
 }
