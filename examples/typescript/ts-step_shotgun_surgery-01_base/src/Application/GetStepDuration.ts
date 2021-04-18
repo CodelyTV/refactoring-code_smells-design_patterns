@@ -1,6 +1,6 @@
 import StepId from '../Domain/StepId'
 import StepRepository from '../Domain/StepRepository'
-import VideoStep from "../Domain/VideoStep";
+import StepDurationCalculatorFactory from "../Domain/StepDurationCalculatorFactory";
 
 class GetStepDuration {
     constructor(private repository: StepRepository) {
@@ -8,9 +8,7 @@ class GetStepDuration {
 
     execute(stepId: string): number {
         const step = this.repository.find(new StepId(stepId))
-        return step instanceof VideoStep ?
-            step.getVideoDuration() :
-            step.totalQuestions;
+        return StepDurationCalculatorFactory.build().calculate(step)
     }
 }
 
