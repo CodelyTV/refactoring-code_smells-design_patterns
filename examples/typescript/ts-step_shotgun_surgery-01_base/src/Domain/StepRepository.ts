@@ -1,5 +1,5 @@
-import Step from './Step'
 import StepId from './StepId'
+import Step from "./Step";
 
 interface StepRepository {
     find(stepId: StepId): Step

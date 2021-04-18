@@ -1,18 +1,11 @@
 import StepId from "./StepId";
 
-class Step {
-    constructor(
-        private id: StepId,
-        private videoDuration: number
-    ) {}
+abstract class Step {
 
-    type(): string {
-        return 'video'
+    protected constructor(private readonly _id: StepId) {
     }
 
-    getVideoDuration(): number {
-        return this.videoDuration
-    }
+    abstract type();
 }
 
 export default Step
