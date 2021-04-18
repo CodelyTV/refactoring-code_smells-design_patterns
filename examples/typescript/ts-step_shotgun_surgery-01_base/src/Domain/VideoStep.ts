@@ -1,5 +1,6 @@
 import StepId from "./StepId";
 import Step from "./Step";
+import {STEP_TYPE_VIDEO} from "./StepEnums";
 
 class VideoStep extends Step {
     constructor(
@@ -10,7 +11,7 @@ class VideoStep extends Step {
     }
 
     type(): string {
-        return 'video'
+        return STEP_TYPE_VIDEO
     }
 
     getVideoDuration(): number {

@@ -1,5 +1,6 @@
 import Step from "./Step";
 import StepId from "./StepId";
+import {STEP_TYPE_QUIZ} from "./StepEnums";
 
 class QuizStep extends Step {
     constructor(
@@ -10,7 +11,7 @@ class QuizStep extends Step {
     }
 
     type(): string {
-        return 'quiz'
+        return STEP_TYPE_QUIZ
     }
 }
 
