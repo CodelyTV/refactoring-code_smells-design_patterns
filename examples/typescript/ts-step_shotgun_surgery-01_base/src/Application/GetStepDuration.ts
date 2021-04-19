@@ -3,8 +3,7 @@ import StepRepository from '../Domain/StepRepository'
 import StepDurationCalculatorFactory from "../Domain/StepDurationCalculatorFactory";
 
 class GetStepDuration {
-    constructor(private repository: StepRepository) {
-    }
+    constructor(private repository: StepRepository) {}
 
     execute(stepId: string): number {
         const step = this.repository.find(new StepId(stepId))
