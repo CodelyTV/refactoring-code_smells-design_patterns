@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace CodelyTv\DivergentChange\Controller;
 
 use CodelyTv\DivergentChange\Platform;
+use CodelyTv\DivergentChange\Tests\Controller\CourseStepRepository;
 
 final class CourseStepsGetController
 {
@@ -14,11 +15,13 @@ final class CourseStepsGetController
     private const STEP_TYPE_QUIZ                    = 'quiz';
     private const VIDEO_POINTS_PER_MINUTE           = 100;
     private const QUIZ_POINTS_PER_MINUTE            = 10;
-    private Platform $platform;
+    private Platform             $platform;
+    private CourseStepRepository $repository;
 
-    public function __construct(Platform $platform)
+    public function __construct(Platform $platform, CourseStepRepository $repository)
     {
         $this->platform = $platform;
+        $this->repository = $repository;
     }
 
     public function get(string $courseId): string
