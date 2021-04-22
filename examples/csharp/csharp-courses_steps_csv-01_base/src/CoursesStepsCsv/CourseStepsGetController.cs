@@ -4,9 +4,16 @@ namespace CodelyTv.CoursesStepsCsv
 {
     public sealed class CourseStepsGetController
     {
-        public string Lerele()
+        private readonly Platform platform;
+
+        public CourseStepsGetController(Platform platform)
         {
-            return "lerele";
+            this.platform = platform;
+        }
+
+        public string Get(string courseId)
+        {
+            return platform.FindCourseSteps(courseId);
         }
     }
 }
