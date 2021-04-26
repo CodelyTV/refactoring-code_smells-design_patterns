@@ -24,45 +24,19 @@ namespace CodelyTv.CoursesStepsCsv
 
         public string Get(string courseId)
         {
-            var csv = platform.FindCourseSteps(courseId);
-
-            var csvSteps = new List<CsvStep>();
-
-            var lines = csv.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
-
-            for (int i = 0; i < lines.Length; i++)
-            {
-                var row = lines[i].Split(',');
-
-                var id = row[0];
-                var type = row[1];
-                int? quizTotalQuestions = string.IsNullOrEmpty(row[2]) ? null : int.Parse(row[2]);
-                int? videoDuration = string.IsNullOrEmpty(row[3]) ? null : int.Parse(row[3]);
-
-                if (type != STEP_TYPE_VIDEO && type != STEP_TYPE_QUIZ)
-                {
-                    continue;
-                }
-
-                var csvStep = new CsvStep(id, type, quizTotalQuestions, videoDuration);
-
-                csvSteps.Add(csvStep);
-            }
+            List<CsvStep> csvSteps = ParseCsv(courseId);
 
             var results = "[";
 
-            lines = csv.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
-
             for (int i = 0; i < csvSteps.Count; i++)
             {
-                var row = lines[i].Split(',');
-
                 var csvStep = csvSteps.ElementAt(i);
+
                 var id = csvStep.StepId;
                 var type = csvStep.Type;
                 var quizTotalQuestions = csvStep.QuizTotalQuestions;
                 var videoDuration = csvStep.VideoDuration;
-                
+
                 var stepDurationInMinutes = 0.0;
                 var points = 0.0;
 
@@ -93,7 +67,7 @@ namespace CodelyTv.CoursesStepsCsv
                     PropertyNamingPolicy = JsonNamingPolicy.CamelCase
                 });
 
-                if (i != lines.Length - 1)
+                if (i != csvSteps.Count - 1)
                 {
                     results += ",";
                 }
@@ -101,6 +75,36 @@ namespace CodelyTv.CoursesStepsCsv
             results += "]";
 
             return results;
+        }
+
+        private List<CsvStep> ParseCsv(string courseId)
+        {
+            var csv = platform.FindCourseSteps(courseId);
+
+            var csvSteps = new List<CsvStep>();
+
+            var lines = csv.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+
+            for (int i = 0; i < lines.Length; i++)
+            {
+                var row = lines[i].Split(',');
+
+                var id = row[0];
+                var type = row[1];
+                int? quizTotalQuestions = string.IsNullOrEmpty(row[2]) ? null : int.Parse(row[2]);
+                int? videoDuration = string.IsNullOrEmpty(row[3]) ? null : int.Parse(row[3]);
+
+                if (type != STEP_TYPE_VIDEO && type != STEP_TYPE_QUIZ)
+                {
+                    continue;
+                }
+
+                var csvStep = new CsvStep(id, type, quizTotalQuestions, videoDuration);
+
+                csvSteps.Add(csvStep);
+            }
+
+            return csvSteps;
         }
     }
 }
