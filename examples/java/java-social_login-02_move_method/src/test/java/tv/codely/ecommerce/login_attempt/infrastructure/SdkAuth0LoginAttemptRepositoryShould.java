@@ -3,13 +3,11 @@ package tv.codely.ecommerce.login_attempt.infrastructure;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import tv.codely.ecommerce.login_attempt.domain.EmailLoginAttempt;
-import tv.codely.ecommerce.login_attempt.domain.LoginAttempt;
 import tv.codely.ecommerce.login_attempt.domain.TwitterLoginAttempt;
 
 import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final class SdkAuth0LoginAttemptRepositoryShould {
     private SdkAuth0LoginAttemptRepository repository;
@@ -39,16 +37,5 @@ final class SdkAuth0LoginAttemptRepositoryShould {
         }};
 
         assertEquals(expected, repository.save(loginAttempt));
-    }
-
-    @Test
-    void throw_an_exception_with_an_unknown_login_attempt() {
-        LoginAttempt loginAttempt = new LoginAttempt("192.168.1.3") {
-            public String name() {
-                return "unknown";
-            }
-        };
-
-        assertThrows(Exception.class, () -> repository.save(loginAttempt));
     }
 }
