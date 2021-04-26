@@ -86,6 +86,67 @@ namespace CodelyTv.CoursesStepsCsv
             }
             results += "]";
 
+            results = "[";
+
+            lines = csv.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+
+            for (int i = 0; i < lines.Length; i++)
+            {
+                var row = lines[i].Split(',');
+
+                var id = row[0];
+                var type = row[1];
+                int? quizTotalQuestions = string.IsNullOrEmpty(row[2]) ? null : int.Parse(row[2]);
+                int? videoDuration = string.IsNullOrEmpty(row[3]) ? null : int.Parse(row[3]);
+                
+                var stepDurationInMinutes = 0.0;
+                var points = 0.0;
+
+                if (type == STEP_TYPE_VIDEO)
+                {
+                    stepDurationInMinutes = videoDuration.Value * VIDEO_DURATION_PAUSES_MULTIPLIER;
+                }
+
+                if (type == STEP_TYPE_QUIZ)
+                {
+                    stepDurationInMinutes = quizTotalQuestions.Value * QUIZ_TIME_PER_QUESTION_MULTIPLIER;
+                }
+
+                if (type != STEP_TYPE_VIDEO && type != STEP_TYPE_QUIZ)
+                {
+                    continue;
+                }
+
+                if (type == STEP_TYPE_VIDEO)
+                {
+                    points = stepDurationInMinutes * VIDEO_POINTS_PER_MINUTE;
+                }
+
+                if (type == STEP_TYPE_QUIZ)
+                {
+                    points = stepDurationInMinutes * QUIZ_POINTS_PER_MINUTE;
+                }
+
+                var step = new Step
+                {
+                    Id = id,
+                    Type = type,
+                    Duration = stepDurationInMinutes,
+                    Points = points
+                };
+
+                results += JsonSerializer.Serialize(step, new JsonSerializerOptions
+                {
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                });
+
+                if (i != lines.Length - 1)
+                {
+                    results += ",";
+                }
+            }
+            results += "]";
+
             return results;
         }
     }
