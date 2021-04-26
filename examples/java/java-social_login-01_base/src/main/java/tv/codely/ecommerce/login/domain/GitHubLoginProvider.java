@@ -1,4 +1,4 @@
-package tv.codely.ecommerce.login;
+package tv.codely.ecommerce.login.domain;
 
 public final class GitHubLoginProvider extends LoginProvider {
     private final String username;

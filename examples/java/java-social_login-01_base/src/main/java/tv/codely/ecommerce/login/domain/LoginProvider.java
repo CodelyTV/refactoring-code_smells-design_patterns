@@ -1,4 +1,4 @@
-package tv.codely.ecommerce.login;
+package tv.codely.ecommerce.login.domain;
 
 public abstract class LoginProvider {
     private String provider;

@@ -1,4 +1,4 @@
-package tv.codely.ecommerce.login;
+package tv.codely.ecommerce.login.domain;
 
 public final class FacebookLoginProvider extends LoginProvider {
     private final String email;
@@ -6,6 +6,7 @@ public final class FacebookLoginProvider extends LoginProvider {
 
     public FacebookLoginProvider(String email, String hash, String ip) {
         super("facebook", ip);
+
         this.email = email;
         this.hash  = hash;
     }

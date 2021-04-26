@@ -1,4 +1,4 @@
-package tv.codely.ecommerce.sign_up;
+package tv.codely.ecommerce.sign_up.domain;
 
 public final class TwitterSignUpProvider extends SignUpProvider {
     private String username;
@@ -6,6 +6,7 @@ public final class TwitterSignUpProvider extends SignUpProvider {
 
     public TwitterSignUpProvider(String username, String token) {
         super("twitter");
+
         this.username = username;
         this.token    = token;
     }

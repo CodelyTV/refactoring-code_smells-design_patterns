@@ -1,4 +1,4 @@
-package tv.codely.ecommerce.sign_up;
+package tv.codely.ecommerce.sign_up.domain;
 
 public abstract class SignUpProvider {
     private String provider;

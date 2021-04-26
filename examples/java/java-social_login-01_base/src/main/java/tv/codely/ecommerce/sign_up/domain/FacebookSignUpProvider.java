@@ -1,4 +1,4 @@
-package tv.codely.ecommerce.sign_up;
+package tv.codely.ecommerce.sign_up.domain;
 
 public final class FacebookSignUpProvider extends SignUpProvider {
     private final String email;
@@ -6,6 +6,7 @@ public final class FacebookSignUpProvider extends SignUpProvider {
 
     public FacebookSignUpProvider(String email, String hash) {
         super("facebook");
+
         this.email = email;
         this.hash  = hash;
     }

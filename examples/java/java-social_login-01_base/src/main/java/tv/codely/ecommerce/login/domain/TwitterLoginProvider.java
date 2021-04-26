@@ -1,4 +1,4 @@
-package tv.codely.ecommerce.login;
+package tv.codely.ecommerce.login.domain;
 
 public final class TwitterLoginProvider extends LoginProvider {
     private String username;
@@ -6,6 +6,7 @@ public final class TwitterLoginProvider extends LoginProvider {
 
     public TwitterLoginProvider(String username, String token, String ip) {
         super("twitter", ip);
+
         this.username = username;
         this.token    = token;
     }

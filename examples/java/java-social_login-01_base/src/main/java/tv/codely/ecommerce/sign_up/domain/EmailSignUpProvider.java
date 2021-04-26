@@ -1,4 +1,4 @@
-package tv.codely.ecommerce.sign_up;
+package tv.codely.ecommerce.sign_up.domain;
 
 public final class EmailSignUpProvider extends SignUpProvider {
     private final String email;
@@ -6,7 +6,8 @@ public final class EmailSignUpProvider extends SignUpProvider {
 
     public EmailSignUpProvider(String email, String password) {
         super("email");
-        this.email = email;
+
+        this.email    = email;
         this.password = password;
     }
 }
