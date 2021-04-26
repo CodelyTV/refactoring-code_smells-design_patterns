@@ -26,12 +26,10 @@ namespace CodelyTv.CoursesStepsCsv
         {
             List<CsvStep> csvSteps = ParseCsv(courseId);
 
-            var results = "[";
+            var steps = new List<Step>();
 
-            for (int i = 0; i < csvSteps.Count; i++)
+            csvSteps.ForEach(csvStep =>
             {
-                var csvStep = csvSteps.ElementAt(i);
-
                 var id = csvStep.StepId;
                 var type = csvStep.Type;
                 var quizTotalQuestions = csvStep.QuizTotalQuestions;
@@ -62,19 +60,13 @@ namespace CodelyTv.CoursesStepsCsv
 
                 var step = new Step(id, type, stepDurationInMinutes, points);
 
-                results += JsonSerializer.Serialize(step, new JsonSerializerOptions
-                {
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-                });
+                steps.Add(step);
+            });
 
-                if (i != csvSteps.Count - 1)
-                {
-                    results += ",";
-                }
-            }
-            results += "]";
-
-            return results;
+            return JsonSerializer.Serialize(steps, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
         }
 
         private List<CsvStep> ParseCsv(string courseId)
