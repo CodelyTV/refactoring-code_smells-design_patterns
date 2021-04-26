@@ -86,13 +86,7 @@ namespace CodelyTv.CoursesStepsCsv
                     points = stepDurationInMinutes * QUIZ_POINTS_PER_MINUTE;
                 }
 
-                var step = new Step
-                {
-                    Id = id,
-                    Type = type,
-                    Duration = stepDurationInMinutes,
-                    Points = points
-                };
+                var step = new Step(id, type, stepDurationInMinutes, points);
 
                 results += JsonSerializer.Serialize(step, new JsonSerializerOptions
                 {
