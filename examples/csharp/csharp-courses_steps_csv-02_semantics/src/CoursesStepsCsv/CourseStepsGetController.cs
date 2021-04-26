@@ -8,6 +8,8 @@ namespace CodelyTv.CoursesStepsCsv
 {
     public sealed class CourseStepsGetController
     {
+        private const double VIDEO_DURATION_PAUSES_MULTIPLIER = 1.1;
+
         private readonly Platform platform;
 
         public CourseStepsGetController(Platform platform)
@@ -28,17 +30,18 @@ namespace CodelyTv.CoursesStepsCsv
                 var row = lines[i].Split(',');
 
                 var type = row[1];
-                var duration = 0.0;
+                var stepDuration = 0.0;
                 var points = 0.0;
 
                 if (type == "video")
                 {
-                    duration = int.Parse(row[3]) * 1.1;
+                    var videoDuration = int.Parse(row[3]);
+                    stepDuration = videoDuration * VIDEO_DURATION_PAUSES_MULTIPLIER;
                 }
 
                 if (type == "quiz")
                 {
-                    duration = int.Parse(row[2]) * 0.5; // 0.5 = time in minutes per question
+                    stepDuration = int.Parse(row[2]) * 0.5; // 0.5 = time in minutes per question
                 }
 
                 if (type != "video" && type != "quiz")
@@ -48,7 +51,7 @@ namespace CodelyTv.CoursesStepsCsv
 
                 if (type == "video")
                 {
-                    points = int.Parse(row[3]) * 1.1 * 100;
+                    points = stepDuration * 100;
                 }
 
                 if (type == "quiz")
@@ -60,7 +63,7 @@ namespace CodelyTv.CoursesStepsCsv
                 {
                     Id = row[0],
                     Type = row[1],
-                    Duration = duration,
+                    Duration = stepDuration,
                     Points = points
                 };
 
