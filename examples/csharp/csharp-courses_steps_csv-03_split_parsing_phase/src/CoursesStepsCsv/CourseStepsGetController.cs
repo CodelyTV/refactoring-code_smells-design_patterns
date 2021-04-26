@@ -24,7 +24,8 @@ namespace CodelyTv.CoursesStepsCsv
 
         public string Get(string courseId)
         {
-            List<CsvStep> csvSteps = ParseCsv(courseId);
+            var csv = platform.FindCourseSteps(courseId);
+            List<CsvStep> csvSteps = ParseCsv(csv);
 
             var results = "[";
 
@@ -77,10 +78,8 @@ namespace CodelyTv.CoursesStepsCsv
             return results;
         }
 
-        private List<CsvStep> ParseCsv(string courseId)
+        private List<CsvStep> ParseCsv(string csv)
         {
-            var csv = platform.FindCourseSteps(courseId);
-
             var csvSteps = new List<CsvStep>();
 
             var lines = csv.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
