@@ -9,7 +9,11 @@ namespace CodelyTv.CoursesStepsCsv
     public sealed class CourseStepsGetController
     {
         private const double VIDEO_DURATION_PAUSES_MULTIPLIER = 1.1;
-
+        private const double QUIZ_TIME_PER_QUESTION_MULTIPLIER = 0.5;
+        private const int QUIZ_POINTS_PER_MINUTE = 10;
+        private const string STEP_TYPE_QUIZ = "quiz";
+        private const string STEP_TYPE_VIDEO = "video";
+        private const int VIDEO_POINTS_PER_MINUTE = 100;
         private readonly Platform platform;
 
         public CourseStepsGetController(Platform platform)
@@ -29,41 +33,44 @@ namespace CodelyTv.CoursesStepsCsv
             {
                 var row = lines[i].Split(',');
 
+                var id = row[0];
                 var type = row[1];
-                var stepDuration = 0.0;
+                int? quizTotalQuestions = string.IsNullOrEmpty(row[2]) ? null : int.Parse(row[2]);
+                int? videoDuration = string.IsNullOrEmpty(row[3]) ? null : int.Parse(row[3]);
+                
+                var stepDurationInMinutes = 0.0;
                 var points = 0.0;
 
-                if (type == "video")
+                if (type == STEP_TYPE_VIDEO)
                 {
-                    var videoDuration = int.Parse(row[3]);
-                    stepDuration = videoDuration * VIDEO_DURATION_PAUSES_MULTIPLIER;
+                    stepDurationInMinutes = videoDuration.Value * VIDEO_DURATION_PAUSES_MULTIPLIER;
                 }
 
-                if (type == "quiz")
+                if (type == STEP_TYPE_QUIZ)
                 {
-                    stepDuration = int.Parse(row[2]) * 0.5; // 0.5 = time in minutes per question
+                    stepDurationInMinutes = quizTotalQuestions.Value * QUIZ_TIME_PER_QUESTION_MULTIPLIER;
                 }
 
-                if (type != "video" && type != "quiz")
+                if (type != STEP_TYPE_VIDEO && type != STEP_TYPE_QUIZ)
                 {
                     continue;
                 }
 
-                if (type == "video")
+                if (type == STEP_TYPE_VIDEO)
                 {
-                    points = stepDuration * 100;
+                    points = stepDurationInMinutes * VIDEO_POINTS_PER_MINUTE;
                 }
 
-                if (type == "quiz")
+                if (type == STEP_TYPE_QUIZ)
                 {
-                    points = int.Parse(row[2]) * 0.5 * 10;
+                    points = stepDurationInMinutes * QUIZ_POINTS_PER_MINUTE;
                 }
 
                 var step = new Step
                 {
-                    Id = row[0],
-                    Type = row[1],
-                    Duration = stepDuration,
+                    Id = id,
+                    Type = type,
+                    Duration = stepDurationInMinutes,
                     Points = points
                 };
 
