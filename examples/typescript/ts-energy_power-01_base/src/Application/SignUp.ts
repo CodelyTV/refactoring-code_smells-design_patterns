@@ -6,8 +6,6 @@ export class SignUp {
     }
 
     async run(contractId: string, power: number) {
-        Contract.ensurePowerIsNormalized(power)
-
         const contract = new Contract(contractId, power)
 
         await this.repository.save(contract)
