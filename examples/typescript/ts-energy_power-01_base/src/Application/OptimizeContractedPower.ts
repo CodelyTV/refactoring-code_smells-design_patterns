@@ -18,28 +18,32 @@ export class OptimizeContractedPower {
 
         let power: number
 
-        if (optimizedPower <= 1150) {
-            power = 1150
-        } else if (optimizedPower <= 1725) {
-            power = 1725
-        } else if (optimizedPower <= 2300) {
-            power = 2300
-        } else if (optimizedPower <= 3450) {
-            power = 3450
-        } else if (optimizedPower <= 4600) {
-            power = 4600
-        } else if (optimizedPower <= 5750) {
-            power = 5750
-        } else if (optimizedPower <= 6900) {
-            power = 6900
-        } else if (optimizedPower <= 8050) {
-            power = 8050
-        } else {
-            power = 9200
-        }
+        power = this.getMinimumPowerNeeded(optimizedPower);
 
         contract.changePower(power)
 
         await this.repository.save(contract)
+    }
+
+    private getMinimumPowerNeeded(optimizedPower: number) {
+        if (optimizedPower <= 1150) {
+            return 1150
+        } else if (optimizedPower <= 1725) {
+            return 1725
+        } else if (optimizedPower <= 2300) {
+            return 2300
+        } else if (optimizedPower <= 3450) {
+            return 3450
+        } else if (optimizedPower <= 4600) {
+            return 4600
+        } else if (optimizedPower <= 5750) {
+            return 5750
+        } else if (optimizedPower <= 6900) {
+            return 6900
+        } else if (optimizedPower <= 8050) {
+            return 8050
+        } else {
+            return 9200
+        }
     }
 }
