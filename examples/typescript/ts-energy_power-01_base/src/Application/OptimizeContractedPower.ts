@@ -1,6 +1,7 @@
 import { ContractRepository } from "../Domain/ContractRepository"
 import { ContractNotFound } from "../Domain/ContractNotFound"
 import { PowerOptimizer } from "../Domain/PowerOptimizer"
+import {Contract} from "../Domain/Contract";
 
 export class OptimizeContractedPower {
     constructor(
@@ -18,7 +19,7 @@ export class OptimizeContractedPower {
 
         let power: number
 
-        power = this.getMinimumPowerNeeded(optimizedPower);
+        power = Contract.getMinimumPowerNeeded(optimizedPower);
 
         contract.changePower(power)
 
