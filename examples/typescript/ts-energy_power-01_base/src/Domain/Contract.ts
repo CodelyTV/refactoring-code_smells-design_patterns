@@ -31,25 +31,15 @@ export class Contract {
     }
 
     public static getMinimumPowerNeeded(optimizedPower: number) {
-        if (optimizedPower <= 1150) {
-            return 1150
-        } else if (optimizedPower <= 1725) {
-            return 1725
-        } else if (optimizedPower <= 2300) {
-            return 2300
-        } else if (optimizedPower <= 3450) {
-            return 3450
-        } else if (optimizedPower <= 4600) {
-            return 4600
-        } else if (optimizedPower <= 5750) {
-            return 5750
-        } else if (optimizedPower <= 6900) {
-            return 6900
-        } else if (optimizedPower <= 8050) {
-            return 8050
-        } else {
-            return 9200
+        for (let normalizedPower of Contract.validNormalizedPowers) {
+            if (optimizedPower <= normalizedPower) {
+                return normalizedPower
+            }
         }
+
+        let totalValidNormalizedPowers = Contract.validNormalizedPowers.length;
+
+        return Contract.validNormalizedPowers[totalValidNormalizedPowers - 1]
     }
 
     changePower(selectedPower: number): void {
