@@ -1,6 +1,18 @@
 import {InvalidPower} from "./InvalidPower";
 
 export class Contract {
+    private static validNormalizedPowers: Array<number> = [
+        1150,
+        1725,
+        2300,
+        3450,
+        4600,
+        5750,
+        6900,
+        8050,
+        9200
+    ]
+
     constructor(
         private id: string,
         private contractedPower: number
@@ -13,19 +25,7 @@ export class Contract {
     }
 
     public static ensurePowerIsNormalized(newPower: number) {
-        const validNormalizedPowers: Array<number> = [
-            1150,
-            1725,
-            2300,
-            3450,
-            4600,
-            5750,
-            6900,
-            8050,
-            9200
-        ]
-
-        if (!validNormalizedPowers.includes(newPower)) {
+        if (!this.validNormalizedPowers.includes(newPower)) {
             throw new InvalidPower(newPower)
         }
     }
