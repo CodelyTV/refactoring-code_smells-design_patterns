@@ -18,6 +18,7 @@ export class Contract {
         private contractedPower: number
     ) {
         // ensure is valid
+        Contract.ensurePowerIsNormalized(contractedPower)
     }
 
     get power(): number {

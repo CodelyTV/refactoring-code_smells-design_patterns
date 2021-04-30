@@ -41,10 +41,15 @@ describe('Change contracted power', () => {
     it('should throw invalid power error for not normalized power values', async () => {
         const contractId         = '1'
         const notNormalizedPower = 1234
-        const contract = new Contract(contractId, notNormalizedPower)
-        repository.returnOnSearch(contract)
 
-        await expect(changeContractedPower.run(contractId, notNormalizedPower)).rejects.toBeInstanceOf(InvalidPower)
+        const changeContractedPowerForNotNormalizedPower = () => {
+            const contract = new Contract(contractId, notNormalizedPower)
+            repository.returnOnSearch(contract)
+
+            changeContractedPower.run(contractId, notNormalizedPower)
+        }
+
+        await expect(changeContractedPowerForNotNormalizedPower).toThrow(InvalidPower)
     })
 
     it('should throw contract not found error', async () => {
