@@ -25,12 +25,6 @@ export class Contract {
         return this.contractedPower
     }
 
-    public static ensurePowerIsNormalized(newPower: number) {
-        if (!this.validNormalizedPowers.includes(newPower)) {
-            throw new InvalidPower(newPower)
-        }
-    }
-
     public static getMinimumPowerNeeded(optimizedPower: number) {
         for (let normalizedPower of Contract.validNormalizedPowers) {
             if (optimizedPower <= normalizedPower) {
@@ -41,6 +35,12 @@ export class Contract {
         let totalValidNormalizedPowers = Contract.validNormalizedPowers.length;
 
         return Contract.validNormalizedPowers[totalValidNormalizedPowers - 1]
+    }
+
+    private static ensurePowerIsNormalized(newPower: number) {
+        if (!this.validNormalizedPowers.includes(newPower)) {
+            throw new InvalidPower(newPower)
+        }
     }
 
     changePower(selectedPower: number): void {
