@@ -1,6 +1,5 @@
 import {ContractRepository} from "../Domain/ContractRepository"
 import {ContractNotFound} from "../Domain/ContractNotFound"
-import {Contract} from "../Domain/Contract";
 
 export class ChangeContractedPower {
     constructor(private repository: ContractRepository) {
@@ -11,8 +10,6 @@ export class ChangeContractedPower {
         if (!contract) {
             throw new ContractNotFound(contractId)
         }
-
-        Contract.ensurePowerIsNormalized(newPower)
 
         contract.changePower(newPower)
 

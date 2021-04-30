@@ -44,6 +44,8 @@ export class Contract {
     }
 
     changePower(selectedPower: number): void {
+        Contract.ensurePowerIsNormalized(selectedPower)
+
         this.contractedPower = selectedPower
     }
 }
