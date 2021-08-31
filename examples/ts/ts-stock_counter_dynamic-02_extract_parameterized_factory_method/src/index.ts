@@ -12,14 +12,13 @@ let parser: FeedParser;
 
 if (feed.contentType === 'text/csv') {
     parser = new FeedParserCsv();
-    feedStockCounter = new FeedStockCounter(parser);
 } else if (feed.contentType === 'application/json') {
     parser = new FeedParserJson();
-    feedStockCounter = new FeedStockCounter(parser);
 } else {
     throw Error('Unknown content type');
 }
 
+feedStockCounter = new FeedStockCounter(parser);
 totalStock = feedStockCounter.totalStock(feed);
 
 console.log(totalStock);
