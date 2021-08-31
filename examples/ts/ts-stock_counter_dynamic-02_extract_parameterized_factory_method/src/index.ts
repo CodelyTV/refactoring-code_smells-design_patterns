@@ -10,9 +10,10 @@ let totalStock: number;
 let feedStockCounter: FeedStockCounter;
 let parser: FeedParser;
 
-if (feed.contentType === 'text/csv') {
+let contentType = feed.contentType;
+if (contentType === 'text/csv') {
     parser = new FeedParserCsv();
-} else if (feed.contentType === 'application/json') {
+} else if (contentType === 'application/json') {
     parser = new FeedParserJson();
 } else {
     throw Error('Unknown content type');
