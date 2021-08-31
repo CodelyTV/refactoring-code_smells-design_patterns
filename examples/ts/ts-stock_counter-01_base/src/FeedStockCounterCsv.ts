@@ -9,9 +9,10 @@ export class FeedStockCounterCsv {
             return new Flower(parseInt(fields[0]), fields[1], parseInt(fields[2]));
         })
 
-        const totalStock = flowers.reduce((acc, flower) => {
+        const accumulateFlowerStock = (acc, flower) => {
             return acc + flower.totalStock();
-        }, 0)
+        };
+        const totalStock = flowers.reduce(accumulateFlowerStock, 0)
 
         return totalStock;
     }
