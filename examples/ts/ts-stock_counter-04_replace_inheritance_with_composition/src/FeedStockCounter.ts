@@ -2,9 +2,12 @@ import {Flower} from "./Flower";
 import {Feed} from "./Feed";
 import {FeedParser} from "./FeedParser";
 
-export abstract class FeedStockCounter {
+export class FeedStockCounter {
+    constructor(private parser: FeedParser) {
+    }
+
     totalStock(feed: Feed): number {
-        const flowers = this.buildParser().parse(feed);
+        const flowers = this.parser.parse(feed);
         return this.countTotalStock(flowers);
     }
 
@@ -13,6 +16,4 @@ export abstract class FeedStockCounter {
             return acc + flower.totalStock();
         }, 0);
     }
-
-    protected abstract buildParser(): FeedParser;
 }

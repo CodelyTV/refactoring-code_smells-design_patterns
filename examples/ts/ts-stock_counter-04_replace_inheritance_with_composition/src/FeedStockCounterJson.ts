@@ -1,8 +1,9 @@
-import {FeedStockCounter} from "./FeedStockCounter";
 import {FeedParserJson} from "./FeedParserJson";
+import {Feed} from "./Feed";
+import {FeedStockCounter} from "./FeedStockCounter";
 
-export class FeedStockCounterJson extends FeedStockCounter {
-    protected buildParser() {
-        return new FeedParserJson();
+export class FeedStockCounterJson {
+    totalStock(feed: Feed): number {
+        return new FeedStockCounter(new FeedParserJson()).totalStock(feed)
     }
 }
