@@ -1,13 +1,20 @@
-import {FeedStockCounterCsv} from "./FeedStockCounterCsv";
-import {FeedStockCounterJson} from "./FeedStockCounterJson";
-import {readCsvFeed, readJsonFeed} from "./getWarehoseProductFeed";
+import {getWarehouseProductFeed} from "./getWarehoseProductFeed";
+import {FeedStockCounter} from "./FeedStockCounter";
+import {FeedParserCsv} from "./FeedParserCsv";
+import {FeedParserJson} from "./FeedParserJson";
 
-// Warehouse A
-const feedStockCounterCsv = new FeedStockCounterCsv();
-const csvFeed = readCsvFeed();
-console.log(feedStockCounterCsv.totalStock(csvFeed));
+const feed = getWarehouseProductFeed();
 
-// Warehouse B
-const feedStockCounterJson = new FeedStockCounterJson();
-const jsonFeed = readJsonFeed();
-console.log(feedStockCounterJson.totalStock(jsonFeed));
+let totalStock: number
+
+if (feed.contentType === 'text/csv') {
+    const feedStockCounter = new FeedStockCounter(new FeedParserCsv());
+    totalStock = feedStockCounter.totalStock(feed);
+} else if (feed.contentType === 'application/json') {
+    const feedStockCounter = new FeedStockCounter(new FeedParserJson());
+    totalStock = feedStockCounter.totalStock(feed);
+} else {
+    throw Error('Unknown content type');
+}
+
+console.log(totalStock);
