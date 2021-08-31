@@ -9,9 +9,11 @@ let totalStock: number;
 let feedStockCounter: FeedStockCounter;
 
 if (feed.contentType === 'text/csv') {
-    feedStockCounter = new FeedStockCounter(new FeedParserCsv());
+    let parser = new FeedParserCsv();
+    feedStockCounter = new FeedStockCounter(parser);
 } else if (feed.contentType === 'application/json') {
-    feedStockCounter = new FeedStockCounter(new FeedParserJson());
+    let parser = new FeedParserJson();
+    feedStockCounter = new FeedStockCounter(parser);
 } else {
     throw Error('Unknown content type');
 }
