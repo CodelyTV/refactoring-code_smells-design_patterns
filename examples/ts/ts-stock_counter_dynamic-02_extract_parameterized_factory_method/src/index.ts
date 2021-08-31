@@ -5,16 +5,17 @@ import {FeedParserJson} from "./FeedParserJson";
 
 const feed = getWarehouseProductFeed();
 
-let totalStock: number
+let totalStock: number;
+let feedStockCounter: FeedStockCounter;
 
 if (feed.contentType === 'text/csv') {
-    const feedStockCounter = new FeedStockCounter(new FeedParserCsv());
-    totalStock = feedStockCounter.totalStock(feed);
+    feedStockCounter = new FeedStockCounter(new FeedParserCsv());
 } else if (feed.contentType === 'application/json') {
-    const feedStockCounter = new FeedStockCounter(new FeedParserJson());
-    totalStock = feedStockCounter.totalStock(feed);
+    feedStockCounter = new FeedStockCounter(new FeedParserJson());
 } else {
     throw Error('Unknown content type');
 }
+
+totalStock = feedStockCounter.totalStock(feed);
 
 console.log(totalStock);
