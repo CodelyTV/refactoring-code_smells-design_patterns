@@ -1,15 +1,13 @@
 import {Feed} from "./Feed";
 import fs from "fs";
+import {ContentType} from "./ContentType";
 
 export function getWarehouseProductFeed(): Feed {
-    let content: string;
-    let contentType: string;
     if (true) {
-        content = fs.readFileSync(__dirname + '/data/warehouse-stock.csv').toString();
-        contentType = 'text/csv';
+        const content = fs.readFileSync(__dirname + '/data/warehouse-stock.csv').toString();
+        return new Feed(content, ContentType.Csv)
     } else {
-        content = fs.readFileSync(__dirname + '/data/warehouse-stock.json').toString();
-        contentType = 'application/json';
+        const content = fs.readFileSync(__dirname + '/data/warehouse-stock.json').toString();
+        return new Feed(content, ContentType.Json)
     }
-    return new Feed(content, contentType)
 }
