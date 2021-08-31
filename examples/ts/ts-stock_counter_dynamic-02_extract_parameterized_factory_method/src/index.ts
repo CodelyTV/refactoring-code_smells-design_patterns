@@ -3,23 +3,14 @@ import {FeedStockCounter} from "./FeedStockCounter";
 import {FeedParserCsv} from "./FeedParserCsv";
 import {FeedParserJson} from "./FeedParserJson";
 import {FeedParser} from "./FeedParser";
+import {FeedParserFromContentType} from "./FeedParserFromContentType";
 
 const feed = getWarehouseProductFeed();
 
-let totalStock: number;
-let feedStockCounter: FeedStockCounter;
-let parser: FeedParser;
-
 let contentType = feed.contentType;
-if (contentType === 'text/csv') {
-    parser = new FeedParserCsv();
-} else if (contentType === 'application/json') {
-    parser = new FeedParserJson();
-} else {
-    throw Error('Unknown content type');
-}
-
-feedStockCounter = new FeedStockCounter(parser);
-totalStock = feedStockCounter.totalStock(feed);
+const feedParserFromContentType = new FeedParserFromContentType();
+const parser = feedParserFromContentType.get(contentType);
+const feedStockCounter = new FeedStockCounter(parser);
+const totalStock = feedStockCounter.totalStock(feed);
 
 console.log(totalStock);
