@@ -1,0 +1,13 @@
+{
+  "name": "ts-product_parser-01_base",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "tsc && node dist/index.js"
+  },
+  "devDependencies": {
+    "@types/node": "^16.7.2",
+    "typescript": "^4.4.2"
+  }
+}
