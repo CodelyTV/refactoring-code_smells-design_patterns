@@ -8,9 +8,10 @@ export class FeedStockCounterJson {
             return new Flower(parseInt(item["id"]), item["name"], parseInt(item["stock"]));
         })
 
-        const totalStock = flowers.reduce((acc, flower) => {
+        const accumulateFlowerStock = (acc, flower) => {
             return acc + flower.totalStock();
-        }, 0)
+        };
+        const totalStock = flowers.reduce(accumulateFlowerStock, 0)
 
         return totalStock;
     }
