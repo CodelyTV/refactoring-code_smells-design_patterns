@@ -8,7 +8,8 @@ class MakePayment(private val paymentGateway: PaymentGateway) {
         val customer = paymentGateway.createCustomer(paymentRequest.customer)
         val card = paymentGateway.createCreditCard(paymentRequest.card)
         customer.assignCard(card)
-        paymentGateway.createPayment(paymentRequest.amount, customer, card)
+        val order = paymentGateway.createOrder()
+        paymentGateway.createPayment(paymentRequest.amount, customer, card, order)
     }
 }
 

@@ -12,8 +12,12 @@ class PaymentGatewayAdyen(private val client: AdyenClient) : PaymentGateway {
         return client.putCard(card.name, card.number)
     }
 
-    override fun createPayment(amount: Number, customer: Customer, card: Card): PaymentAdyen {
+    override fun createPayment(amount: Number, customer: Customer, card: Card, order: Order?): PaymentAdyen {
         val paymentId = client.putPayment(amount, customer.id, card.id)
         return PaymentAdyen(paymentId)
+    }
+
+    override fun createOrder(): Order? {
+        return null
     }
 }
