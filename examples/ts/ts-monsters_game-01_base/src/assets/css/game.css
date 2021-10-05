@@ -1,0 +1,13 @@
+.enemy {
+    cursor: pointer;
+    user-select: none;
+}
+
+.level-1 {
+    font-size: 14px;
+}
+
+
+.level-2 {
+    font-size: 18px;
+}
