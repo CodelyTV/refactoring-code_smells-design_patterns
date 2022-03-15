@@ -51,3 +51,9 @@ development process:
 | 50            |      149 € | 10770 € |
 | 51            |      149 € | 10919 € |
 | 52            |      149 € | 11068 € |
+
+## Exercise
+
+Available languages:
+
+- [TypeScript](base/typescript/README.md)
