@@ -1,5 +1,5 @@
-describe("Shopping cart should", () => {
-  // TODO: Shopping cart spec
+describe("Product should", () => {
+  // TODO: Product spec
 });
 
 test("test framework working", async () => {
