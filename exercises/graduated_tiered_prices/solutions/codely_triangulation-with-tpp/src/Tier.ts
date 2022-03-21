@@ -1,3 +1,5 @@
+import { SubscriptionsBeingPurchased } from "./SubscriptionsBeingPurchased";
+
 export class Tier {
   constructor(
     public readonly from: number,
@@ -13,15 +15,15 @@ export class Tier {
     return this.size() * this.price;
   }
 
-  totalFor(subscriptions: number): number {
-    if (subscriptions >= this.to) {
+  totalFor(subscriptions: SubscriptionsBeingPurchased): number {
+    if (subscriptions.value >= this.to) {
       return this.fullTierTotal();
     }
 
-    if (subscriptions < this.from) {
+    if (subscriptions.value < this.from) {
       return 0;
     }
 
-    return (subscriptions - this.from + 1) * this.price;
+    return (subscriptions.value - this.from + 1) * this.price;
   }
 }

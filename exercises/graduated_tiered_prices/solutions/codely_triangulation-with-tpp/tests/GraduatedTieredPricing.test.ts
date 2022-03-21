@@ -1,10 +1,11 @@
 import { GraduatedTieredPricing } from "../src/GraduatedTieredPricing";
+import { SubscriptionsBeingPurchased } from "../src/SubscriptionsBeingPurchased";
 
 describe("Graduated tiered pricing should", () => {
   test("return 299€ for 1 subscription", async () => {
     const pricing = new GraduatedTieredPricing();
 
-    const total = pricing.for(1);
+    const total = pricing.for(new SubscriptionsBeingPurchased(1));
 
     expect(total).toBe(299);
   });
@@ -12,7 +13,7 @@ describe("Graduated tiered pricing should", () => {
   test("return 598€ for 2 subscription", async () => {
     const pricing = new GraduatedTieredPricing();
 
-    const total = pricing.for(2);
+    const total = pricing.for(new SubscriptionsBeingPurchased(2));
 
     expect(total).toBe(598);
   });
@@ -20,7 +21,7 @@ describe("Graduated tiered pricing should", () => {
   test("return 837€ for 3 subscription", async () => {
     const pricing = new GraduatedTieredPricing();
 
-    const total = pricing.for(3);
+    const total = pricing.for(new SubscriptionsBeingPurchased(3));
 
     expect(total).toBe(837);
   });
@@ -28,7 +29,7 @@ describe("Graduated tiered pricing should", () => {
   test("return 1076€ for 4 subscription", async () => {
     const pricing = new GraduatedTieredPricing();
 
-    const total = pricing.for(4);
+    const total = pricing.for(new SubscriptionsBeingPurchased(4));
 
     expect(total).toBe(1076);
   });
@@ -36,7 +37,7 @@ describe("Graduated tiered pricing should", () => {
   test("return 1315€ for 5 subscription", async () => {
     const pricing = new GraduatedTieredPricing();
 
-    const total = pricing.for(5);
+    const total = pricing.for(new SubscriptionsBeingPurchased(5));
 
     expect(total).toBe(1315);
   });
@@ -44,7 +45,7 @@ describe("Graduated tiered pricing should", () => {
   test("return 2729€ for 11 subscription", async () => {
     const pricing = new GraduatedTieredPricing();
 
-    const total = pricing.for(11);
+    const total = pricing.for(new SubscriptionsBeingPurchased(11));
 
     expect(total).toBe(2729);
   });
@@ -52,7 +53,7 @@ describe("Graduated tiered pricing should", () => {
   test("return 2948€ for 12 subscription", async () => {
     const pricing = new GraduatedTieredPricing();
 
-    const total = pricing.for(12);
+    const total = pricing.for(new SubscriptionsBeingPurchased(12));
 
     expect(total).toBe(2948);
   });
@@ -60,7 +61,7 @@ describe("Graduated tiered pricing should", () => {
   test("return 5994€ for 26 subscription", async () => {
     const pricing = new GraduatedTieredPricing();
 
-    const total = pricing.for(26);
+    const total = pricing.for(new SubscriptionsBeingPurchased(26));
 
     expect(total).toBe(5994);
   });
