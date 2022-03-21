@@ -2,14 +2,15 @@ import { Tier } from "./Tier";
 
 export class GraduatedTieredPricing {
   for(subscriptions: number): number {
-    const tier1 = new Tier(1, 2, 299);
-    const tier2 = new Tier(3, 10, 239);
-    const tier3 = new Tier(11, 25, 219);
+    const tiers = [
+      new Tier(1, 2, 299),
+      new Tier(3, 10, 239),
+      new Tier(11, 25, 219),
+      new Tier(26, 50, 199),
+    ];
 
-    return (
-      tier1.totalFor(subscriptions) +
-      tier2.totalFor(subscriptions) +
-      tier3.totalFor(subscriptions)
-    );
+    return tiers.reduce((total: number, tier: Tier) => {
+      return total + tier.totalFor(subscriptions);
+    }, 0);
   }
 }
