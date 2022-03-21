@@ -6,24 +6,20 @@ export class GraduatedTieredPricing {
     const tier2 = new Tier(3, 10, 239);
     const tier3 = new Tier(11, 25, 219);
 
-    const tier1size = tier1.size();
-    const tier1total = tier1.fullTierTotal();
-    const tier2size = tier2.size();
-    const tier2total = tier2.fullTierTotal();
-    const tier3price = tier3.price;
-
     if (subscriptions >= 11) {
       return (
-        tier1total +
-        tier2total +
-        (subscriptions - tier1size - tier2size) * tier3price
+        tier1.fullTierTotal() +
+        tier2.fullTierTotal() +
+        (subscriptions - tier1.size() - tier2.size()) * tier3.price
       );
     }
 
     if (subscriptions >= 3) {
-      return tier1total + (subscriptions - tier1size) * 239;
+      return (
+        tier1.fullTierTotal() + (subscriptions - tier1.size()) * tier2.price
+      );
     }
 
-    return subscriptions * 299;
+    return subscriptions * tier1.price;
   }
 }
