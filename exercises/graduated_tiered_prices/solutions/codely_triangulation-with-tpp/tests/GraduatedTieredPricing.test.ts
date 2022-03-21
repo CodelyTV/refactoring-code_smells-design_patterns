@@ -8,4 +8,12 @@ describe("Graduated tiered pricing should", () => {
 
     expect(total).toBe(299);
   });
+
+  test("return 598€ for 2 subscription", async () => {
+    const pricing = new GraduatedTieredPricing();
+
+    const total = pricing.for(2);
+
+    expect(total).toBe(598);
+  });
 });
