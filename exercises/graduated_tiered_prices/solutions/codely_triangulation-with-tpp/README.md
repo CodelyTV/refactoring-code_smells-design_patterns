@@ -1,6 +1,7 @@
 # Product pricing: TypeScript
 
-TypeScript codebase for the [Graduated Product pricing](../../README.md) exercise.
+TypeScript [Graduated Product pricing](../../README.md) exercise solution
+using triangulation and TPP.
 
 ## Setup
 
