@@ -1,5 +1,5 @@
 export class GraduatedTieredPricing {
-  for(subscriptions: number) {
+  for(subscriptions: number): number {
     return subscriptions * 299;
   }
 }
