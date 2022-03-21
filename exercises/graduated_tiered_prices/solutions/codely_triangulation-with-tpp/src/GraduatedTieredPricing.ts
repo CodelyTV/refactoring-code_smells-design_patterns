@@ -1,12 +1,16 @@
+import { Tier } from "./Tier";
+
 export class GraduatedTieredPricing {
   for(subscriptions: number): number {
-    const tier1size = 2;
-    const tier1price = 299;
-    const tier1total = tier1size * tier1price;
-    const tier2size = 8;
-    const tier2price = 239;
-    const tier2total = tier2size * tier2price;
-    const tier3price = 219;
+    const tier1 = new Tier(1, 2, 299);
+    const tier2 = new Tier(3, 10, 239);
+    const tier3 = new Tier(11, 25, 219);
+
+    const tier1size = tier1.size();
+    const tier1total = tier1.fullTierTotal();
+    const tier2size = tier2.size();
+    const tier2total = tier2.fullTierTotal();
+    const tier3price = tier3.price;
 
     if (subscriptions >= 11) {
       return (
