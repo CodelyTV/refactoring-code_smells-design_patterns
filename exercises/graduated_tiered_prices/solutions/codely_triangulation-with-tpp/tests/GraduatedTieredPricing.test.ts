@@ -5,5 +5,7 @@ describe("Graduated tiered pricing should", () => {
     const pricing = new GraduatedTieredPricing();
 
     const total = pricing.for(1);
+
+    expect(total).toBe(299);
   });
 });
