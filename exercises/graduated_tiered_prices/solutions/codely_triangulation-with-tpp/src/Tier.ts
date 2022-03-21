@@ -11,19 +11,19 @@ export class Tier {
     return this.to - this.from + 1;
   }
 
-  fullTierTotal(): number {
+  private fullTierTotal(): number {
     return this.size() * this.price;
   }
 
   totalFor(subscriptions: SubscriptionsBeingPurchased): number {
-    if (subscriptions.value >= this.to) {
+    if (subscriptions.covers(this)) {
       return this.fullTierTotal();
     }
 
-    if (subscriptions.value < this.from) {
+    if (!subscriptions.reaches(this)) {
       return 0;
     }
-
-    return (subscriptions.value - this.from + 1) * this.price;
+    1;
+    return subscriptions.numberOfSubscriptionsInTier(this) * this.price;
   }
 }
