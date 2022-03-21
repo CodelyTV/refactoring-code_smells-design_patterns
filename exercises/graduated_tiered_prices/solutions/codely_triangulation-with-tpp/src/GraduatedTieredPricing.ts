@@ -3,6 +3,10 @@ export class GraduatedTieredPricing {
     const tier1total = 299 + 299;
     const tier1size = 2;
 
+    if (subscriptions == 12) {
+      return 2948;
+    }
+
     if (subscriptions == 11) {
       return 2729;
     }
