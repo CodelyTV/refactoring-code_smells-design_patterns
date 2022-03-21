@@ -9,7 +9,7 @@ export class GraduatedTieredPricing {
     const tier3price = 219;
 
     if (subscriptions == 12) {
-      return 2948;
+      return tier1total + tier2total + 2 * tier3price;
     }
 
     if (subscriptions == 11) {
