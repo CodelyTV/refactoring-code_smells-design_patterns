@@ -10,16 +10,14 @@ export class GraduatedTieredPricing {
       return (
         tier1.fullTierTotal() +
         tier2.fullTierTotal() +
-        (subscriptions - tier3.from + 1) * tier3.price
+        tier3.totalFor(subscriptions)
       );
     }
 
     if (subscriptions >= 3) {
-      return (
-        tier1.fullTierTotal() + (subscriptions - tier2.from + 1) * tier2.price
-      );
+      return tier1.fullTierTotal() + tier2.totalFor(subscriptions);
     }
 
-    return (subscriptions - tier1.from + 1) * tier1.price;
+    return tier1.totalFor(subscriptions);
   }
 }

@@ -12,4 +12,8 @@ export class Tier {
   fullTierTotal(): number {
     return this.size() * this.price;
   }
+
+  totalFor(subscriptions: number): number {
+    return (subscriptions - this.from + 1) * this.price;
+  }
 }
