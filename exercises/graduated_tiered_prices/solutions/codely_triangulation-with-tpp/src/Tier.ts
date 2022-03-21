@@ -14,6 +14,10 @@ export class Tier {
   }
 
   totalFor(subscriptions: number): number {
+    if (subscriptions >= this.to) {
+      return this.fullTierTotal();
+    }
+
     return (subscriptions - this.from + 1) * this.price;
   }
 }
