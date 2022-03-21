@@ -1,7 +1,7 @@
 describe("Graduated tiered pricing should", () => {
-  // TODO: Graduated tiered pricing spec
-});
+  test("return 299€ for 1 subscription", async () => {
+    const pricing = new GraduatedTieredPricing();
 
-test("test framework working", async () => {
-  expect(true).toBe(true);
+    const total = pricing.for(1);
+  });
 });
