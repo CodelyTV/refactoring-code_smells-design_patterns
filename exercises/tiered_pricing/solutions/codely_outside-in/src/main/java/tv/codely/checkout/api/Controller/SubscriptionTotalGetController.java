@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
-public class ExampleGetController {
+public class SubscriptionTotalGetController {
 
-    @GetMapping("/")
-    public ResponseEntity<String> response(@RequestParam String name, HttpServletResponse response) throws JSONException {
+    @GetMapping("/subscription-total-price")
+    public ResponseEntity<String> response(@RequestParam String subscriptions, HttpServletResponse response) throws JSONException {
         response.addHeader("content-type", "application/json");
 
-        return ResponseEntity.ok(new JSONObject().put("hello", name).toString());
+        return ResponseEntity.ok(new JSONObject().put("total", 199).toString());
     }
 }
