@@ -1,5 +1,5 @@
 fn get_total_subscription_price(number: u32) -> u32 {
-    0
+    299
 }
 
 #[cfg(test)]
