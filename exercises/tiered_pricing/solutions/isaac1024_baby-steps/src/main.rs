@@ -1,5 +1,6 @@
 mod routes;
 mod health_check;
+mod tiered_pricing;
 
 use actix_web::{App, HttpServer};
 use routes::routes;
