@@ -6,6 +6,7 @@ fn get_total_subscription_price(number_of_subscriptions: u32) -> Result<u32, Str
     const FIFTH_UNIT_PRICE: u32 = 149;
 
     match number_of_subscriptions {
+        0 => Err("Error".to_string()),
         1|2 => Ok(FIRST_UNIT_PRICE * number_of_subscriptions),
         3..=10 => Ok(SECOND_UNIT_PRICE * number_of_subscriptions),
         11..=25 => Ok(THIRD_UNIT_PRICE * number_of_subscriptions),
