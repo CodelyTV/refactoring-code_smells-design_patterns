@@ -20,7 +20,7 @@ fn get_unit_price(number_of_subscriptions: u32) -> SubscriptionResult<u32> {
 
     match number_of_subscriptions {
         0 => Err(NumberSubscriptionsError),
-        1|2 => Ok(FIRST_UNIT_PRICE),
+        1 | 2 => Ok(FIRST_UNIT_PRICE),
         3..=10 => Ok(SECOND_UNIT_PRICE),
         11..=25 => Ok(THIRD_UNIT_PRICE),
         26..=50 => Ok(FOURTH_UNIT_PRICE),
@@ -35,64 +35,70 @@ fn get_total_subscription_price(number_of_subscriptions: u32) -> SubscriptionRes
 #[cfg(test)]
 mod tests {
     use crate::tiered_pricing::{get_total_subscription_price, NumberSubscriptionsError};
+    use fake::Fake;
 
     #[test]
-    fn when_get_a_subscription_return_299_euros() -> Result<(), NumberSubscriptionsError> {
-        assert_eq!(299, get_total_subscription_price(1)?);
+    fn when_subscriptions_are_between_1_and_2_unit_price_is_299(
+    ) -> Result<(), NumberSubscriptionsError> {
+        let number_of_subscriptions = (1..=2).fake();
+
+        assert_eq!(
+            number_of_subscriptions * 299,
+            get_total_subscription_price(number_of_subscriptions)?
+        );
+
         Ok(())
     }
 
     #[test]
-    fn when_get_2_subscriptions_return_598_euros() -> Result<(), NumberSubscriptionsError> {
-        assert_eq!(598, get_total_subscription_price(2)?);
+    fn when_subscriptions_are_between_3_and_10_unit_price_is_239(
+    ) -> Result<(), NumberSubscriptionsError> {
+        let number_of_subscriptions = (3..=10).fake();
+
+        assert_eq!(
+            number_of_subscriptions * 239,
+            get_total_subscription_price(number_of_subscriptions)?
+        );
+
         Ok(())
     }
 
     #[test]
-    fn when_get_3_subscriptions_return_717_euros() -> Result<(), NumberSubscriptionsError> {
-        assert_eq!(717, get_total_subscription_price(3)?);
+    fn when_subscriptions_are_between_11_and_25_unit_price_is_219(
+    ) -> Result<(), NumberSubscriptionsError> {
+        let number_of_subscriptions = (11..=25).fake();
+
+        assert_eq!(
+            number_of_subscriptions * 219,
+            get_total_subscription_price(number_of_subscriptions)?
+        );
+
         Ok(())
     }
 
     #[test]
-    fn when_get_10_subscriptions_return_2390_euros() -> Result<(), NumberSubscriptionsError> {
-        assert_eq!(2390, get_total_subscription_price(10)?);
+    fn when_subscriptions_are_between_26_and_50_unit_price_is_199(
+    ) -> Result<(), NumberSubscriptionsError> {
+        let number_of_subscriptions = (26..=50).fake();
+
+        assert_eq!(
+            number_of_subscriptions * 199,
+            get_total_subscription_price(number_of_subscriptions)?
+        );
+
         Ok(())
     }
 
     #[test]
-    fn when_get_11_subscriptions_return_2409_euros() -> Result<(), NumberSubscriptionsError> {
-        assert_eq!(2409, get_total_subscription_price(11)?);
-        Ok(())
-    }
+    fn when_subscriptions_are_more_than_50_unit_price_is_149(
+    ) -> Result<(), NumberSubscriptionsError> {
+        let number_of_subscriptions = (51..1000).fake();
 
-    #[test]
-    fn when_get_25_subscriptions_return_5475_euros() -> Result<(), NumberSubscriptionsError> {
-        assert_eq!(5475, get_total_subscription_price(25)?);
-        Ok(())
-    }
+        assert_eq!(
+            number_of_subscriptions * 149,
+            get_total_subscription_price(number_of_subscriptions)?
+        );
 
-    #[test]
-    fn when_get_26_subscriptions_return_5174_euros() -> Result<(), NumberSubscriptionsError> {
-        assert_eq!(5174, get_total_subscription_price(26)?);
-        Ok(())
-    }
-
-    #[test]
-    fn when_get_50_subscriptions_return_9950_euros() -> Result<(), NumberSubscriptionsError> {
-        assert_eq!(9950, get_total_subscription_price(50)?);
-        Ok(())
-    }
-
-    #[test]
-    fn when_get_51_subscriptions_return_7599_euros() -> Result<(), NumberSubscriptionsError> {
-        assert_eq!(7599, get_total_subscription_price(51)?);
-        Ok(())
-    }
-
-    #[test]
-    fn when_get_52_subscriptions_return_7748_euros() -> Result<(), NumberSubscriptionsError> {
-        assert_eq!(7748, get_total_subscription_price(52)?);
         Ok(())
     }
 

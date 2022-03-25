@@ -5,3 +5,7 @@ edition = "2021"
 
 [dependencies]
 actix-web = "4"
+
+[dev-dependencies]
+fake = "2.4"
+rand = "0.8"
