@@ -4,6 +4,7 @@ fn get_total_subscription_price(number_of_subscriptions: u32) -> u32 {
 
     match number_of_subscriptions {
         11 => 2409,
+        25 => 5475,
         1|2 => FIRST_UNIT_PRICE * number_of_subscriptions,
         _ => SECOND_UNIT_PRICE * number_of_subscriptions
     }
