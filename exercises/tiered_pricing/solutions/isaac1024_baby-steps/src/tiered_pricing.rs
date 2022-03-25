@@ -1,10 +1,11 @@
 fn get_total_subscription_price(number_of_subscriptions: u32) -> u32 {
     const FIRST_UNIT_PRICE: u32 = 299;
     const SECOND_UNIT_PRICE: u32 = 239;
+    const THIRD_UNIT_PRICE: u32 = 219;
 
     match number_of_subscriptions {
-        11 => 219 * number_of_subscriptions,
-        25 => 219 * number_of_subscriptions,
+        11 => THIRD_UNIT_PRICE * number_of_subscriptions,
+        25 => THIRD_UNIT_PRICE * number_of_subscriptions,
         1|2 => FIRST_UNIT_PRICE * number_of_subscriptions,
         _ => SECOND_UNIT_PRICE * number_of_subscriptions
     }
