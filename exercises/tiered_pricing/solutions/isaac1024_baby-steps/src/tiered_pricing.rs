@@ -1,5 +1,7 @@
 fn get_total_subscription_price(number: u32) -> u32 {
-    299
+    const UNIT_PRICE: u32 = 299;
+
+    UNIT_PRICE
 }
 
 #[cfg(test)]
