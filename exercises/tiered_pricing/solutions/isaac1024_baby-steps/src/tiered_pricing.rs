@@ -1,5 +1,5 @@
 fn get_total_subscription_price(number_of_subscriptions: u32) -> u32 {
-    const UNIT_PRICE: u32 = 299;
+    const FIRST_UNIT_PRICE: u32 = 299;
     const SECOND_UNIT_PRICE: u32 = 239;
 
     match number_of_subscriptions {
