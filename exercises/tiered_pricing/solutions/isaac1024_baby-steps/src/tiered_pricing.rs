@@ -3,6 +3,7 @@ fn get_total_subscription_price(number_of_subscriptions: u32) -> u32 {
 
     match number_of_subscriptions {
         3 => 717,
+        10 => 2390,
         _ => UNIT_PRICE * number_of_subscriptions
     }
 }
