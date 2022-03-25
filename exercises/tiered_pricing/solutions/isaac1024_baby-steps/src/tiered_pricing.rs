@@ -1,9 +1,10 @@
 fn get_total_subscription_price(number_of_subscriptions: u32) -> u32 {
     const UNIT_PRICE: u32 = 299;
+    const SECOND_UNIT_PRICE: u32 = 239;
 
     match number_of_subscriptions {
-        3 => number_of_subscriptions * 239,
-        10 => number_of_subscriptions * 239,
+        3 => number_of_subscriptions * SECOND_UNIT_PRICE,
+        10 => number_of_subscriptions * SECOND_UNIT_PRICE,
         _ => UNIT_PRICE * number_of_subscriptions
     }
 }
