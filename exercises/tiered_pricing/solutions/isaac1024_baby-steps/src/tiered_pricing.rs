@@ -1,4 +1,4 @@
-fn get_total_subscription_price(number_of_subscriptions: u32) -> Result<u32, String> {
+fn get_unit_price(number_of_subscriptions: u32) -> Result<u32, String> {
     const FIRST_UNIT_PRICE: u32 = 299;
     const SECOND_UNIT_PRICE: u32 = 239;
     const THIRD_UNIT_PRICE: u32 = 219;
@@ -7,12 +7,16 @@ fn get_total_subscription_price(number_of_subscriptions: u32) -> Result<u32, Str
 
     match number_of_subscriptions {
         0 => Err("Error".to_string()),
-        1|2 => Ok(FIRST_UNIT_PRICE * number_of_subscriptions),
-        3..=10 => Ok(SECOND_UNIT_PRICE * number_of_subscriptions),
-        11..=25 => Ok(THIRD_UNIT_PRICE * number_of_subscriptions),
-        26..=50 => Ok(FOURTH_UNIT_PRICE * number_of_subscriptions),
-        _ => Ok(FIFTH_UNIT_PRICE * number_of_subscriptions),
+        1|2 => Ok(FIRST_UNIT_PRICE),
+        3..=10 => Ok(SECOND_UNIT_PRICE),
+        11..=25 => Ok(THIRD_UNIT_PRICE),
+        26..=50 => Ok(FOURTH_UNIT_PRICE),
+        _ => Ok(FIFTH_UNIT_PRICE),
     }
+}
+
+fn get_total_subscription_price(number_of_subscriptions: u32) -> Result<u32, String> {
+    Ok(number_of_subscriptions * get_unit_price(number_of_subscriptions)?)
 }
 
 #[cfg(test)]
