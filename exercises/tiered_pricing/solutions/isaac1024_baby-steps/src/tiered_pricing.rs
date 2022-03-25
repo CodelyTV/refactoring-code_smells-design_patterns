@@ -1,4 +1,4 @@
-fn get_total_subscription_price(number: u32) -> u32 {
+fn get_total_subscription_price(number_of_subscriptions: u32) -> u32 {
     const UNIT_PRICE: u32 = 299;
 
     UNIT_PRICE
