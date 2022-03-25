@@ -25,4 +25,9 @@ mod tests {
     fn when_get_3_subscriptions_return_717_euros() {
         assert_eq!(717, get_total_subscription_price(3));
     }
+
+    #[test]
+    fn when_get_10_subscriptions_return_2390_euros() {
+        assert_eq!(2390, get_total_subscription_price(10));
+    }
 }
