@@ -7,7 +7,8 @@ public class TieredPricing {
   private enum Tier {
     FIRST(299.0, 1, 2),
     SECOND(239.0, 3, 10),
-    THIRD(219.0, 11, 25);
+    THIRD(219.0, 11, 25),
+    FOURTH(199.0, 26, 50);
 
     final double unitPrice;
     final int startRange;

@@ -42,6 +42,14 @@ public class TieredPricingShould {
     assertThat(totalPrice).isEqualTo(subscriptions * 219.0);
   }
 
+  @ParameterizedTest
+  @MethodSource("rangeFourthTier")
+  void returnTotalPriceForFourthTier(int subscriptions) {
+    double totalPrice = tieredPricing.totalPrice(subscriptions);
+
+    assertThat(totalPrice).isEqualTo(subscriptions * 199.0);
+  }
+
   private static Stream<Integer> rangeFirstTier() {
     return IntStream.rangeClosed(1, 2).boxed();
   }
@@ -52,5 +60,9 @@ public class TieredPricingShould {
 
   private static Stream<Integer> rangeThirdTier() {
     return IntStream.rangeClosed(11, 25).boxed();
+  }
+
+  private static Stream<Integer> rangeFourthTier() {
+    return IntStream.rangeClosed(26, 50).boxed();
   }
 }
