@@ -15,12 +15,16 @@ public class TieredPricing {
   }
 
   public double totalPrice(int subscriptions) {
+    return subscriptions * getTier(subscriptions).unitPrice;
+  }
+
+  private Tier getTier(int subscriptions) {
     if (subscriptions < 3) {
-      return subscriptions * Tier.FIRST.unitPrice;
+      return Tier.FIRST;
     }
     if (subscriptions < 11) {
-      return subscriptions * Tier.SECOND.unitPrice;
+      return Tier.SECOND;
     }
-    return subscriptions * Tier.THIRD.unitPrice;
+    return Tier.THIRD;
   }
 }
