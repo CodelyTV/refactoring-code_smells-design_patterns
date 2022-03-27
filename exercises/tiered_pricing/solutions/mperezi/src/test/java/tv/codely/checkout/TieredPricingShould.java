@@ -2,12 +2,16 @@ package tv.codely.checkout;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class TieredPricingShould {
 
   @Test
-  void unit_test_example() {
-    assertTrue(true);
+  void returnUnitPriceForOneSubscription() {
+    var tieredPricing = new TieredPricing();
+
+    double totalPrice = tieredPricing.totalPrice(1);
+
+    assertThat(totalPrice).isEqualTo(299.0);
   }
 }
