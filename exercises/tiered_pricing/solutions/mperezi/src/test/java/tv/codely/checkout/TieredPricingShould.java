@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TieredPricingShould {
 
   @Test
-  void returnUnitPriceForOneSubscription() {
+  void returnFirstTierUnitPriceForOneSubscription() {
     var tieredPricing = new TieredPricing();
 
     double totalPrice = tieredPricing.totalPrice(1);
@@ -16,7 +16,7 @@ public class TieredPricingShould {
   }
 
   @Test
-  void returnDoubleTheUnitPriceForTwoSubscriptions() {
+  void returnDoubleTheFirstTierUnitPriceForTwoSubscriptions() {
     var tieredPricing = new TieredPricing();
 
     double totalPrice = tieredPricing.totalPrice(2);
@@ -25,7 +25,7 @@ public class TieredPricingShould {
   }
 
   @Test
-  void returnTripleTheUnitPriceForThreeSubscriptions() {
+  void returnTripleTheSecondTierUnitPriceForThreeSubscriptions() {
     var tieredPricing = new TieredPricing();
 
     double totalPrice = tieredPricing.totalPrice(3);
