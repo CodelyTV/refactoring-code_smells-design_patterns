@@ -34,4 +34,11 @@ public class TieredPricingShould {
 
     assertThat(totalPrice).isEqualTo(717.0);
   }
+
+  @Test
+  void returnElevenTimesTheThirdTierUnitPriceForElevenSubscriptions() {
+    double totalPrice = tieredPricing.totalPrice(11);
+
+    assertThat(totalPrice).isEqualTo(2409.0);
+  }
 }
