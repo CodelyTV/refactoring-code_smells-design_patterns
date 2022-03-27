@@ -3,6 +3,7 @@ package tv.codely.checkout;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -48,6 +49,14 @@ public class TieredPricingShould {
     double totalPrice = tieredPricing.totalPrice(subscriptions);
 
     assertThat(totalPrice).isEqualTo(subscriptions * 199.0);
+  }
+
+  @ParameterizedTest
+  @ValueSource(ints = {51, 1000})
+  void returnTotalPriceForLastTier(int subscriptions) {
+    double totalPrice = tieredPricing.totalPrice(subscriptions);
+
+    assertThat(totalPrice).isEqualTo(subscriptions * 149.0);
   }
 
   private static Stream<Integer> rangeFirstTier() {
