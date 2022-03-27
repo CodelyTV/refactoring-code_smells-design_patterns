@@ -14,4 +14,13 @@ public class TieredPricingShould {
 
     assertThat(totalPrice).isEqualTo(299.0);
   }
+
+  @Test
+  void returnDoubleTheUnitPriceForTwoSubscriptions() {
+    var tieredPricing = new TieredPricing();
+
+    double totalPrice = tieredPricing.totalPrice(2);
+
+    assertThat(totalPrice).isEqualTo(598.0);
+  }
 }
