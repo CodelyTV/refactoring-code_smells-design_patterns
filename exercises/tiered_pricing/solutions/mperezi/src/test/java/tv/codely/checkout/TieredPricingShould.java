@@ -25,7 +25,7 @@ public class TieredPricingShould {
     tieredPricing = new TieredPricing();
   }
 
-  @ParameterizedTest
+  @ParameterizedTest(name = "{0} subscriptions should be charged {1} each")
   @MethodSource("tierRanges")
   void returnTotalPriceForEachTier(int subscriptions, double unitPrice) {
     double totalPrice = tieredPricing.totalPrice(subscriptions);
