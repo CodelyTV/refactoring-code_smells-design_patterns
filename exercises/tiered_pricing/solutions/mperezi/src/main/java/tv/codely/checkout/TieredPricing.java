@@ -28,10 +28,6 @@ public class TieredPricing {
   }
 
   public double totalPrice(int subscriptions) {
-    return subscriptions * getTier(subscriptions).unitPrice;
-  }
-
-  private Tier getTier(int subscriptions) {
-    return Tier.of(subscriptions);
+    return subscriptions * Tier.of(subscriptions).unitPrice;
   }
 }
