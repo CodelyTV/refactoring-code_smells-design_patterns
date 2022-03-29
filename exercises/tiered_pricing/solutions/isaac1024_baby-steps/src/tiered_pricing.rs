@@ -142,4 +142,18 @@ mod tests {
 
         assert_eq!(number_of_subscriptions * 149, response.pricing);
     }
+
+    #[actix_web::test]
+    async fn when_send_0_subscriptions_return_bad_request() {
+        let app =
+            test::init_service(App::new().route("/pricing", web::get().to(tiered_pricing))).await;
+
+        let request = test::TestRequest::get()
+            .uri("/pricing?subscriptions=0")
+            .to_request();
+
+        let response = test::call_service(&app, request).await;
+
+        assert!(response.status().is_client_error())
+    }
 }
