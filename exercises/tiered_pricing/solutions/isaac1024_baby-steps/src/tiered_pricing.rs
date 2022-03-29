@@ -1,4 +1,15 @@
+use actix_web::{HttpResponse, Responder};
+use serde::{Deserialize, Serialize};
 use std::fmt;
+
+#[derive(Serialize, Deserialize)]
+struct Subscriptions {
+    pricing: u32,
+}
+
+pub async fn tiered_pricing() -> impl Responder {
+    HttpResponse::Ok().json(Subscriptions { pricing: 0 })
+}
 
 type SubscriptionResult<T> = Result<T, NumberSubscriptionsError>;
 
@@ -34,11 +45,12 @@ fn get_total_subscription_price(number_of_subscriptions: u32) -> SubscriptionRes
 
 #[cfg(test)]
 mod tests {
-    use crate::tiered_pricing::{get_total_subscription_price, NumberSubscriptionsError};
+    use super::*;
+    use actix_web::{test, web, App};
     use fake::Fake;
 
     #[test]
-    fn when_subscriptions_are_between_1_and_2_unit_price_is_299(
+    async fn when_subscriptions_are_between_1_and_2_unit_price_is_299(
     ) -> Result<(), NumberSubscriptionsError> {
         let number_of_subscriptions = (1..=2).fake();
 
@@ -51,7 +63,7 @@ mod tests {
     }
 
     #[test]
-    fn when_subscriptions_are_between_3_and_10_unit_price_is_239(
+    async fn when_subscriptions_are_between_3_and_10_unit_price_is_239(
     ) -> Result<(), NumberSubscriptionsError> {
         let number_of_subscriptions = (3..=10).fake();
 
@@ -64,7 +76,7 @@ mod tests {
     }
 
     #[test]
-    fn when_subscriptions_are_between_11_and_25_unit_price_is_219(
+    async fn when_subscriptions_are_between_11_and_25_unit_price_is_219(
     ) -> Result<(), NumberSubscriptionsError> {
         let number_of_subscriptions = (11..=25).fake();
 
@@ -77,7 +89,7 @@ mod tests {
     }
 
     #[test]
-    fn when_subscriptions_are_between_26_and_50_unit_price_is_199(
+    async fn when_subscriptions_are_between_26_and_50_unit_price_is_199(
     ) -> Result<(), NumberSubscriptionsError> {
         let number_of_subscriptions = (26..=50).fake();
 
@@ -90,7 +102,7 @@ mod tests {
     }
 
     #[test]
-    fn when_subscriptions_are_more_than_50_unit_price_is_149(
+    async fn when_subscriptions_are_more_than_50_unit_price_is_149(
     ) -> Result<(), NumberSubscriptionsError> {
         let number_of_subscriptions = (51..1000).fake();
 
@@ -103,7 +115,23 @@ mod tests {
     }
 
     #[test]
-    fn when_get_0_subscriptions_return_error() {
+    async fn when_get_0_subscriptions_return_error() {
         assert!(get_total_subscription_price(0).is_err());
+    }
+
+    #[actix_web::test]
+    async fn when_send_n_subscriptions_return_price() {
+        let number_of_subscriptions: u32 = (51..1000).fake();
+
+        let app =
+            test::init_service(App::new().route("/pricing", web::get().to(tiered_pricing))).await;
+
+        let request = test::TestRequest::get()
+            .uri(format!("/pricing?subscriptions={}", number_of_subscriptions).as_str())
+            .to_request();
+
+        let response: Subscriptions = test::call_and_read_body_json(&app, request).await;
+
+        assert_eq!(number_of_subscriptions * 149, response.pricing);
     }
 }

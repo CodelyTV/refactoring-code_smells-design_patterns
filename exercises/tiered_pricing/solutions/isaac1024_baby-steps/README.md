@@ -1,8 +1,8 @@
-# Rust base skeleton for TDD katas
+# Tiered pricing kata with rust
 
 ## Run app
 
-`make up` default url: http://localhost:8000/health-check
+`make up` url example: http://localhost:8000/pricing?subscriptions=1
 
 ## Run tests
 
