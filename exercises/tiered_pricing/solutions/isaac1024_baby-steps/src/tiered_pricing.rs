@@ -1,14 +1,22 @@
-use actix_web::{HttpResponse, Responder};
+use actix_web::{web, HttpResponse, Responder};
 use serde::{Deserialize, Serialize};
 use std::fmt;
+
+#[derive(Deserialize)]
+pub struct Pricing {
+    subscriptions: u32,
+}
 
 #[derive(Serialize, Deserialize)]
 struct Subscriptions {
     pricing: u32,
 }
 
-pub async fn tiered_pricing() -> impl Responder {
-    HttpResponse::Ok().json(Subscriptions { pricing: 0 })
+pub async fn tiered_pricing(pricing: web::Query<Pricing>) -> impl Responder {
+    let total_price = get_total_subscription_price(pricing.subscriptions).unwrap();
+    HttpResponse::Ok().json(Subscriptions {
+        pricing: total_price,
+    })
 }
 
 type SubscriptionResult<T> = Result<T, NumberSubscriptionsError>;
