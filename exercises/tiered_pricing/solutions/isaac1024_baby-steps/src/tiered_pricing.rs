@@ -12,11 +12,20 @@ struct Subscriptions {
     pricing: u32,
 }
 
+#[derive(Serialize, Deserialize)]
+struct BadRequestMessage {
+    error_message: String,
+}
+
 pub async fn tiered_pricing(pricing: web::Query<Pricing>) -> impl Responder {
-    let total_price = get_total_subscription_price(pricing.subscriptions).unwrap();
-    HttpResponse::Ok().json(Subscriptions {
-        pricing: total_price,
-    })
+    match get_total_subscription_price(pricing.subscriptions) {
+        Ok(total_price) => HttpResponse::Ok().json(Subscriptions {
+            pricing: total_price,
+        }),
+        Err(error) => HttpResponse::BadRequest().json(BadRequestMessage {
+            error_message: error.to_string(),
+        }),
+    }
 }
 
 type SubscriptionResult<T> = Result<T, NumberSubscriptionsError>;
