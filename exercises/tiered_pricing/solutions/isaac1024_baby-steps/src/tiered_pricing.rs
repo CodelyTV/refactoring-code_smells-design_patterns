@@ -3,13 +3,13 @@ use serde::{Deserialize, Serialize};
 use std::fmt;
 
 #[derive(Deserialize)]
-pub struct Pricing {
+pub struct TieredPricingQuery {
     subscriptions: u32,
 }
 
 #[derive(Serialize, Deserialize)]
-struct Subscriptions {
-    pricing: u32,
+struct TieredPricingResponse {
+    total_price: u32,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -17,11 +17,9 @@ struct BadRequestMessage {
     error_message: String,
 }
 
-pub async fn tiered_pricing(pricing: web::Query<Pricing>) -> impl Responder {
+pub async fn tiered_pricing(pricing: web::Query<TieredPricingQuery>) -> impl Responder {
     match get_total_subscription_price(pricing.subscriptions) {
-        Ok(total_price) => HttpResponse::Ok().json(Subscriptions {
-            pricing: total_price,
-        }),
+        Ok(total_price) => HttpResponse::Ok().json(TieredPricingResponse { total_price }),
         Err(error) => HttpResponse::BadRequest().json(BadRequestMessage {
             error_message: error.to_string(),
         }),
@@ -147,9 +145,9 @@ mod tests {
             .uri(format!("/pricing?subscriptions={}", number_of_subscriptions).as_str())
             .to_request();
 
-        let response: Subscriptions = test::call_and_read_body_json(&app, request).await;
+        let response: TieredPricingResponse = test::call_and_read_body_json(&app, request).await;
 
-        assert_eq!(number_of_subscriptions * 149, response.pricing);
+        assert_eq!(number_of_subscriptions * 149, response.total_price);
     }
 
     #[actix_web::test]

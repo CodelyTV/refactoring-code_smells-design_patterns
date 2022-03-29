@@ -1,5 +1,5 @@
-mod routes;
 mod health_check;
+mod routes;
 mod tiered_pricing;
 
 use actix_web::{App, HttpServer};
@@ -14,17 +14,13 @@ fn get_address() -> String {
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    let server = HttpServer::new( || {
-            App::new()
-                .configure(routes)
-        })
-        .bind(get_address());
+    let server = HttpServer::new(|| App::new().configure(routes)).bind(get_address());
 
     match server {
         Ok(server) => {
             println!("🚀 Server running at {}", get_address());
             server.run().await
         }
-        Err(_) => panic!("🔥 Coul not start the server at {}", get_address())
+        Err(_) => panic!("🔥 Could not start the server at {}", get_address()),
     }
 }
