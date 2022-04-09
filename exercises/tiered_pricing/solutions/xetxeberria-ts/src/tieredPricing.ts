@@ -1,3 +1,11 @@
+const priceTiers = [
+  { minAmount: 1, unitPrice: 299 },
+  { minAmount: 3, unitPrice: 239 },
+  { minAmount: 11, unitPrice: 219 },
+  { minAmount: 26, unitPrice: 199 },
+  { minAmount: 51, unitPrice: 149 },
+];
+
 export function tieredPricing(licenseAmount: number): number {
   const licensePrice = calculateLicensePrice(licenseAmount);
 
@@ -5,12 +13,8 @@ export function tieredPricing(licenseAmount: number): number {
 }
 
 function calculateLicensePrice(licenseAmount: number): number {
-  let licensePrice = 299;
-
-  if (licenseAmount >= 3) licensePrice = 239;
-  if (licenseAmount >= 11) licensePrice = 219;
-  if (licenseAmount >= 26) licensePrice = 199;
-  if (licenseAmount >= 51) licensePrice = 149;
-
-  return licensePrice;
+  const applicableTier = priceTiers
+    .filter((tier) => licenseAmount >= tier.minAmount)
+    .pop();
+  return applicableTier?.unitPrice || 299;
 }
