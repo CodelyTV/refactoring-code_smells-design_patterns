@@ -28,4 +28,8 @@ describe("TieredPricing should", () => {
   test("return 0 for 0 licenses", async () => {
     expect(tieredPricing(0)).toBe(0);
   });
+
+  test("throw an error if the license amount is negative", async () => {
+    expect(() => tieredPricing(-1)).toThrow(Error);
+  });
 });

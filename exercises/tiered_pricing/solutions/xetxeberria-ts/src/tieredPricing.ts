@@ -7,6 +7,11 @@ const priceTiers = [
 ];
 
 export function tieredPricing(licenseAmount: number): number {
+  if (licenseAmount < 0)
+    throw new Error(
+      "Invalid license amount. License amount can not be negative"
+    );
+
   const licensePrice = calculateLicensePrice(licenseAmount);
 
   return licensePrice * licenseAmount;
