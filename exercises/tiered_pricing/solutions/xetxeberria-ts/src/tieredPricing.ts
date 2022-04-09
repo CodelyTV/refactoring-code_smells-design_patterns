@@ -12,6 +12,9 @@ function calculateLicensePrice(licenseAmount: number): number {
   if (licenseAmount >= 11) {
     licensePrice = 219;
   }
+  if (licenseAmount >= 26) {
+    licensePrice = 199;
+  }
 
   return licensePrice;
 }
