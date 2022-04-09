@@ -13,8 +13,9 @@ export function tieredPricing(licenseAmount: number): number {
 }
 
 function calculateLicensePrice(licenseAmount: number): number {
+  const defaultUnitPrice = 299;
   const applicableTier = priceTiers
     .filter((tier) => licenseAmount >= tier.minAmount)
     .pop();
-  return applicableTier?.unitPrice || 299;
+  return applicableTier?.unitPrice || defaultUnitPrice;
 }
