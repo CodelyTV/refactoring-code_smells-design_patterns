@@ -1,3 +1,3 @@
-export function tieredPricing(num: number) {
+export function tieredPricing(licenseAmount: number): number {
   return 299;
 }
