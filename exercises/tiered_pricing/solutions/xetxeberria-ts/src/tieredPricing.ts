@@ -1,4 +1,8 @@
 export function tieredPricing(licenseAmount: number): number {
-  const licensePrice = 299;
+  let licensePrice = 299;
+  if (licenseAmount >= 3) {
+    licensePrice = 239;
+  }
+
   return licensePrice * licenseAmount;
 }

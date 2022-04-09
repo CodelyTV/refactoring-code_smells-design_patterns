@@ -8,4 +8,8 @@ describe("TieredPricing should", () => {
   test("return 598 for two licenses", async () => {
     expect(tieredPricing(2)).toBe(598);
   });
+
+  test("return 717 for three licenses", async () => {
+    expect(tieredPricing(3)).toBe(717);
+  });
 });
