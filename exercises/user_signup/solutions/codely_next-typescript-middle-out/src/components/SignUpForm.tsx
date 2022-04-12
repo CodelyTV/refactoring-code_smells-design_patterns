@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { signUpUser } from "../services/signUpUser";
 import { Input } from "./Input";
 
 type FormStatus = "success" | "error" | "initial"
@@ -6,9 +7,13 @@ type FormStatus = "success" | "error" | "initial"
 export function SignUpForm() {
   const [formStatus, setFormStatus] = useState<FormStatus>("initial")
 
-  function handleSubmit(ev: React.FormEvent) {
+  async function handleSubmit(ev: React.FormEvent) {
     ev.preventDefault()
-    setFormStatus("success")
+    const data = new FormData(ev.target as HTMLFormElement);
+    const entries = Object.fromEntries(data.entries()) as { [key: string]: string };
+
+    await signUpUser({name: entries.name, email: entries.email});
+    setFormStatus("success");
   }
 
   if (formStatus === "success") {
