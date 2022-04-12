@@ -11,6 +11,7 @@ const mockSignUpUser = signUpUser as jest.Mock<Promise<void>>;
 describe("SignUpForm component", () => {
   it("displays success message after correct submission", async () => {
     render(<SignUpForm />);
+    mockSignUpUser.mockResolvedValue();
 
     const nameField = screen.getByLabelText(/name/i);
     const emailField = screen.getByLabelText(/email/i);

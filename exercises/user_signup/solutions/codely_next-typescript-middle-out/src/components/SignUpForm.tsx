@@ -12,8 +12,13 @@ export function SignUpForm() {
     const data = new FormData(ev.target as HTMLFormElement);
     const entries = Object.fromEntries(data.entries()) as { [key: string]: string };
 
-    await signUpUser({name: entries.name, email: entries.email});
-    setFormStatus("success");
+    return signUpUser({name: entries.name, email: entries.email})
+      .then(() => {
+        setFormStatus("success");
+      })
+      .catch(() => {
+        setFormStatus("error");
+      });
   }
 
   if (formStatus === "success") {
@@ -23,6 +28,9 @@ export function SignUpForm() {
   }
 
   return (<form onSubmit={handleSubmit}>
+    {
+      formStatus === "error" && (<div>An error ocurred. Please try again</div>)
+    }
     <Input label="Name" id="name" />
     <Input type="email" label="Email" id="email"  />
     <button type="submit">Submit</button>
