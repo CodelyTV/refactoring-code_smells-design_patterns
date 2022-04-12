@@ -3,15 +3,23 @@ import { render, screen } from "@testing-library/react";
 
 import { SignUpForm } from "../../src/components/SignUpForm";
 
+import { signUpUser } from "../../src/services/signUpUser";
+
+jest.mock("../../src/services/signUpUser.ts");
+const mockSignUpUser = signUpUser as jest.Mock<Promise<void>>;
+
 describe("SignUpForm component", () => {
   it("displays success message after correct submission", async () => {
     render(<SignUpForm />);
-    
+
     const nameField = screen.getByLabelText(/name/i);
     const emailField = screen.getByLabelText(/email/i);
+
+    const name = "Jane Doe";
+    const email = "jane@gmail.com";
     
-    userEvent.type(nameField, "Jane Doe")
-    userEvent.type(emailField, "jane@gmail.com")
+    userEvent.type(nameField, name)
+    userEvent.type(emailField, email)
 
     const button = screen.getByRole("button", { name: /submit/i })
     userEvent.click(button)
@@ -19,5 +27,6 @@ describe("SignUpForm component", () => {
     const successMessage = await screen.findByText(/thank you/i)
 
     expect(successMessage).toBeInTheDocument();
+    expect(mockSignUpUser).toHaveBeenCalledWith({ name, email })
   });
 });
