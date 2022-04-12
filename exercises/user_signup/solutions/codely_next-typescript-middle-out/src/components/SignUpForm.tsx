@@ -1,24 +1,15 @@
-import React, { useState } from "react";
-import { signUpUser } from "../services/signUpUser";
 import { Input } from "./Input";
-
-type FormStatus = "success" | "error" | "initial"
+import { useSignUpUser } from "./useSignUpUser";
 
 export function SignUpForm() {
-  const [formStatus, setFormStatus] = useState<FormStatus>("initial")
+  const {formStatus, signUp} = useSignUpUser();
 
   async function handleSubmit(ev: React.FormEvent) {
     ev.preventDefault()
     const data = new FormData(ev.target as HTMLFormElement);
     const entries = Object.fromEntries(data.entries()) as { [key: string]: string };
 
-    return signUpUser({name: entries.name, email: entries.email})
-      .then(() => {
-        setFormStatus("success");
-      })
-      .catch(() => {
-        setFormStatus("error");
-      });
+    return signUp({name: entries.name, email: entries.email});
   }
 
   if (formStatus === "success") {
