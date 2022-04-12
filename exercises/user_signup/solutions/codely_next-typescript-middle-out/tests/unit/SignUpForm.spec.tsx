@@ -29,4 +29,25 @@ describe("SignUpForm component", () => {
     expect(successMessage).toBeInTheDocument();
     expect(mockSignUpUser).toHaveBeenCalledWith({ name, email })
   });
+
+  it("displays error message after submission fails", async () => {
+    render(<SignUpForm />);
+    mockSignUpUser.mockRejectedValue(new Error());
+
+    const nameField = screen.getByLabelText(/name/i);
+    const emailField = screen.getByLabelText(/email/i);
+
+    const name = "Jane Doe";
+    const email = "jane@gmail.com";
+
+    userEvent.type(nameField, name)
+    userEvent.type(emailField, email)
+
+    const button = screen.getByRole("button", { name: /submit/i })
+    userEvent.click(button)
+
+    const errorMessage = await screen.findByText(/an error ocurred/i)
+
+    expect(errorMessage).toBeInTheDocument();
+  });
 });
