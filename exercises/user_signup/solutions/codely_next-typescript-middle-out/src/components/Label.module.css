@@ -1,0 +1,10 @@
+.label {
+  display: block;
+  margin: 1rem 0 .5rem;
+  font: 1rem/1.5 sans-serif;
+}
+
+.label--hidden {
+  position: absolute;
+  visibility: hidden;
+}
