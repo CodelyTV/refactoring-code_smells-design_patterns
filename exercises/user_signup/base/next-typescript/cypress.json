@@ -1,0 +1,16 @@
+{
+  "baseUrl": "http://localhost:3000",
+  "video": false,
+  "reporter": "junit",
+  "viewportWidth": 1920,
+  "viewportHeight": 1080,
+  "chromeWebSecurity": false,
+  "fixturesFolder": "tests/pages/fixtures",
+  "integrationFolder": "tests/pages",
+  "pluginsFile": "tests/pages/plugins/index.js",
+  "screenshotsFolder": "tests/pages/screenshots",
+  "videosFolder": "tests/pages/videos",
+  "downloadsFolder": "tests/pages/downloads",
+  "supportFile": "tests/pages/support/index.ts",
+  "testFiles": "**/*.spec.ts"
+}
