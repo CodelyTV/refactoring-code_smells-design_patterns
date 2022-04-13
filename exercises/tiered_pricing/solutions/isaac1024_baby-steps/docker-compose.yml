@@ -1,0 +1,14 @@
+version: '3'
+services:
+  api:
+    container_name: rust-api
+    build:
+      context: docker/rust
+      dockerfile: Dockerfile
+    ports:
+      - ${API_PORT}:${API_PORT}
+    env_file:
+      - .env
+    volumes:
+      - ./:/app/
+    command: "cargo watch -x 'run -- --bin api'"
