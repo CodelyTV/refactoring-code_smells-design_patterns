@@ -1,0 +1,28 @@
+.input {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  font: 1.125rem/1.55 sans-serif;
+  background: #fff;
+  border: 1px solid #b1b1b1;
+  border-radius: .25rem;
+
+}
+.input--small {
+  padding: .5rem .75rem;
+}
+
+.input--medium {
+  height: 3.75rem;
+  padding: .75rem 1.25rem;
+}
+
+.input[type="number"] {
+  appearance: textfield;
+}
+
+.input::-webkit-outer-spin-button,
+.input::-webkit-inner-spin-button {
+  margin: 0;
+  appearance: none;
+}

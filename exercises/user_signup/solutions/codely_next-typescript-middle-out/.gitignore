@@ -1,0 +1,4 @@
+.next
+node_modules
+tests/pages/screenshots
+test-results.xml
