@@ -31,6 +31,7 @@ final class VideoCreator
             "hexagonal" => "Hexagonal",
             "solid" => "SOLID",
             "tdd" => "TDD",
+            "frontend" => "Front-end",
         ];
 
         foreach ($replacements as $search => $replace) {
