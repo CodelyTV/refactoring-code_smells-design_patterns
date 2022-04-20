@@ -6,7 +6,7 @@ namespace AppBundle\Repository;
 
 use Doctrine\DBAL\Connection;
 
-final class MySqlVideoRepository
+class MySqlVideoRepository
 {
     /**
      * @var Connection
