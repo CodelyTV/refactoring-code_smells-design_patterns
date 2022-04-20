@@ -20,7 +20,7 @@ class VideoControllerTest extends WebTestCase
         $client = $this->getClient(true);
 
         $client->request('POST', '/videos.json', [
-            'title' => 'Testing en frontend',
+            'title' => 'Arquitectura hexagonal, solid y tdd',
             'url' => 'https://pro.codely.tv/library/testing-frontend',
             'course_id' => 5
         ]);
@@ -28,7 +28,7 @@ class VideoControllerTest extends WebTestCase
 
         $this->assertJsonResponse($response);
         $expectedId = "1";
-        $expectedTitle = "Testing en frontend";
+        $expectedTitle = "Arquitectura Hexagonal, SOLID y TDD";
         $expectedUrl = "https://pro.codely.tv/library/testing-frontend";
         $expectedCourseId = 5;
         $expectedResponse = [
