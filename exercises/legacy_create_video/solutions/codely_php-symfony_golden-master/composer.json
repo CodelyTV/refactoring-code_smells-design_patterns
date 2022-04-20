@@ -22,13 +22,15 @@
         "nelmio/api-doc-bundle": "^2.4",
         "friendsofsymfony/http-cache-bundle": "^1.0",
         "willdurand/hateoas-bundle": "^1.0",
+        "willdurand/rest-extra-bundle": "^1.0",
         "hautelook/templated-uri-bundle": "^2.0",
-        "willdurand/rest-extra-bundle": "^1.0"
+        "ext-pdo": "*",
+        "ext-json": "*"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",
-        "phpunit/phpunit": "^5.6",
-        "mockery/mockery": "^0.9.5"
+        "mockery/mockery": "^0.9.5",
+        "phpunit/phpunit": "^5.7"
     },
     "scripts": {
         "post-install-cmd": [

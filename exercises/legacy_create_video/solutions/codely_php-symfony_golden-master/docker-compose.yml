@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  php:
+    build: .
+    volumes:
+      - ./:/var/www/html
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_USER: coupled_code
+      MYSQL_PASSWORD: coupled_code
+      MYSQL_DATABASE: coupled_code
+      MYSQL_ROOT_PASSWORD: coupled_code
+    ports:
+      - "3306:3306"
