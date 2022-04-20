@@ -21,15 +21,7 @@ class VideoController extends BaseController
         $url = $request->get('url');
         $courseId = $request->get('course_id');
 
-        if (strpos($title, "hexagonal")) {
-            $title = str_replace("hexagonal", "Hexagonal", $title);
-        }
-        if (strpos($title, "solid")) {
-            $title = str_replace("solid", "SOLID", $title);
-        }
-        if (strpos($title, "tdd")) {
-            $title = str_replace("tdd", "TDD", $title);
-        }
+        $title = $this->sanitizeTitle($title);
 
         $sql  = "INSERT INTO video (title, url, course_id) 
                 VALUES (\"{$title}\",
@@ -52,5 +44,19 @@ class VideoController extends BaseController
             'url'       => $url,
             'course_id' => $courseId,
         ];
+    }
+
+    private function sanitizeTitle(string $title): string
+    {
+        if (strpos($title, "hexagonal")) {
+            $title = str_replace("hexagonal", "Hexagonal", $title);
+        }
+        if (strpos($title, "solid")) {
+            $title = str_replace("solid", "SOLID", $title);
+        }
+        if (strpos($title, "tdd")) {
+            $title = str_replace("tdd", "TDD", $title);
+        }
+        return $title;
     }
 }
