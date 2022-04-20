@@ -20,22 +20,9 @@ class VideoController extends BaseController
         $title = $request->get('title');
         $url = $request->get('url');
         $courseId = $request->get('course_id');
-
-        $title = $this->sanitizeTitle($title);
-
-        $sql  = "INSERT INTO video (title, url, course_id) 
-                VALUES (\"{$title}\",
-                        \"{$url}\",
-                        {$courseId}
-                )";
-
-        // Prepare doctrine statement
         $connection = $this->getDoctrine()->getConnection();
-        $stmt = $connection->prepare($sql);
-        $stmt->execute();
 
-        // IMPORTANT: Obtaining the video id. Take care, it's done without another query :)
-        $videoId = $connection->lastInsertId();
+        list($title, $videoId) = $this->createVideo($title, $url, $courseId, $connection);
 
         // And we return the video created
         return [
@@ -58,5 +45,24 @@ class VideoController extends BaseController
             $title = str_replace("tdd", "TDD", $title);
         }
         return $title;
+    }
+
+    private function createVideo($title, $url, $courseId, object $connection): array
+    {
+        $title = $this->sanitizeTitle($title);
+
+        $sql = "INSERT INTO video (title, url, course_id) 
+                VALUES (\"{$title}\",
+                        \"{$url}\",
+                        {$courseId}
+                )";
+
+        // Prepare doctrine statement
+        $stmt = $connection->prepare($sql);
+        $stmt->execute();
+
+        // IMPORTANT: Obtaining the video id. Take care, it's done without another query :)
+        $videoId = $connection->lastInsertId();
+        return array($title, $videoId);
     }
 }
