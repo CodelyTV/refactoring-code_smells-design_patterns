@@ -4,9 +4,19 @@ declare(strict_types=1);
 
 namespace AppBundle\Application;
 
+use Doctrine\DBAL\Connection;
+
 final class VideoCreator
 {
-    public function createVideo($title, $url, $courseId, object $connection): array
+    /** @var Connection */
+    private $connection;
+
+    public function __construct($connection)
+    {
+        $this->connection = $connection;
+    }
+
+    public function createVideo($title, $url, $courseId): array
     {
         $title = $this->sanitizeTitle($title);
 
@@ -17,11 +27,11 @@ final class VideoCreator
                 )";
 
         // Prepare doctrine statement
-        $stmt = $connection->prepare($sql);
+        $stmt = $this->connection->prepare($sql);
         $stmt->execute();
 
         // IMPORTANT: Obtaining the video id. Take care, it's done without another query :)
-        $videoId = $connection->lastInsertId();
+        $videoId = $this->connection->lastInsertId();
         return array($title, $videoId);
     }
 

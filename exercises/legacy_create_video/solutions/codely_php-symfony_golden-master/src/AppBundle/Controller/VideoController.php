@@ -11,14 +11,6 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class VideoController extends BaseController
 {
-    /** @var VideoCreator */
-    private $videoCreator;
-
-    public function __construct()
-    {
-        $this->videoCreator = new VideoCreator();
-    }
-
     /**
      * Method used to create a new video
      * @todo Validate the request
@@ -30,8 +22,9 @@ class VideoController extends BaseController
         $url = $request->get('url');
         $courseId = $request->get('course_id');
         $connection = $this->getDoctrine()->getConnection();
+        $videoCreator = new VideoCreator($connection);
 
-        list($title, $videoId) = $this->videoCreator->createVideo($title, $url, $courseId, $connection);
+        list($title, $videoId) = $videoCreator->createVideo($title, $url, $courseId);
 
         // And we return the video created
         return [
