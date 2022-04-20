@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Application\VideoCreator;
+use AppBundle\Repository\MySqlVideoRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -22,7 +23,7 @@ class VideoController extends BaseController
         $url = $request->get('url');
         $courseId = $request->get('course_id');
         $connection = $this->getDoctrine()->getConnection();
-        $videoCreator = new VideoCreator($connection);
+        $videoCreator = new VideoCreator(new MySqlVideoRepository($connection));
 
         list($title, $videoId) = $videoCreator->createVideo($title, $url, $courseId);
 

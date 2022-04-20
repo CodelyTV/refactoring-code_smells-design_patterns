@@ -4,23 +4,23 @@ declare(strict_types=1);
 
 namespace AppBundle\Application;
 
-use Doctrine\DBAL\Connection;
+use AppBundle\Repository\MySqlVideoRepository;
 
 final class VideoCreator
 {
-    /** @var Connection */
-    private $connection;
+    /** @var MySqlVideoRepository */
+    private $repository;
 
-    public function __construct($connection)
+    public function __construct(MySqlVideoRepository $repository)
     {
-        $this->connection = $connection;
+        $this->repository = $repository;
     }
 
     public function createVideo($title, $url, $courseId): array
     {
         $title = $this->sanitizeTitle($title);
 
-        $videoId = $this->save($title, $url, $courseId);
+        $videoId = $this->repository->save($title, $url, $courseId);
 
         return array($title, $videoId);
     }
@@ -37,22 +37,5 @@ final class VideoCreator
             $title = str_replace("tdd", "TDD", $title);
         }
         return $title;
-    }
-
-    private function save(string $title, $url, $courseId): string
-    {
-        $sql = "INSERT INTO video (title, url, course_id) 
-                VALUES (\"{$title}\",
-                        \"{$url}\",
-                        {$courseId}
-                )";
-
-        // Prepare doctrine statement
-        $stmt = $this->connection->prepare($sql);
-        $stmt->execute();
-
-        // IMPORTANT: Obtaining the video id. Take care, it's done without another query :)
-        $videoId = $this->connection->lastInsertId();
-        return $videoId;
     }
 }
