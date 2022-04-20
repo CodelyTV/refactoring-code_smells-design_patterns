@@ -31,7 +31,7 @@ class VideoController extends BaseController
         $courseId = $request->get('course_id');
         $connection = $this->getDoctrine()->getConnection();
 
-        list($title, $videoId) = $this->createVideo($title, $url, $courseId, $connection);
+        list($title, $videoId) = $this->videoCreator->createVideo($title, $url, $courseId, $connection);
 
         // And we return the video created
         return [
@@ -42,8 +42,4 @@ class VideoController extends BaseController
         ];
     }
 
-    private function createVideo($title, $url, $courseId, object $connection): array
-    {
-        return $this->videoCreator->createVideo($title, $url, $courseId, $connection);
-    }
 }
