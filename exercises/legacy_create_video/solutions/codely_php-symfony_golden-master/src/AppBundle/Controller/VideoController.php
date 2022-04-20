@@ -17,10 +17,24 @@ class VideoController extends BaseController
     public function postVideoAction(Request $request)
     {
         // Preparing the sql to create the video
+        $title = $request->get('title');
+        $url = $request->get('url');
+        $courseId = $request->get('course_id');
+
+        if (strpos($title, "hexagonal")) {
+            $title = str_replace("hexagonal", "Hexagonal", $title);
+        }
+        if (strpos($title, "solid")) {
+            $title = str_replace("solid", "SOLID", $title);
+        }
+        if (strpos($title, "tdd")) {
+            $title = str_replace("tdd", "TDD", $title);
+        }
+
         $sql  = "INSERT INTO video (title, url, course_id) 
-                VALUES (\"{$request->get('title')}\",
-                        \"{$request->get('url')}\",
-                        {$request->get('course_id')}
+                VALUES (\"{$title}\",
+                        \"{$url}\",
+                        {$courseId}
                 )";
 
         // Prepare doctrine statement
@@ -31,26 +45,12 @@ class VideoController extends BaseController
         // IMPORTANT: Obtaining the video id. Take care, it's done without another query :)
         $videoId = $connection->lastInsertId();
 
-        $title = $request->get('title');
-        $sql = "UPDATE video SET ";
-        if (strpos($request->get('title'), "hexagonal")) {
-            $title = str_replace("hexagonal", "Hexagonal", $title);
-        }
-        if (strpos($request->get('title'), "solid")) {
-            $title = str_replace("solid", "SOLID", $title);
-        }
-        if (strpos($request->get('title'), "tdd")) {
-            $title = str_replace("tdd", "TDD", $title);
-        }
-        $sql .= "title = '" . $title . "' WHERE id = " . $videoId;
-        $connection->query($sql);
-
         // And we return the video created
         return [
             'id'        => $videoId,
             'title'     => $title,
-            'url'       => $request->get('url'),
-            'course_id' => $request->get('course_id'),
+            'url'       => $url,
+            'course_id' => $courseId,
         ];
     }
 }
