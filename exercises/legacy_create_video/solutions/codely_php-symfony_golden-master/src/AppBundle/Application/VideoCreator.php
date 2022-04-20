@@ -27,15 +27,18 @@ final class VideoCreator
 
     private function sanitizeTitle(string $title): string
     {
-        if (strpos($title, "hexagonal")) {
-            $title = str_replace("hexagonal", "Hexagonal", $title);
+        $replacements = [
+            "hexagonal" => "Hexagonal",
+            "solid" => "SOLID",
+            "tdd" => "TDD",
+        ];
+
+        foreach ($replacements as $search => $replace) {
+            if (strpos($title, $search)) {
+                $title = str_replace($search, $replace, $title);
+            }
         }
-        if (strpos($title, "solid")) {
-            $title = str_replace("solid", "SOLID", $title);
-        }
-        if (strpos($title, "tdd")) {
-            $title = str_replace("tdd", "TDD", $title);
-        }
+
         return $title;
     }
 }
