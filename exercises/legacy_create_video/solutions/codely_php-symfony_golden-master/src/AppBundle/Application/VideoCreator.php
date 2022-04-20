@@ -20,18 +20,8 @@ final class VideoCreator
     {
         $title = $this->sanitizeTitle($title);
 
-        $sql = "INSERT INTO video (title, url, course_id) 
-                VALUES (\"{$title}\",
-                        \"{$url}\",
-                        {$courseId}
-                )";
+        $videoId = $this->save($title, $url, $courseId);
 
-        // Prepare doctrine statement
-        $stmt = $this->connection->prepare($sql);
-        $stmt->execute();
-
-        // IMPORTANT: Obtaining the video id. Take care, it's done without another query :)
-        $videoId = $this->connection->lastInsertId();
         return array($title, $videoId);
     }
 
@@ -47,5 +37,22 @@ final class VideoCreator
             $title = str_replace("tdd", "TDD", $title);
         }
         return $title;
+    }
+
+    private function save(string $title, $url, $courseId): string
+    {
+        $sql = "INSERT INTO video (title, url, course_id) 
+                VALUES (\"{$title}\",
+                        \"{$url}\",
+                        {$courseId}
+                )";
+
+        // Prepare doctrine statement
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute();
+
+        // IMPORTANT: Obtaining the video id. Take care, it's done without another query :)
+        $videoId = $this->connection->lastInsertId();
+        return $videoId;
     }
 }
