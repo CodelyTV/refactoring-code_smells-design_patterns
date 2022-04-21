@@ -11,6 +11,8 @@ public class TieredPricing {
 
         if (amount_subscriptions == 3) return 717;
 
+        if (amount_subscriptions == 4) return 956;
+
         return 0;
     }
 }
