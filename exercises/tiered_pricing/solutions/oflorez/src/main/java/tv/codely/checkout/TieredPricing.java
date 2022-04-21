@@ -10,10 +10,16 @@ public class TieredPricing {
     public static final int SECOND_RANGE_LOWER_LIMIT = 3;
     public static final int SECOND_RANGE_UPPER_LIMIT = 10;
 
+    public static final int THIRD_RANGE_UNIT_PRICE = 219;
+    public static final int THIRD_RANGE_LOWER_LIMIT = 11;
+    public static final int THIRD_RANGE_UPPER_LIMIT = 25;
+
     public int calculateTotalPrice(int amount_subscriptions) {
         if (amount_subscriptions >= FIRST_RANGE_LOWER_LIMIT && amount_subscriptions<= FIRST_RANGE_UPPER_LIMIT) return amount_subscriptions * FIRST_RANGE_UNIT_PRICE;
 
         if (amount_subscriptions >= SECOND_RANGE_LOWER_LIMIT && amount_subscriptions<= SECOND_RANGE_UPPER_LIMIT) return amount_subscriptions * SECOND_RANGE_UNIT_PRICE;
+
+        if (amount_subscriptions >= THIRD_RANGE_LOWER_LIMIT && amount_subscriptions<= THIRD_RANGE_UPPER_LIMIT) return amount_subscriptions * THIRD_RANGE_UNIT_PRICE;
 
         return 0;
     }
