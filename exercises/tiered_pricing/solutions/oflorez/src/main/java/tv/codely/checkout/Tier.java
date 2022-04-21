@@ -5,7 +5,9 @@ public enum Tier {
 
     FIRST(1,2,299),
     SECOND(3,10,239),
-    THIRD(11,25,219);
+    THIRD(11,25,219),
+    FOURTH(26,50,199),
+    FIFTH(51,Integer.MAX_VALUE,149);
 
     private final int lowerLimit;
     private final int upperLimit;

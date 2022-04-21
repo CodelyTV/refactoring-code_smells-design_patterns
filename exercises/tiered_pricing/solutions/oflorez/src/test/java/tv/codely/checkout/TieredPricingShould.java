@@ -32,6 +32,22 @@ public class TieredPricingShould {
         assertEquals(calculateTotalPriceExpected(tier.getUnitPrice(), subscription), pricing.calculateTotalPrice(subscription));
     }
 
+    @Test
+    void calculate_total_value_for_fourth_pricing_tier() {
+        var pricing = new TieredPricing();
+        var tier = Tier.FOURTH;
+        var subscription = retrieveSubscriptionGivenTier(tier);
+        assertEquals(calculateTotalPriceExpected(tier.getUnitPrice(), subscription), pricing.calculateTotalPrice(subscription));
+    }
+
+    @Test
+    void calculate_total_value_for_fifth_pricing_tier() {
+        var pricing = new TieredPricing();
+        var tier = Tier.FIFTH;
+        var subscription = retrieveSubscriptionGivenTier(tier);
+        assertEquals(calculateTotalPriceExpected(tier.getUnitPrice(), subscription), pricing.calculateTotalPrice(subscription));
+    }
+
     private int retrieveSubscriptionGivenTier(Tier tier) {
         return IntStream.rangeClosed(tier.getLowerLimit(), tier.getUpperLimit()).findAny().getAsInt();
     }
