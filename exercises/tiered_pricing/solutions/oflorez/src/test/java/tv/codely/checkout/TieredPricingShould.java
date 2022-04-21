@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TieredPricingShould {
 
@@ -46,6 +47,13 @@ public class TieredPricingShould {
         var tier = Tier.FIFTH;
         var subscription = retrieveSubscriptionGivenTier(tier);
         assertEquals(calculateTotalPriceExpected(tier.getUnitPrice(), subscription), pricing.calculateTotalPrice(subscription));
+    }
+
+    @Test
+    void throws_illegal_argument_when_subscription_be_non_positive_value() {
+        var pricing = new TieredPricing();
+        var subscription = IntStream.rangeClosed(-100000, 0).findAny().getAsInt();
+        assertThrows(IllegalArgumentException.class, () ->  pricing.calculateTotalPrice(subscription));
     }
 
     private int retrieveSubscriptionGivenTier(Tier tier) {
