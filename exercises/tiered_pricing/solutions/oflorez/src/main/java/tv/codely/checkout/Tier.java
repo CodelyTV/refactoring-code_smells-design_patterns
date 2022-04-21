@@ -1,7 +1,7 @@
 package tv.codely.checkout;
 
 
-public enum Tier {
+enum Tier {
 
     FIRST(1,2,299),
     SECOND(3,10,239),
@@ -19,19 +19,19 @@ public enum Tier {
         this.unitPrice = unitPrice;
     }
 
-    public int getLowerLimit() {
+    int getLowerLimit() {
         return lowerLimit;
     }
 
-    public int getUpperLimit() {
+    int getUpperLimit() {
         return upperLimit;
     }
 
-    public int getUnitPrice() {
+    int getUnitPrice() {
         return unitPrice;
     }
 
-    public static int getTotalPrice(int subscriptions) {
+    static int getTotalPrice(int subscriptions) {
         var found = FIRST;
         for (Tier tier : values()) {
             if ( subscriptions >= tier.lowerLimit && subscriptions <= tier.upperLimit) {
