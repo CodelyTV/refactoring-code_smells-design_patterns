@@ -26,8 +26,8 @@ public class TieredPricingShould {
     @Test
     void calculate_total_value_for_third_pricing_range() {
         var pricing = new TieredPricing();
-        var subscription = retrieveSubscriptionGivenRange(11,25);
-        assertEquals(calculateTotalPriceExpected(219, subscription), pricing.calculateTotalPrice(subscription));
+        var subscription = retrieveSubscriptionGivenRange(THIRD_RANGE_LOWER_LIMIT,THIRD_RANGE_UPPER_LIMIT);
+        assertEquals(calculateTotalPriceExpected(THIRD_RANGE_UNIT_PRICE, subscription), pricing.calculateTotalPrice(subscription));
     }
 
     private int retrieveSubscriptionGivenRange(int lowerLimit, int upperLimit) {
