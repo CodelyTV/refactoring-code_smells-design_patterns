@@ -15,4 +15,10 @@ public class TieredPricingShould {
         var subscription = IntStream.rangeClosed(FIRST_RANGE_LOWER_LIMIT, FIRST_RANGE_UPPER_LIMIT).findAny().getAsInt();
         assertEquals(FIRST_RANGE_UNIT_PRICE * subscription, pricing.calculateTotalPrice(subscription));
 	}
+
+    @Test
+    void calculate_total_value_for_3_subscription() {
+        var pricing = new TieredPricing();
+        assertEquals(717, pricing.calculateTotalPrice(3));
+    }
 }
