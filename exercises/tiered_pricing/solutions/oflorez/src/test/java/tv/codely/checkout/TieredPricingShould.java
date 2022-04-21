@@ -11,4 +11,11 @@ public class TieredPricingShould {
         var pricing = new TieredPricing();
         assertEquals(299, pricing.calculateTotalPrice(1));
 	}
+
+    @Test
+    void return_total_price_299_for_2_subscription() {
+        var pricing = new TieredPricing();
+        assertEquals(598, pricing.calculateTotalPrice(2));
+    }
+
 }
