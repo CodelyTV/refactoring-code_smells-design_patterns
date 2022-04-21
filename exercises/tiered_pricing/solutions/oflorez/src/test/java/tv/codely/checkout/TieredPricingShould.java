@@ -2,20 +2,17 @@ package tv.codely.checkout;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.stream.IntStream;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static tv.codely.checkout.TieredPricing.*;
 
 public class TieredPricingShould {
 
     @Test
-	void return_total_price_299_for_1_subscription() {
+	void calculate_total_value_for_first_pricing_range() {
         var pricing = new TieredPricing();
-        assertEquals(299, pricing.calculateTotalPrice(1));
+        var subscription = IntStream.rangeClosed(FIRST_RANGE_LOWER_LIMIT, FIRST_RANGE_UPPER_LIMIT).findAny().getAsInt();
+        assertEquals(FIRST_RANGE_UNIT_PRICE * subscription, pricing.calculateTotalPrice(subscription));
 	}
-
-    @Test
-    void return_total_price_299_for_2_subscription() {
-        var pricing = new TieredPricing();
-        assertEquals(598, pricing.calculateTotalPrice(2));
-    }
-
 }
