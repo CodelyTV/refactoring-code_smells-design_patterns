@@ -1,0 +1,43 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+services:
+    # Needed since Since symfony/dependency-injection 5.1
+    Symfony\Component\DependencyInjection\ContainerInterface: '@service_container'
+
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        public: false
+
+    _instanceof:
+        App\Shared\Application\Query\QueryHandlerInterface:
+            public: true
+            tags:
+                - { name: messenger.message_handler, bus: messenger.bus.query }
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../../src/*'
+        exclude: '../src/**/{Migrations,EventSubscriber}'
+
+    # controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base controller class
+    App\Checkout\Infrastructure\Http\Controller\:
+        resource: '../../src/Checkout/Infrastructure/Http/Controller/*'
+        tags: ['controller.service_arguments']
+
+    App\Shared\Infrastructure\Bus\Query\MessengerQueryBus:
+        arguments:
+            - '@messenger.bus.query'
+
+    App\Shared\Infrastructure\Symfony\Exception\ApiExceptionListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception }
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
