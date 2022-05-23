@@ -1,0 +1,23 @@
+version: '3.7'
+
+services:
+
+  # APP SERVICES
+  php-fpm:
+    build:
+      target: development
+      context: .
+      dockerfile: ./docker/php-fpm/Dockerfile
+    volumes:
+      - ./src/:/opt/app/
+      - "./docker/php-fpm/conf/php-fpm.conf:/etc/php-fpm.conf"
+      - "./docker/php-fpm/conf/php.ini:/usr/local/etc/php/conf.d/100-php.ini"
+
+  nginx:
+    build: docker/nginx
+    volumes:
+      - "./docker/nginx/conf/project.conf:/etc/nginx/conf.d/00-project.conf"
+    depends_on:
+      - php-fpm
+    ports:
+      - 80:80

@@ -1,0 +1,14 @@
+default:
+    suites:
+        default:
+          paths:
+            -  "%paths.base%/tests/Functional/Features/Tweet.feature"
+          filters:
+          contexts:
+            - App\Tests\Functional\Contexts\TweetContext
+
+    extensions:
+        FriendsOfBehat\SymfonyExtension:
+            bootstrap: 'config/behat/bootstrap.php'
+            kernel:
+                environment: test

@@ -1,0 +1,12 @@
+framework:
+    test: true
+
+services:
+    _defaults:
+        autoconfigure: true
+        autowire: true
+
+    Symfony\Contracts\HttpClient: '@http.client'
+
+    App\Tests\Functional\Contexts\TweetContext:
+        public: true
