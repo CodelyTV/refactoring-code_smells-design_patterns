@@ -1,0 +1,36 @@
+{
+  "name": "typescript-basic-skeleton",
+  "version": "2.0.0",
+  "description": "Bootstrap your new TypeScript project with the bare minimum dependencies",
+  "scripts": {
+    "lint": "eslint --ignore-path .gitignore . --ext .ts",
+    "lint:fix": "npm run lint -- --fix",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodelyTV/typescript-basic-skeleton.git"
+  },
+  "author": "codelytv",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CodelyTV/typescript-basic-skeleton/issues"
+  },
+  "homepage": "https://github.com/CodelyTV/typescript-basic-skeleton#readme",
+  "devDependencies": {
+    "@swc/core": "^1.2.172",
+    "@swc/jest": "^0.2.20",
+    "@types/jest": "^27.4.1",
+    "@typescript-eslint/eslint-plugin": "^5.21.0",
+    "@typescript-eslint/parser": "^5.21.0",
+    "eslint": "^8.14.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jest": "^26.1.5",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "jest": "^28.0.1",
+    "prettier": "^2.6.2",
+    "typescript": "^4.6.3"
+  }
+}
