@@ -1,3 +1,4 @@
+import { InvalidUnitException } from "../src/InvalidUnitException";
 import { Subscription } from "../src/Subscription";
 
 describe("Subscription", () => {
@@ -12,7 +13,7 @@ describe("Subscription", () => {
   });
 
   it("can be calculate subscription price of 2 unit", () => {
-    const subscription = new Subscription(1);
+    const subscription = new Subscription(2);
 
     expect(subscription.getTotalPrice()).toBe(598);
   });
@@ -39,5 +40,9 @@ describe("Subscription", () => {
     const subscription = new Subscription(68);
 
     expect(subscription.getTotalPrice()).toBe(10132);
+  });
+
+  it("should be throw InvalidUnitException", () => {
+    expect(() => new Subscription(-1)).toThrow(InvalidUnitException);
   });
 });
