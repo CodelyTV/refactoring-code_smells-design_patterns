@@ -18,7 +18,7 @@ public class TieredSubscriptionsExamples {
     }
 
     public static Subscriptions tierFive(){
-        return Subscriptions.by(random(50,100));
+        return Subscriptions.by(random(51,100));
     }
 
     private static int random(int min, int max){
