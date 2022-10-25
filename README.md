@@ -32,7 +32,7 @@
 
 These are what we could consider as potential bad practices. Things such as long methods, nested conditionals, feature envy, and so on 😊
 
-The different Code Smells are grouped based on the following taxonomy ([source](http://mikamantyla.eu/BadCodeSmellsTaxonomy.html)) where you will find each one of the single examples:
+The different Code Smells are grouped based on the following taxonomy ([source](https://mmantyla.github.io/BadCodeSmellsTaxonomy)) where you will find each one of the single examples:
 
 * Bloaters: Something that has grown so large that it cannot be effectively handled
 * Object-Orientation Abusers: Solutions that does not fully exploit the possibilities of object-oriented design
