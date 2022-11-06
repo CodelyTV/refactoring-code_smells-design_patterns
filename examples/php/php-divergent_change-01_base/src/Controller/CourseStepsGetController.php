@@ -18,13 +18,8 @@ final class CourseStepsGetController
     public function get(string $courseId): string
     {
         $csv = $this->platform->findCourseSteps($courseId);
-        if (empty($csv)) {
-            return '[]';
-        }
-        $csvLines = explode(PHP_EOL, $csv);
-        $steps = $this->createSteps($csvLines);
-        $resultString = $this->serialize($steps);
-        return $resultString;
+        $steps = $this->createSteps($csv);
+        return $this->serialize($steps);
     }
 
     private function serialize(array $steps): string
@@ -33,12 +28,12 @@ final class CourseStepsGetController
         foreach ($steps as $step) {
             $results[] = json_encode($step, JSON_THROW_ON_ERROR);
         }
-        $resultString = '[' . implode(',', $results) . ']';
-        return $resultString;
+        return '[' . implode(',', $results) . ']';
     }
 
-    private function createSteps(array $csvLines): array
+    private function createSteps(string $csv): array
     {
+        $csvLines = explode(PHP_EOL, $csv);
         $steps = [];
         foreach ($csvLines as $row) {
             $row = str_getcsv($row);
