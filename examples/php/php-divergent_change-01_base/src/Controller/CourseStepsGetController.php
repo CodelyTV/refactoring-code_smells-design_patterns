@@ -18,6 +18,9 @@ final class CourseStepsGetController
     public function get(string $courseId): string
     {
         $csv = $this->platform->findCourseSteps($courseId);
+        if (empty($csv)) {
+            return '[]';
+        }
 
         $results = '[';
 
@@ -26,9 +29,7 @@ final class CourseStepsGetController
         foreach ($csvLines as $index => $row) {
             $row = str_getcsv($row);
 
-            if (empty($csv)) {
-                continue;
-            }
+
 
             $type = $row[1];
             if ($type !== 'video' && $type !== 'quiz') {
