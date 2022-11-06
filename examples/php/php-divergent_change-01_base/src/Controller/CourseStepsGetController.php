@@ -8,6 +8,13 @@ use CodelyTv\DivergentChange\Platform;
 
 final class CourseStepsGetController
 {
+    private const VIDEO_TYPE = 'video';
+    private const QUIZ_TYPE = 'quiz';
+    private const DURATION_VIDEO_MINUTES = 1.1;
+    private const DURATION_QUIZ_MINUTES = 0.5;
+    private const VIDEO_POINTS_PER_MINUTE = 100;
+    private const QUIZ_POINTS_PER_MINUTE = 10;
+
     private Platform $platform;
 
     public function __construct(Platform $platform)
@@ -38,7 +45,7 @@ final class CourseStepsGetController
         foreach ($csvLines as $row) {
             $row = str_getcsv($row);
             $type = $row[1];
-            if ($type !== 'video' && $type !== 'quiz') {
+            if (in_array($type, [self::VIDEO_TYPE, self::QUIZ_TYPE], true)) {
                 continue;
             }
 
@@ -54,27 +61,19 @@ final class CourseStepsGetController
         return $steps;
     }
 
-    private function duration(string $type, $durationVideo, $durationQuiz): float
+    private function duration(string $type, float $durationVideo, float $durationQuiz): float
     {
-        $duration = 0;
-        if ($type === 'video') {
-            $duration = $durationVideo * 1.1; // 1.1 = due to video pauses
+        if ($type === self::VIDEO_TYPE) {
+            return $durationVideo * self::DURATION_VIDEO_MINUTES;
         }
-        if ($type === 'quiz') {
-            $duration = $durationQuiz * 0.5; // 0.5 = time in minutes per question
-        }
-        return $duration;
+        return $durationQuiz * self::DURATION_QUIZ_MINUTES;
     }
 
-    private function points(string $type, $durationVideo, $durationQuiz): float
+    private function points(string $type, float $durationVideo, float $durationQuiz): float
     {
-        $points = 0;
-        if ($type === 'video') {
-            $points = $durationVideo * 1.1 * 100;
+        if ($type === self::VIDEO_TYPE) {
+            return $durationVideo * self::DURATION_VIDEO_MINUTES * self::VIDEO_POINTS_PER_MINUTE;
         }
-        if ($type === 'quiz') {
-            $points = $durationQuiz * 0.5 * 10;
-        }
-        return $points;
+        return $durationQuiz * self::DURATION_QUIZ_MINUTES * self::QUIZ_POINTS_PER_MINUTE;
     }
 }
