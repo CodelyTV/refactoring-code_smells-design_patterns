@@ -22,31 +22,29 @@ final class CourseStepsGetController
             return '[]';
         }
 
-        $results = '[';
-
         $csvLines = explode(PHP_EOL, $csv);
 
-        foreach ($csvLines as $index => $row) {
+        $steps = [];
+        foreach ($csvLines as $row) {
             $row = str_getcsv($row);
             $type = $row[1];
             if ($type !== 'video' && $type !== 'quiz') {
                 continue;
             }
 
-            $id = $row[0];
-            $durationVideo = $row[3];
-            $durationQuiz = $row[2];
+            $durationInitialVideo = $row[3];
+            $durationInitialQuiz = $row[2];
+            $steps[] = [
+                'id' => $row[0],
+                'type' => $type,
+                'duration' => $this->duration($type, $durationInitialVideo, $durationInitialQuiz),
+                'points' => $this->points($type, $durationInitialVideo, $durationInitialQuiz)
+            ];
+        }
 
-            $results .= json_encode(
-                [
-                    'id' => $id,
-                    'type' => $type,
-                    'duration' => $this->duration($type, $durationVideo, $durationQuiz),
-                    'points' => $this->points($type, $durationVideo, $durationQuiz)
-                ],
-                JSON_THROW_ON_ERROR
-            );
-
+        $results = '[';
+        foreach ($steps as $index => $step) {
+            $results .= json_encode($step, JSON_THROW_ON_ERROR);
             if ($index !== count($csvLines) - 1) {
                 $results .= ',';
             }
