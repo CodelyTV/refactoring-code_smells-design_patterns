@@ -21,9 +21,24 @@ final class CourseStepsGetController
         if (empty($csv)) {
             return '[]';
         }
-
         $csvLines = explode(PHP_EOL, $csv);
+        $steps = $this->createSteps($csvLines);
+        $resultString = $this->serialize($steps);
+        return $resultString;
+    }
 
+    private function serialize(array $steps): string
+    {
+        $results = [];
+        foreach ($steps as $step) {
+            $results[] = json_encode($step, JSON_THROW_ON_ERROR);
+        }
+        $resultString = '[' . implode(',', $results) . ']';
+        return $resultString;
+    }
+
+    private function createSteps(array $csvLines): array
+    {
         $steps = [];
         foreach ($csvLines as $row) {
             $row = str_getcsv($row);
@@ -41,15 +56,7 @@ final class CourseStepsGetController
                 'points' => $this->points($type, $durationInitialVideo, $durationInitialQuiz)
             ];
         }
-
-        $results = [];
-        foreach ($steps as $step) {
-            $results[] = json_encode($step, JSON_THROW_ON_ERROR);
-        }
-
-        $resultString = '[' . implode(',', $results) . ']';
-
-        return $resultString;
+        return $steps;
     }
 
     private function duration(string $type, $durationVideo, $durationQuiz): float
