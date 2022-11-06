@@ -42,17 +42,14 @@ final class CourseStepsGetController
             ];
         }
 
-        $results = '[';
-        foreach ($steps as $index => $step) {
-            $results .= json_encode($step, JSON_THROW_ON_ERROR);
-            if ($index !== count($csvLines) - 1) {
-                $results .= ',';
-            }
+        $results = [];
+        foreach ($steps as $step) {
+            $results[] = json_encode($step, JSON_THROW_ON_ERROR);
         }
 
-        $results .= ']';
+        $resultString = '[' . implode(',', $results) . ']';
 
-        return $results;
+        return $resultString;
     }
 
     private function duration(string $type, $durationVideo, $durationQuiz): float
