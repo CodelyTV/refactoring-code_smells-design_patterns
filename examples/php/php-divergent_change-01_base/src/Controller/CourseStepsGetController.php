@@ -30,16 +30,19 @@ final class CourseStepsGetController
                 continue;
             }
 
-            $type     = $row[1];
+            $id = $row[0];
+            $type = $row[1];
+            $durationVideo = $row[3];
+            $durationQuiz = $row[2];
+
             $duration = 0;
             $points   = 0;
 
             if ($type === 'video') {
-                $duration = $row[3] * 1.1; // 1.1 = due to video pauses
+                $duration = $durationVideo * 1.1; // 1.1 = due to video pauses
             }
-
             if ($type === 'quiz') {
-                $duration = $row[2] * 0.5; // 0.5 = time in minutes per question
+                $duration = $durationQuiz * 0.5; // 0.5 = time in minutes per question
             }
 
             if ($type !== 'video' && $type !== 'quiz') {
@@ -47,17 +50,17 @@ final class CourseStepsGetController
             }
 
             if ($type === 'video') {
-                $points = $row[3] * 1.1 * 100;
+                $points = $durationVideo * 1.1 * 100;
             }
 
             if ($type === 'quiz') {
-                $points = $row[2] * 0.5 * 10;
+                $points = $durationQuiz * 0.5 * 10;
             }
 
             $results .= json_encode(
                 [
-                    'id' => $row[0],
-                    'type' => $row[1],
+                    'id' => $id,
+                    'type' => $type,
                     'duration' => $duration,
                     'points' => $points
                 ],
