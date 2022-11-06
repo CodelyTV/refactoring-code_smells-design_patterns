@@ -3,6 +3,7 @@ import { LowStock } from "../src/LowStock"
 import { NotEnoughStock } from "../src/NotEnoughStock"
 import { OutOfStock } from "../src/OutOfStock"
 
+const MAX_STOCK = 50;
 describe('flower stock management', () => {
 
     it('should add a flower to the stock', () => {
@@ -34,7 +35,7 @@ describe('flower stock management', () => {
     })
 
     it('should reach low stock when getting a single flower from a stock of 50', () => {
-        const stockFlowerIds = makeFlowerIds(50)
+        const stockFlowerIds = makeFlowerIds(MAX_STOCK)
         const stock = new FlowerStock(stockFlowerIds)
 
         stock.get()
@@ -46,7 +47,7 @@ describe('flower stock management', () => {
     })
 
     it('should not reach low stock when getting a single flower from a stock greater than 50', () => {
-        const flowerIds = makeFlowerIds(51)
+        const flowerIds = makeFlowerIds(MAX_STOCK + 1)
         const stock = new FlowerStock(flowerIds)
 
         stock.get()
@@ -71,10 +72,9 @@ describe('flower stock management', () => {
     })
 
     it('should reach low stock when getting multiple flowers and the limit of 50 is exceeded', () => {
-        const lowStockLevel = 50
         const unitsToLowStock = 5
         const unitsToGetFromTheStock = 6
-        const totalStock = lowStockLevel + unitsToLowStock
+        const totalStock = MAX_STOCK + unitsToLowStock
         const stockFlowerIds = makeFlowerIds(totalStock)
         const stock = new FlowerStock(stockFlowerIds)
 
@@ -87,10 +87,9 @@ describe('flower stock management', () => {
     })
 
     it('should not reach low stock when getting multiple flowers and the limit of 50 is not exceeded', () => {
-        const lowStockLimit = 50
         const unitsToLowStock = 5
         const unitsToGetFromTheStock = 5
-        const totalStock = lowStockLimit + unitsToLowStock
+        const totalStock = MAX_STOCK + unitsToLowStock
         const flowerIds = makeFlowerIds(totalStock)
         const stock = new FlowerStock(flowerIds)
 
@@ -119,10 +118,9 @@ describe('flower stock management', () => {
 
 
     it('should reach low stock when removing dead flowers and the limit of 50 is exceeded', () => {
-        const lowStockLevel = 50
         const unitsToLowStock = 5
         const totalDeadFlowers = 6
-        const totalStock = lowStockLevel + unitsToLowStock
+        const totalStock = MAX_STOCK + unitsToLowStock
         const stockFlowerIds = makeFlowerIds(totalStock)
         const stock = new FlowerStock(stockFlowerIds)
 
@@ -136,10 +134,9 @@ describe('flower stock management', () => {
     })
 
     it('should not reach low stock when removing flowers and the limit of 50 is not exceeded', () => {
-        const lowStockLimit = 50
         const unitsToLowStock = 5
         const totalDeadFlowers = 5
-        const totalStock = lowStockLimit + unitsToLowStock
+        const totalStock = MAX_STOCK + unitsToLowStock
         const flowerIds = makeFlowerIds(totalStock)
         const stock = new FlowerStock(flowerIds)
 
