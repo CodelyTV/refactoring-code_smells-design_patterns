@@ -30,8 +30,12 @@ final class CourseStepsGetController
                 continue;
             }
 
-            $id = $row[0];
             $type = $row[1];
+            if ($type !== 'video' && $type !== 'quiz') {
+                continue;
+            }
+
+            $id = $row[0];
             $durationVideo = $row[3];
             $durationQuiz = $row[2];
 
@@ -45,9 +49,6 @@ final class CourseStepsGetController
                 $duration = $durationQuiz * 0.5; // 0.5 = time in minutes per question
             }
 
-            if ($type !== 'video' && $type !== 'quiz') {
-                continue;
-            }
 
             if ($type === 'video') {
                 $points = $durationVideo * 1.1 * 100;
