@@ -13,9 +13,11 @@ class TierPriceCalculatorServiceTest {
   final TierPriceCalculatorService service = new TierPriceCalculatorService();
 
   private static Stream<Arguments> generateArgumentsForLicenses() {
-    // This is used to give the case to our ParameterizedTest
+    // This is used to give the case to our ParameterizedTest if
+    // you want to add new case, just add the arguments
     return Stream.of(arguments(1, 299),
-        arguments(2, 598));
+        arguments(2, 598),
+        arguments(3, 837));
   }
 
   @ParameterizedTest(name = "Calculate the total price for {0} licenses")
