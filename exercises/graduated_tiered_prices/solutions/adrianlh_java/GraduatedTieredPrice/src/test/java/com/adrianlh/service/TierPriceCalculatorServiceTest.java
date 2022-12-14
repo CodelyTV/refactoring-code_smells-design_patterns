@@ -19,7 +19,8 @@ class TierPriceCalculatorServiceTest {
         arguments(2, 598),
         arguments(3, 837),
         arguments(11, 2729),
-        arguments(26, 5994));
+        arguments(26, 5994),
+        arguments(51, 10919));
   }
 
   @ParameterizedTest(name = "Calculate the total price for {0} licenses")
