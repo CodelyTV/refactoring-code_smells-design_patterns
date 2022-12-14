@@ -14,4 +14,11 @@ class TierPriceCalculatorServiceTest {
     Assertions.assertThat(total).isEqualTo(299);
 
   }
+
+  @Test
+  void calculatePriceTwoLicenses() {
+    final Integer numberOfLicenses = 2;
+    final Integer total = service.calculateTieredPrice(numberOfLicenses);
+    Assertions.assertThat(total).isEqualTo(598);
+  }
 }
