@@ -10,9 +10,12 @@ public class TierPriceCalculatorService {
     final Integer totalPrice;
     if (numberOfLicenses <= 2) {
       totalPrice = TIER_ONE_PRICE * numberOfLicenses;
-    } else {
+    } else if (numberOfLicenses <= 10) {
       totalPrice = TIER_ONE_PRICE * TIER_ONE_MAX_UNITS + TIER_TWO_PRICE * (numberOfLicenses
           - TIER_ONE_MAX_UNITS);
+    } else {
+      totalPrice = TIER_ONE_PRICE * TIER_ONE_MAX_UNITS + TIER_TWO_PRICE * (numberOfLicenses
+          - TIER_ONE_MAX_UNITS - 1) + 219 * (numberOfLicenses - 10);
     }
     return totalPrice;
   }
