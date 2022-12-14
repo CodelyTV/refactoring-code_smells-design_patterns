@@ -3,6 +3,6 @@ package com.adrianlh.service;
 public class TierPriceCalculatorService {
 
   public Integer calculateTieredPrice(final Integer numberOfLicenses) {
-    return 299;
+    return 299 * numberOfLicenses;
   }
 }
