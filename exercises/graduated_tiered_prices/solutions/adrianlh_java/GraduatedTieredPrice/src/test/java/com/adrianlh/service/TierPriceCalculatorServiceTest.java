@@ -18,7 +18,8 @@ class TierPriceCalculatorServiceTest {
     return Stream.of(arguments(1, 299),
         arguments(2, 598),
         arguments(3, 837),
-        arguments(11, 2729));
+        arguments(11, 2729),
+        arguments(26, 5994));
   }
 
   @ParameterizedTest(name = "Calculate the total price for {0} licenses")
