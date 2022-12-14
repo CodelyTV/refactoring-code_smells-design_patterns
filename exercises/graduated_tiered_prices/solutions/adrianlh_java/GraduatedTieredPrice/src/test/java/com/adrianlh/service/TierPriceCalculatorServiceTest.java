@@ -1,24 +1,29 @@
 package com.adrianlh.service;
 
+import static org.junit.jupiter.params.provider.Arguments.arguments;
+
+import java.util.stream.Stream;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 class TierPriceCalculatorServiceTest {
 
   final TierPriceCalculatorService service = new TierPriceCalculatorService();
 
-  @Test
-  void calculatePriceOneLicense() {
-    final Integer numberOfLicenses = 1;
+  private static Stream<Arguments> generateArgumentsForLicenses() {
+    // This is used to give the case to our ParameterizedTest
+    return Stream.of(arguments(1, 299),
+        arguments(2, 598));
+  }
+
+  @ParameterizedTest(name = "Calculate the total price for {0} licenses")
+  @MethodSource("generateArgumentsForLicenses")
+  void calculatePriceOneLicense(final Integer numberOfLicenses, final Integer expectedTotal) {
     final Integer total = service.calculateTieredPrice(numberOfLicenses);
-    Assertions.assertThat(total).isEqualTo(299);
+    Assertions.assertThat(total).isEqualTo(expectedTotal);
 
   }
 
-  @Test
-  void calculatePriceTwoLicenses() {
-    final Integer numberOfLicenses = 2;
-    final Integer total = service.calculateTieredPrice(numberOfLicenses);
-    Assertions.assertThat(total).isEqualTo(598);
-  }
 }
