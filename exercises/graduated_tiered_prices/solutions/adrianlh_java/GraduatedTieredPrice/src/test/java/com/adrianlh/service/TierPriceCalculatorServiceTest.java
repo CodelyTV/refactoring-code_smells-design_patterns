@@ -17,7 +17,8 @@ class TierPriceCalculatorServiceTest {
     // you want to add new case, just add the arguments
     return Stream.of(arguments(1, 299),
         arguments(2, 598),
-        arguments(3, 837));
+        arguments(3, 837),
+        arguments(11, 2729));
   }
 
   @ParameterizedTest(name = "Calculate the total price for {0} licenses")
