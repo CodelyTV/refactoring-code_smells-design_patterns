@@ -1,17 +1,17 @@
 package tv.codely.checkout;
 
-import java.util.List;
+import java.util.Set;
 
 public final class SubscriptionTiers {
 
-    private final List<SubscriptionTier> tiers;
+    private final Set<SubscriptionTier> tiers;
 
-    public SubscriptionTiers(List<SubscriptionTier> tiers) {
+    public SubscriptionTiers(final Set<SubscriptionTier> tiers) {
         validate(tiers);
         this.tiers = tiers;
     }
 
-    private static void validate(final List<SubscriptionTier> tiers) {
+    private static void validate(final Set<SubscriptionTier> tiers) {
         if (tiers == null || tiers.isEmpty()) {
             throw new InvalidSubscriptionTiers("There must be at least one subscription tier");
         }
@@ -25,19 +25,18 @@ public final class SubscriptionTiers {
         }
     }
 
-    private SubscriptionTier findSuitableTier(int subscriptions) {
+    private SubscriptionTier findSuitableTier(int numberOfSubscriptions) {
         return tiers.stream()
-            .filter(tier -> tier.isInRange(subscriptions))
+            .filter(tier -> tier.isInRange(numberOfSubscriptions))
             .findFirst()
-            .orElseThrow(() -> new InvalidSubscriptionTiers(
-                "There is no subscription tier for " + subscriptions + " subscriptions"));
+            .orElseThrow(() -> new PriceNotFound(numberOfSubscriptions));
     }
 
-    public double getTotalPrice(int subscriptions) {
-        return findSuitableTier(subscriptions).getTotalPrice(subscriptions);
+    public double getTotalPrice(int numberOfSubscriptions) {
+        return findSuitableTier(numberOfSubscriptions).getTotalPrice(numberOfSubscriptions);
     }
 
-    public double getBasePrice(int subscriptions) {
-        return findSuitableTier(subscriptions).unitPrice();
+    public double getBasePrice(int numberOfSubscriptions) {
+        return findSuitableTier(numberOfSubscriptions).unitPrice();
     }
 }

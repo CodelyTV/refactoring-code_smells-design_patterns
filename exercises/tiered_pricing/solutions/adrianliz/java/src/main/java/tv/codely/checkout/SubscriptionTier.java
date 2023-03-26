@@ -23,10 +23,6 @@ public final class SubscriptionTier {
         return range.isLast();
     }
 
-    public boolean isAfter(final SubscriptionTier other) {
-        return range.isAfter(other.range);
-    }
-
     public boolean isInRange(int numberOfSubscriptions) {
         return this.range.isSuitableFor(numberOfSubscriptions);
     }

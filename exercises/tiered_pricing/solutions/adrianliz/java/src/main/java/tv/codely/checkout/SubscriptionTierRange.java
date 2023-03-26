@@ -63,10 +63,6 @@ public final class SubscriptionTierRange {
         return numberOfSubscriptionsTo == Integer.MAX_VALUE;
     }
 
-    public boolean isAfter(final SubscriptionTierRange other) {
-        return numberOfSubscriptionsFrom > other.numberOfSubscriptionsTo;
-    }
-
     public boolean isSuitableFor(int numberOfSubscriptions) {
         return numberOfSubscriptions >= numberOfSubscriptionsFrom
             && numberOfSubscriptions <= numberOfSubscriptionsTo;
