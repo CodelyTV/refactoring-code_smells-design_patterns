@@ -10,25 +10,6 @@ public class TieredPricing {
         this.subscriptionTiers = subscriptionTiers;
     }
 
-    public TieredPricing() {
-        this(List.of(
-            new SubscriptionTier(
-                new SubscriptionTierRange(1, 2),
-                new SubscriptionTierPrice(299)),
-            new SubscriptionTier(
-                new SubscriptionTierRange(3, 10),
-                new SubscriptionTierPrice(239)),
-            new SubscriptionTier(
-                new SubscriptionTierRange(11, 25),
-                new SubscriptionTierPrice(219)),
-            new SubscriptionTier(
-                new SubscriptionTierRange(26, 50),
-                new SubscriptionTierPrice(199)),
-            new SubscriptionTier(
-                new SubscriptionTierRange(51, 100),
-                new SubscriptionTierPrice(149))));
-    }
-
     public double getTotalPrice(int subscriptions) {
         return subscriptionTiers.stream()
             .filter(subscriptionTier -> subscriptionTier.isInRange(subscriptions))

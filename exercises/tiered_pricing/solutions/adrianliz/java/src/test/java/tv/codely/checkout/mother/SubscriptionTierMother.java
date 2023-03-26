@@ -18,7 +18,7 @@ public final class SubscriptionTierMother {
     public static List<SubscriptionTier> randoms() {
         final var subscriptionTierRanges = SubscriptionTierRangeMother.randoms();
         final var previousSubscriptionTierPrice = new AtomicReference<>(299D);
-        
+
         return subscriptionTierRanges.stream()
             .map(range -> {
                 final var subscriptionTierPrice =
@@ -26,7 +26,7 @@ public final class SubscriptionTierMother {
                         previousSubscriptionTierPrice.get().intValue() - 60,
                         previousSubscriptionTierPrice.get().intValue() - 20);
                 previousSubscriptionTierPrice.set(subscriptionTierPrice);
-                return create(range, new SubscriptionTierPrice(subscriptionTierPrice));
+                return create(range, SubscriptionTierPriceMother.create(subscriptionTierPrice));
             })
             .toList();
     }
