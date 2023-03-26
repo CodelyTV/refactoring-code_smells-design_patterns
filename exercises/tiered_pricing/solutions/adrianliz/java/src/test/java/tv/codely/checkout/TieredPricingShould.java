@@ -1,6 +1,7 @@
 package tv.codely.checkout;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class TieredPricingShould {
                 new SubscriptionTierRange(26, 50),
                 new SubscriptionTierPrice(199)),
             new SubscriptionTier(
-                new SubscriptionTierRange(51, 100),
+                SubscriptionTierRange.last(51),
                 new SubscriptionTierPrice(149)));
     }
 
@@ -45,6 +46,18 @@ public class TieredPricingShould {
         final var totalPrice = tieredPricing.getTotalPrice(numberOfSubscriptions);
 
         assertEquals(expectedPrice, totalPrice);
+    }
+
+    @Test
+    void should_have_a_subscription_tier_range_with_no_upper_limit() {
+        final var subscriptionTiers = SubscriptionTierMother.randoms();
+        final var lastSubscriptionTier =
+            subscriptionTiers.stream()
+                .filter(SubscriptionTier::isLast)
+                .findFirst()
+                .orElse(null);
+
+        assertNotNull(lastSubscriptionTier);
     }
 
     @Test

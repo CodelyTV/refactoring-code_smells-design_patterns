@@ -24,4 +24,8 @@ public final class SubscriptionTier {
     public double getTotalPrice(int numberOfSubscriptions) {
         return unitPrice() * numberOfSubscriptions;
     }
+
+    public boolean isLast() {
+        return range.isLast();
+    }
 }

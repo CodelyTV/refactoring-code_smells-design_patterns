@@ -13,6 +13,10 @@ public final class SubscriptionTierRangeMother {
         return new SubscriptionTierRange(numberOfSubscriptionsFrom, numberOfSubscriptionsTo);
     }
 
+    public static SubscriptionTierRange last(final int numberOfSubscriptionsFrom) {
+        return SubscriptionTierRange.last(numberOfSubscriptionsFrom);
+    }
+
     public static List<SubscriptionTierRange> randoms() {
         final var subscriptionTiers = new ArrayList<SubscriptionTierRange>();
         final var numberOfTiers = IntegerMother.randomBetween(1, 6);
@@ -23,6 +27,11 @@ public final class SubscriptionTierRangeMother {
         var lastNumberOfSubscriptionsTo = 0;
 
         for (int i = 0; i < numberOfTiers; i++) {
+            if (i == numberOfTiers - 1) {
+                subscriptionTiers.add(last(lastNumberOfSubscriptionsTo + 1));
+                break;
+            }
+
             final var numberOfSubscriptionsFrom = lastNumberOfSubscriptionsTo + 1;
             final var numberOfSubscriptionsTo =
                 IntegerMother.randomBetween(
