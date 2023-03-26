@@ -16,12 +16,28 @@ public final class SubscriptionTiers {
             throw new InvalidSubscriptionTiers("There must be at least one subscription tier");
         }
 
+        if (tiers.stream().noneMatch(SubscriptionTier::isFirst)) {
+            throw new InvalidSubscriptionTiers("There must be a first subscription tier");
+        }
+
         if (tiers.stream().noneMatch(SubscriptionTier::isLast)) {
-            throw new IllegalArgumentException("There must be a last subscription tier");
+            throw new InvalidSubscriptionTiers("There must be a last subscription tier");
         }
     }
 
-    public List<SubscriptionTier> tiers() {
-        return tiers;
+    private SubscriptionTier findSuitableTier(int subscriptions) {
+        return tiers.stream()
+            .filter(tier -> tier.isInRange(subscriptions))
+            .findFirst()
+            .orElseThrow(() -> new InvalidSubscriptionTiers(
+                "There is no subscription tier for " + subscriptions + " subscriptions"));
+    }
+
+    public double getTotalPrice(int subscriptions) {
+        return findSuitableTier(subscriptions).getTotalPrice(subscriptions);
+    }
+
+    public double getBasePrice(int subscriptions) {
+        return findSuitableTier(subscriptions).unitPrice();
     }
 }

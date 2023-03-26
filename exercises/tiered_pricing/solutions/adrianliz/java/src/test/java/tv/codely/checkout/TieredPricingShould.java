@@ -9,6 +9,8 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import tv.codely.checkout.mother.IntegerMother;
 import tv.codely.checkout.mother.SubscriptionTierMother;
+import tv.codely.checkout.mother.SubscriptionTierPriceMother;
+import tv.codely.checkout.mother.SubscriptionTierRangeMother;
 
 public class TieredPricingShould {
 
@@ -47,23 +49,6 @@ public class TieredPricingShould {
         final var totalPrice = tieredPricing.getTotalPrice(numberOfSubscriptions);
 
         assertEquals(expectedPrice, totalPrice);
-    }
-
-    @Test
-    void should_throw_invalid_tiers_if_there_is_no_last_tier() {
-        final var subscriptionTiers = SubscriptionTierMother.randoms();
-        final var lastSubscriptionTier =
-            subscriptionTiers.stream()
-                .filter(SubscriptionTier::isLast)
-                .findFirst()
-                .orElse(null);
-
-        assertNotNull(lastSubscriptionTier);
-    }
-
-    @Test
-    void should_throw_invalid_tiers_if_there_is_no_tiers() {
-        assertThrows(InvalidSubscriptionTiers.class, () -> new TieredPricing(List.of()));
     }
 
     @Test
@@ -121,5 +106,28 @@ public class TieredPricingShould {
 
         final var totalPrice = tieredPricing.getTotalPrice(51);
         assertEquals(expectedPrice, totalPrice);
+    }
+
+    @Test
+    void throw_invalid_subscription_tiers_if_there_is_no_tiers() {
+        assertThrows(InvalidSubscriptionTiers.class, () -> new TieredPricing(List.of()));
+    }
+
+    @Test
+    void throw_invalid_subscription_tiers_if_first_tier_range_does_not_start_at_1() {
+        final var subscriptionTiers =
+            List.of(SubscriptionTierMother.create(SubscriptionTierRangeMother.create(2, 10),
+                SubscriptionTierPriceMother.random()));
+
+        assertThrows(InvalidSubscriptionTiers.class, () -> new TieredPricing(subscriptionTiers));
+    }
+
+    @Test
+    void throw_invalid_subscription_tiers_if_there_is_no_last_tier() {
+        final var subscriptionTiers =
+            List.of(SubscriptionTierMother.create(SubscriptionTierRangeMother.create(1, 10),
+                SubscriptionTierPriceMother.random()));
+
+        assertThrows(InvalidSubscriptionTiers.class, () -> new TieredPricing(subscriptionTiers));
     }
 }

@@ -14,12 +14,16 @@ public final class SubscriptionTierRange {
         return new SubscriptionTierRange(numberOfSubscriptionsFrom, Integer.MAX_VALUE);
     }
 
-    public boolean isSuitableFor(int numberOfSubscriptions) {
-        return numberOfSubscriptions >= numberOfSubscriptionsFrom
-            && numberOfSubscriptions <= numberOfSubscriptionsTo;
+    public boolean isFirst() {
+        return numberOfSubscriptionsFrom == 1;
     }
 
     public boolean isLast() {
         return numberOfSubscriptionsTo == Integer.MAX_VALUE;
+    }
+
+    public boolean isSuitableFor(int numberOfSubscriptions) {
+        return numberOfSubscriptions >= numberOfSubscriptionsFrom
+            && numberOfSubscriptions <= numberOfSubscriptionsTo;
     }
 }

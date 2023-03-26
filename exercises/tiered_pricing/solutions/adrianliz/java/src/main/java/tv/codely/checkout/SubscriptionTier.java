@@ -13,6 +13,14 @@ public final class SubscriptionTier {
         this.price = price;
     }
 
+    public boolean isFirst() {
+        return range.isFirst();
+    }
+
+    public boolean isLast() {
+        return range.isLast();
+    }
+
     public boolean isInRange(int numberOfSubscriptions) {
         return this.range.isSuitableFor(numberOfSubscriptions);
     }
@@ -23,9 +31,5 @@ public final class SubscriptionTier {
 
     public double getTotalPrice(int numberOfSubscriptions) {
         return unitPrice() * numberOfSubscriptions;
-    }
-
-    public boolean isLast() {
-        return range.isLast();
     }
 }
