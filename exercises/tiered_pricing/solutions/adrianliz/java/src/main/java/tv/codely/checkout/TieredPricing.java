@@ -6,8 +6,12 @@ public class TieredPricing {
 
     private final List<SubscriptionTier> subscriptionTiers;
 
+    public TieredPricing(final SubscriptionTiers subscriptionTiers) {
+        this.subscriptionTiers = subscriptionTiers.tiers();
+    }
+
     public TieredPricing(final List<SubscriptionTier> subscriptionTiers) {
-        this.subscriptionTiers = subscriptionTiers;
+        this(new SubscriptionTiers(subscriptionTiers));
     }
 
     public double getTotalPrice(int subscriptions) {
