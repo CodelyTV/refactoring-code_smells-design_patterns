@@ -17,11 +17,21 @@ public class TieredPricingShould {
     void return_total_price_based_on_number_of_subscriptions() {
         final var priceRanges =
             List.of(
-                new PriceRange(new SubscriptionRange(1, 2), new SubscriptionPrice(299)),
-                new PriceRange(new SubscriptionRange(3, 10), new SubscriptionPrice(239)),
-                new PriceRange(new SubscriptionRange(11, 25), new SubscriptionPrice(219)),
-                new PriceRange(new SubscriptionRange(26, 50), new SubscriptionPrice(199)),
-                new PriceRange(new SubscriptionRange(51, 100), new SubscriptionPrice(149)));
+                new SubscriptionTier(
+                    new SubscriptionTierRange(1, 2),
+                    new SubscriptionTierPrice(299)),
+                new SubscriptionTier(
+                    new SubscriptionTierRange(3, 10),
+                    new SubscriptionTierPrice(239)),
+                new SubscriptionTier(
+                    new SubscriptionTierRange(11, 25),
+                    new SubscriptionTierPrice(219)),
+                new SubscriptionTier(
+                    new SubscriptionTierRange(26, 50),
+                    new SubscriptionTierPrice(199)),
+                new SubscriptionTier(
+                    new SubscriptionTierRange(51, 100),
+                    new SubscriptionTierPrice(149)));
         final var tieredPricing = new TieredPricing(priceRanges);
         final var expectedPrice = priceRanges.get(1).unitPrice() * 3;
 
