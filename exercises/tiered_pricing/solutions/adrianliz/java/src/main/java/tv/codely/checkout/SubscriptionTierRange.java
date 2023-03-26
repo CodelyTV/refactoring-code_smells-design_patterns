@@ -8,34 +8,51 @@ public final class SubscriptionTierRange {
     private final int numberOfSubscriptionsFrom;
     private final int numberOfSubscriptionsTo;
 
-    public SubscriptionTierRange(int numberOfSubscriptionsFrom, int numberOfSubscriptionsTo) {
+    private SubscriptionTierRange(int numberOfSubscriptionsFrom, int numberOfSubscriptionsTo) {
         this.numberOfSubscriptionsFrom = numberOfSubscriptionsFrom;
         this.numberOfSubscriptionsTo = numberOfSubscriptionsTo;
     }
 
     public static SubscriptionTierRange first(int numberOfSubscriptions) {
-        if (numberOfSubscriptions < 1) {
-            throw new InvalidSubscriptionTierRange(
-                "Number of subscriptions must be greater than 0");
-        }
+        validate(numberOfSubscriptions);
         return new SubscriptionTierRange(1, numberOfSubscriptions);
+    }
+
+    public static SubscriptionTierRange last(final SubscriptionTierRange range) {
+        validate(range);
+        return new SubscriptionTierRange(range.numberOfSubscriptionsTo + 1, Integer.MAX_VALUE);
     }
 
     public static SubscriptionTierRange from(
         final SubscriptionTierRange range,
         final int numberOfSubscriptions) {
 
+        validate(range);
+        validate(numberOfSubscriptions);
+
         final int numberOfSubscriptionsFrom = range.numberOfSubscriptionsTo + 1;
         final int numberOfSubscriptionsTo = numberOfSubscriptionsFrom + numberOfSubscriptions;
         return new SubscriptionTierRange(numberOfSubscriptionsFrom, numberOfSubscriptionsTo);
     }
 
-    public static SubscriptionTierRange last(int numberOfSubscriptionsFrom) {
-        return new SubscriptionTierRange(numberOfSubscriptionsFrom, Integer.MAX_VALUE);
+
+    private static void validate(final int numberOfSubscriptions) {
+        if (numberOfSubscriptions < 1) {
+            throw new InvalidSubscriptionTierRange(
+                "Number of subscriptions must be greater than 0");
+        }
     }
 
-    public static SubscriptionTierRange last(final SubscriptionTierRange range) {
-        return new SubscriptionTierRange(range.numberOfSubscriptionsTo + 1, Integer.MAX_VALUE);
+    private static void validate(final SubscriptionTierRange range) {
+        if (range == null) {
+            throw new InvalidSubscriptionTierRange(
+                "Cannot create a new subscription tier range from a null one");
+        }
+
+        if (range.isLast()) {
+            throw new InvalidSubscriptionTierRange(
+                "Cannot create a new subscription tier range after the last one");
+        }
     }
 
     public boolean isFirst() {

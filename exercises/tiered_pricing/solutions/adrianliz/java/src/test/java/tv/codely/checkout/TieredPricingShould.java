@@ -119,32 +119,10 @@ public class TieredPricingShould {
     }
 
     @Test
-    void throw_invalid_subscription_tiers_if_first_tier_range_does_not_start_at_1() {
-        final var subscriptionTiers =
-            List.of(SubscriptionTierMother.create(SubscriptionTierRangeMother.create(2, 10),
-                SubscriptionTierPriceMother.random()));
-
-        assertThrows(InvalidSubscriptionTiers.class, () -> new TieredPricing(subscriptionTiers));
-    }
-
-    @Test
     void throw_invalid_subscription_tiers_if_there_is_no_last_tier() {
         final var subscriptionTiers =
-            List.of(SubscriptionTierMother.create(SubscriptionTierRangeMother.create(1, 10),
-                SubscriptionTierPriceMother.random()));
-
-        assertThrows(InvalidSubscriptionTiers.class, () -> new TieredPricing(subscriptionTiers));
-    }
-
-    @Test
-    void throw_invalid_subscription_tiers_if_tiers_are_not_in_order() {
-        final var subscriptionTiers =
             List.of(SubscriptionTierMother.create(SubscriptionTierRangeMother.first(10),
-                    SubscriptionTierPriceMother.random()),
-                SubscriptionTierMother.create(SubscriptionTierRangeMother.create(9, 20),
-                    SubscriptionTierPriceMother.random()),
-                SubscriptionTierMother.create(SubscriptionTierRangeMother.last(2),
-                    SubscriptionTierPriceMother.random()));
+                SubscriptionTierPriceMother.random()));
 
         assertThrows(InvalidSubscriptionTiers.class, () -> new TieredPricing(subscriptionTiers));
     }
