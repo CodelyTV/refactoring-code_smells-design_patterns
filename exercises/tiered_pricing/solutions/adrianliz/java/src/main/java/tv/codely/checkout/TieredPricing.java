@@ -1,19 +1,28 @@
 package tv.codely.checkout;
 
+import java.util.List;
+
 public class TieredPricing {
 
-    public int getTotalPrice(int subscriptions) {
-        switch (subscriptions) {
-            case 1, 2:
-                return 299 * subscriptions;
-            case 3, 4, 5, 6, 7, 8, 9, 10:
-                return 239 * subscriptions;
-            case 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25:
-                return 219 * subscriptions;
-            case 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50:
-                return 199 * subscriptions;
-            default:
-                return 149 * subscriptions;
-        }
+    private final List<PriceRange> priceRanges;
+
+    public TieredPricing(final List<PriceRange> priceRanges) {
+        this.priceRanges = priceRanges;
+    }
+
+    public TieredPricing() {
+        this(List.of(
+            new PriceRange(1, 2, 299),
+            new PriceRange(3, 10, 239),
+            new PriceRange(11, 25, 219),
+            new PriceRange(26, 50, 199),
+            new PriceRange(51, 100, 149)));
+    }
+
+    public double getTotalPrice(int subscriptions) {
+        return priceRanges.stream().filter(priceRange -> priceRange.isInRange(subscriptions))
+            .findFirst()
+            .map(priceRange -> priceRange.getTotalPrice(subscriptions))
+            .orElse(0D);
     }
 }

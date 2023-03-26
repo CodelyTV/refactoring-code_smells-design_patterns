@@ -3,6 +3,7 @@ package tv.codely.checkout;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
 public class TieredPricingShould {
@@ -10,6 +11,22 @@ public class TieredPricingShould {
     @Test
     void unit_test_example() {
         assertTrue(true);
+    }
+
+    @Test
+    void return_total_price_based_on_number_of_subscriptions() {
+        final var priceRanges =
+            List.of(
+                new PriceRange(1, 2, 299),
+                new PriceRange(3, 10, 239),
+                new PriceRange(11, 25, 219),
+                new PriceRange(26, 50, 199),
+                new PriceRange(51, 100, 149));
+        final var tieredPricing = new TieredPricing(priceRanges);
+        final var expectedPrice = priceRanges.get(1).unitPrice() * 3;
+
+        final var totalPrice = tieredPricing.getTotalPrice(3);
+        assertEquals(expectedPrice, totalPrice);
     }
 
     @Test
