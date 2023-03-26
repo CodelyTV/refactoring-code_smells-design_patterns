@@ -1,5 +1,7 @@
 package tv.codely.checkout;
 
+import java.util.Objects;
+
 public final class SubscriptionTier {
 
     private final SubscriptionTierRange range;
@@ -21,6 +23,10 @@ public final class SubscriptionTier {
         return range.isLast();
     }
 
+    public boolean isAfter(final SubscriptionTier other) {
+        return range.isAfter(other.range);
+    }
+
     public boolean isInRange(int numberOfSubscriptions) {
         return this.range.isSuitableFor(numberOfSubscriptions);
     }
@@ -31,5 +37,22 @@ public final class SubscriptionTier {
 
     public double getTotalPrice(int numberOfSubscriptions) {
         return unitPrice() * numberOfSubscriptions;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        SubscriptionTier that = (SubscriptionTier) o;
+        return Objects.equals(range, that.range) && Objects.equals(price, that.price);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(range, price);
     }
 }

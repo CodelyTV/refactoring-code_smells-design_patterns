@@ -17,7 +17,7 @@ public class TieredPricingShould {
     private static List<SubscriptionTier> defaultSubscriptionTiers() {
         return List.of(
             new SubscriptionTier(
-                new SubscriptionTierRange(1, 2),
+                SubscriptionTierRange.first(2),
                 new SubscriptionTierPrice(299)),
             new SubscriptionTier(
                 new SubscriptionTierRange(3, 10),
@@ -127,6 +127,19 @@ public class TieredPricingShould {
         final var subscriptionTiers =
             List.of(SubscriptionTierMother.create(SubscriptionTierRangeMother.create(1, 10),
                 SubscriptionTierPriceMother.random()));
+
+        assertThrows(InvalidSubscriptionTiers.class, () -> new TieredPricing(subscriptionTiers));
+    }
+
+    @Test
+    void throw_invalid_subscription_tiers_if_tiers_are_not_in_order() {
+        final var subscriptionTiers =
+            List.of(SubscriptionTierMother.create(SubscriptionTierRangeMother.first(10),
+                    SubscriptionTierPriceMother.random()),
+                SubscriptionTierMother.create(SubscriptionTierRangeMother.create(9, 20),
+                    SubscriptionTierPriceMother.random()),
+                SubscriptionTierMother.create(SubscriptionTierRangeMother.last(2),
+                    SubscriptionTierPriceMother.random()));
 
         assertThrows(InvalidSubscriptionTiers.class, () -> new TieredPricing(subscriptionTiers));
     }

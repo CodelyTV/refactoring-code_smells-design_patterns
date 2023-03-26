@@ -1,5 +1,6 @@
 package tv.codely.checkout;
 
+import java.util.HashSet;
 import java.util.List;
 
 public final class SubscriptionTiers {
@@ -22,6 +23,20 @@ public final class SubscriptionTiers {
 
         if (tiers.stream().noneMatch(SubscriptionTier::isLast)) {
             throw new InvalidSubscriptionTiers("There must be a last subscription tier");
+        }
+
+        if (tiers.size() == 1) {
+            return;
+        }
+
+        final var validTiers = new HashSet<SubscriptionTier>();
+        for (final SubscriptionTier tier : tiers) {
+            if (tiers.stream()
+                .anyMatch(
+                    t -> !validTiers.contains(t) && !t.equals(tier) && !t.isAfter(tier))) {
+                throw new InvalidSubscriptionTiers("All tiers must be after the previous one");
+            }
+            validTiers.add(tier);
         }
     }
 
