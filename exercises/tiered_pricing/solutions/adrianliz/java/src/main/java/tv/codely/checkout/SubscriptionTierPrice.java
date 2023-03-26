@@ -7,7 +7,14 @@ public final class SubscriptionTierPrice {
     private final double value;
 
     public SubscriptionTierPrice(double value) {
+        validate(value);
         this.value = value;
+    }
+
+    private static void validate(double value) {
+        if (value < 1) {
+            throw new InvalidSubscriptionTierPrice("The price cannot be negative");
+        }
     }
 
     public double unitPrice() {

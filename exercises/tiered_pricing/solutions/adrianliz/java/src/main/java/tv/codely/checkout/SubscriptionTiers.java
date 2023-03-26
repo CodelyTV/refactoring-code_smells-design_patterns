@@ -29,7 +29,7 @@ public final class SubscriptionTiers {
         return tiers.stream()
             .filter(tier -> tier.isInRange(numberOfSubscriptions))
             .findFirst()
-            .orElseThrow(() -> new PriceNotFound(numberOfSubscriptions));
+            .orElseThrow(() -> new SubscriptionTierNotFound(numberOfSubscriptions));
     }
 
     public double getTotalPrice(int numberOfSubscriptions) {

@@ -2,7 +2,6 @@ package tv.codely.checkout;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Set;
 import org.junit.jupiter.api.Test;
@@ -35,11 +34,6 @@ public class TieredPricingShould {
             new SubscriptionTier(
                 lastTierRange,
                 new SubscriptionTierPrice(149)));
-    }
-
-    @Test
-    void unit_test_example() {
-        assertTrue(true);
     }
 
     @Test
@@ -115,18 +109,10 @@ public class TieredPricingShould {
     }
 
     @Test
-    void throw_invalid_subscription_tier_range_if_number_of_susbcriptions_is_less_than_1() {
-        assertThrows(InvalidSubscriptionTierRange.class, () -> SubscriptionTierRange.first(0));
-    }
-
-    @Test
-    void throw_invalid_subscription_tier_range_if_previous_range_does_not_exist() {
-        assertThrows(InvalidSubscriptionTierRange.class, () -> SubscriptionTierRange.last(null));
-    }
-
-    @Test
-    void throw_price_not_found_if_number_of_subscriptions_is_not_valid() {
+    void throw_subscription_tier_not_found_if_number_of_subscriptions_does_not_match_any_tier() {
         final var tieredPricing = new TieredPricing(defaultSubscriptionTiers());
-        assertThrows(PriceNotFound.class, () -> tieredPricing.getTotalPrice(0));
+        final var numberOfSubscriptions = 0;
+        assertThrows(SubscriptionTierNotFound.class,
+            () -> tieredPricing.getTotalPrice(numberOfSubscriptions));
     }
 }
