@@ -2,6 +2,7 @@ package tv.codely.checkout;
 
 import java.util.Objects;
 
+// [from, to]
 public final class SubscriptionTierRange {
 
     private final int numberOfSubscriptionsFrom;
@@ -12,12 +13,29 @@ public final class SubscriptionTierRange {
         this.numberOfSubscriptionsTo = numberOfSubscriptionsTo;
     }
 
-    public static SubscriptionTierRange first(int numberOfSubscriptionsTo) {
-        return new SubscriptionTierRange(1, numberOfSubscriptionsTo);
+    public static SubscriptionTierRange first(int numberOfSubscriptions) {
+        if (numberOfSubscriptions < 1) {
+            throw new InvalidSubscriptionTierRange(
+                "Number of subscriptions must be greater than 0");
+        }
+        return new SubscriptionTierRange(1, numberOfSubscriptions);
+    }
+
+    public static SubscriptionTierRange from(
+        final SubscriptionTierRange range,
+        final int numberOfSubscriptions) {
+
+        final int numberOfSubscriptionsFrom = range.numberOfSubscriptionsTo + 1;
+        final int numberOfSubscriptionsTo = numberOfSubscriptionsFrom + numberOfSubscriptions;
+        return new SubscriptionTierRange(numberOfSubscriptionsFrom, numberOfSubscriptionsTo);
     }
 
     public static SubscriptionTierRange last(int numberOfSubscriptionsFrom) {
         return new SubscriptionTierRange(numberOfSubscriptionsFrom, Integer.MAX_VALUE);
+    }
+
+    public static SubscriptionTierRange last(final SubscriptionTierRange range) {
+        return new SubscriptionTierRange(range.numberOfSubscriptionsTo + 1, Integer.MAX_VALUE);
     }
 
     public boolean isFirst() {

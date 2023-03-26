@@ -13,8 +13,8 @@ public final class SubscriptionTierRangeMother {
         return new SubscriptionTierRange(numberOfSubscriptionsFrom, numberOfSubscriptionsTo);
     }
 
-    public static SubscriptionTierRange first(final int numberOfSubscriptionsTo) {
-        return SubscriptionTierRange.first(numberOfSubscriptionsTo);
+    public static SubscriptionTierRange first(final int numberOfSubscriptions) {
+        return SubscriptionTierRange.first(numberOfSubscriptions);
     }
 
     public static SubscriptionTierRange last(final int numberOfSubscriptionsFrom) {

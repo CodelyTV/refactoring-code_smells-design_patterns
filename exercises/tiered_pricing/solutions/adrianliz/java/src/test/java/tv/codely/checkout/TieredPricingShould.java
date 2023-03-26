@@ -15,21 +15,26 @@ import tv.codely.checkout.mother.SubscriptionTierRangeMother;
 public class TieredPricingShould {
 
     private static List<SubscriptionTier> defaultSubscriptionTiers() {
+        final var firstTierRange = SubscriptionTierRange.first(2);
+        final var secondTierRange = SubscriptionTierRange.from(firstTierRange, 7);
+        final var thirdTierRange = SubscriptionTierRange.from(secondTierRange, 14);
+        final var fourthTierRange = SubscriptionTierRange.from(thirdTierRange, 24);
+        final var lastTierRange = SubscriptionTierRange.last(fourthTierRange);
         return List.of(
             new SubscriptionTier(
-                SubscriptionTierRange.first(2),
+                firstTierRange,
                 new SubscriptionTierPrice(299)),
             new SubscriptionTier(
-                new SubscriptionTierRange(3, 10),
+                secondTierRange,
                 new SubscriptionTierPrice(239)),
             new SubscriptionTier(
-                new SubscriptionTierRange(11, 25),
+                thirdTierRange,
                 new SubscriptionTierPrice(219)),
             new SubscriptionTier(
-                new SubscriptionTierRange(26, 50),
+                fourthTierRange,
                 new SubscriptionTierPrice(199)),
             new SubscriptionTier(
-                SubscriptionTierRange.last(51),
+                lastTierRange,
                 new SubscriptionTierPrice(149)));
     }
 
