@@ -13,6 +13,12 @@ public final class PriceRange {
         this.unitPrice = unitPrice;
     }
 
+    public PriceRange(final SubscriptionRange range,
+        final SubscriptionPrice price) {
+        this(range.numberOfSubscriptionsFrom(), range.numberOfSubscriptionsTo(),
+            price.price());
+    }
+
     public boolean isInRange(int numberOfSubscriptions) {
         return numberOfSubscriptions >= numberOfSubscriptionsFrom
             && numberOfSubscriptions <= numberOfSubscriptionsTo;
