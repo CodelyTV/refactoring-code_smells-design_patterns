@@ -36,4 +36,12 @@ public class TieredPricing {
             .map(subscriptionTier -> subscriptionTier.getTotalPrice(subscriptions))
             .orElse(0D);
     }
+
+    public double getBasePrice(int subscriptions) {
+        return subscriptionTiers.stream()
+            .filter(subscriptionTier -> subscriptionTier.isInRange(subscriptions))
+            .findFirst()
+            .map(SubscriptionTier::unitPrice)
+            .orElse(0D);
+    }
 }
