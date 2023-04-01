@@ -1,14 +1,14 @@
 export default class GraduatedTieredPricing {
   priceFor(subscriptions: number): number {
-    if (subscriptions === 1) {
-      return 299;
+    const step1Price = 299;
+    const step2Price = 239;
+
+    if (subscriptions <= 2) {
+      return subscriptions * step1Price;
     }
-    if (subscriptions === 2) {
-      return 598;
+    if (subscriptions <= 5) {
+      return 2 * step1Price + (subscriptions - 2) * step2Price;
     }
-    if (subscriptions === 3) {
-      return 837;
-    }
-    return 0;
+    throw new Error("Not implemented yet");
   }
 }
