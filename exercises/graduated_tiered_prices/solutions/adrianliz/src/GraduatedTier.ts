@@ -1,3 +1,5 @@
+import Subscriptions from "./Subscriptions";
+
 export default class GraduatedTier {
   constructor(
     private readonly from: number,
@@ -27,5 +29,17 @@ export default class GraduatedTier {
     }
 
     return (subscriptions - this.from + 1) * this.price;
+  }
+
+  totalFor2(subscriptions: Subscriptions): number {
+    if (subscriptions.covers(this)) {
+      return this.total();
+    }
+
+    if (!subscriptions.reaches(this)) {
+      return 0;
+    }
+
+    return subscriptions.numberOfSubscriptionsInTier(this) * this.price;
   }
 }

@@ -1,5 +1,4 @@
 import GraduatedTier from "./GraduatedTier";
-import NumberOfSubscriptionsNotAllowed from "./NumberOfSubscriptionsNotAllowed";
 import Subscriptions from "./Subscriptions";
 
 export default class GraduatedTieredPricing {
@@ -13,23 +12,7 @@ export default class GraduatedTieredPricing {
     ];
   }
 
-  priceFor(subscriptions: number): number {
-    if (subscriptions < 1) {
-      throw new NumberOfSubscriptionsNotAllowed();
-    }
-
-    const tiers = this.tiers();
-
-    return (
-      tiers[0].totalFor(subscriptions) +
-      tiers[1].totalFor(subscriptions) +
-      tiers[2].totalFor(subscriptions) +
-      tiers[3].totalFor(subscriptions) +
-      tiers[4].totalFor(subscriptions)
-    );
-  }
-
-  priceFor2(subscriptions: Subscriptions): number {
+  priceFor(subscriptions: Subscriptions): number {
     return subscriptions.priceFor(this.tiers());
   }
 }
