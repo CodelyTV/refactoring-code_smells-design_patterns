@@ -4,7 +4,7 @@ import NumberOfSubscriptionsNotAllowed from "../src/NumberOfSubscriptionsNotAllo
 describe("Graduated tiered pricing should", () => {
   it("calculate the price for 0 subscriptions", () => {
     const pricing = new GraduatedTieredPricing();
-    expect(pricing.priceFor(0)).toThrow(NumberOfSubscriptionsNotAllowed);
+    expect(() => pricing.priceFor(0)).toThrow(NumberOfSubscriptionsNotAllowed);
   });
 
   it("calculate the price for 1 subscription", () => {
@@ -24,25 +24,21 @@ describe("Graduated tiered pricing should", () => {
 
   it("calculate the price for 11 subscriptions", () => {
     const pricing = new GraduatedTieredPricing();
-    expect(pricing.priceFor(11)).toBe(2990);
+    expect(pricing.priceFor(11)).toBe(2729);
   });
 
   it("calculate the price for 26 subscriptions", () => {
     const pricing = new GraduatedTieredPricing();
-    expect(pricing.priceFor(26)).toBe(6294);
+    expect(pricing.priceFor(26)).toBe(5994);
   });
 
   it("calculate the price for 50 subscriptions", () => {
     const pricing = new GraduatedTieredPricing();
-    expect(pricing.priceFor(50)).toBe(10950);
+    expect(pricing.priceFor(50)).toBe(10770);
   });
 
   it("calculate the price for 100 subscriptions", () => {
     const pricing = new GraduatedTieredPricing();
-    expect(pricing.priceFor(100)).toBe(21900);
+    expect(pricing.priceFor(100)).toBe(18220);
   });
-});
-
-test("test framework working", async () => {
-  expect(true).toBe(true);
 });
