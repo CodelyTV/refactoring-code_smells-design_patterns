@@ -15,6 +15,15 @@ describe("Graduated tiered pricing should", () => {
     return [firstTier, secondTier, thirdTier, fourthTier, lastTier];
   };
 
+  const tiersWithOneSubscription = (): GraduatedTier[] => {
+    const firstTier = GraduatedTier.firstTier(1, 299);
+    const secondTier = GraduatedTier.fromTier(firstTier, 1, 239);
+    const thirdTier = GraduatedTier.fromTier(secondTier, 1, 219);
+    const fourthTier = GraduatedTier.fromTier(thirdTier, 1, 199);
+    const lastTier = GraduatedTier.lastTier(fourthTier, 149);
+    return [firstTier, secondTier, thirdTier, fourthTier, lastTier];
+  };
+
   it("throw number of subscriptions not allowed for 0 subscriptions", () => {
     const tiers = defaultTiers();
     const pricing = new GraduatedTieredPricing(tiers);
@@ -35,6 +44,24 @@ describe("Graduated tiered pricing should", () => {
     "calculate the price for %i subscriptions",
     (subscriptions: number, expectedPrice: number) => {
       const tiers = defaultTiers();
+      const pricing = new GraduatedTieredPricing(tiers);
+      expect(pricing.priceFor(new Subscriptions(subscriptions))).toBe(
+        expectedPrice
+      );
+    }
+  );
+
+  each([
+    [1, 299],
+    [2, 538],
+    [3, 757],
+    [4, 956],
+    [5, 1105],
+    [100, 15260],
+  ]).it(
+    "calculate the price for %i subscriptions with tiers with only one subscription",
+    (subscriptions: number, expectedPrice: number) => {
+      const tiers = tiersWithOneSubscription();
       const pricing = new GraduatedTieredPricing(tiers);
       expect(pricing.priceFor(new Subscriptions(subscriptions))).toBe(
         expectedPrice

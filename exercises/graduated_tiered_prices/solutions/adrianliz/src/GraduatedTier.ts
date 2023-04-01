@@ -7,9 +7,7 @@ export default class GraduatedTier {
     private readonly to: number,
     private readonly singleSubscriptionPrice: number
   ) {
-    if (to > Number.MAX_SAFE_INTEGER) {
-      throw new InvalidTier();
-    }
+    GraduatedTier.validate(from, to, singleSubscriptionPrice);
   }
 
   static firstTier(
@@ -42,6 +40,28 @@ export default class GraduatedTier {
       Number.MAX_SAFE_INTEGER,
       singleSubscriptionPrice
     );
+  }
+
+  private static validate(
+    from: number,
+    to: number,
+    singleSubscriptionPrice: number
+  ): void {
+    if (singleSubscriptionPrice <= 0) {
+      throw new InvalidTier();
+    }
+
+    if (from < 1) {
+      throw new InvalidTier();
+    }
+
+    if (from > to) {
+      throw new InvalidTier();
+    }
+
+    if (to > Number.MAX_SAFE_INTEGER) {
+      throw new InvalidTier();
+    }
   }
 
   private total(): number {
