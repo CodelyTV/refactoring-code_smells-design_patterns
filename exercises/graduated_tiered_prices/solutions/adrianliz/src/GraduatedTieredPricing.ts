@@ -2,7 +2,9 @@ import GraduatedTier from "./GraduatedTier";
 import Subscriptions from "./Subscriptions";
 
 export default class GraduatedTieredPricing {
-  private tiers(): GraduatedTier[] {
+  constructor(private readonly tiers: GraduatedTier[] | null) {}
+
+  private defaultTiers(): GraduatedTier[] {
     return [
       new GraduatedTier(1, 2, 299),
       new GraduatedTier(3, 10, 239),
@@ -13,6 +15,6 @@ export default class GraduatedTieredPricing {
   }
 
   priceFor(subscriptions: Subscriptions): number {
-    return subscriptions.priceFor(this.tiers());
+    return subscriptions.priceFor(this.tiers || this.defaultTiers());
   }
 }

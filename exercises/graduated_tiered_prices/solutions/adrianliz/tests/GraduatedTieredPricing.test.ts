@@ -6,7 +6,7 @@ import Subscriptions from "../src/Subscriptions";
 
 describe("Graduated tiered pricing should", () => {
   it("throw number of subscriptions not allowed for 0 subscriptions", () => {
-    const pricing = new GraduatedTieredPricing();
+    const pricing = new GraduatedTieredPricing(null);
     expect(() => pricing.priceFor(new Subscriptions(0))).toThrow(
       NumberOfSubscriptionsNotAllowed
     );
@@ -23,7 +23,7 @@ describe("Graduated tiered pricing should", () => {
   ]).it(
     "calculate the price for %i subscriptions",
     (subscriptions: number, expectedPrice: number) => {
-      const pricing = new GraduatedTieredPricing();
+      const pricing = new GraduatedTieredPricing(null);
       expect(pricing.priceFor(new Subscriptions(subscriptions))).toBe(
         expectedPrice
       );
