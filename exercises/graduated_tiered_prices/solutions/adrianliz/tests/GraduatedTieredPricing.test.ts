@@ -7,13 +7,12 @@ import Subscriptions from "../src/Subscriptions";
 
 describe("Graduated tiered pricing should", () => {
   const defaultTiers = (): GraduatedTier[] => {
-    return [
-      new GraduatedTier(1, 2, 299),
-      new GraduatedTier(3, 10, 239),
-      new GraduatedTier(11, 25, 219),
-      new GraduatedTier(26, 50, 199),
-      new GraduatedTier(51, Number.MAX_SAFE_INTEGER, 149),
-    ];
+    const firstTier = GraduatedTier.firstTier(2, 299);
+    const secondTier = GraduatedTier.fromTier(firstTier, 8, 239);
+    const thirdTier = GraduatedTier.fromTier(secondTier, 15, 219);
+    const fourthTier = GraduatedTier.fromTier(thirdTier, 25, 199);
+    const lastTier = GraduatedTier.lastTier(fourthTier, 149);
+    return [firstTier, secondTier, thirdTier, fourthTier, lastTier];
   };
 
   it("throw number of subscriptions not allowed for 0 subscriptions", () => {
