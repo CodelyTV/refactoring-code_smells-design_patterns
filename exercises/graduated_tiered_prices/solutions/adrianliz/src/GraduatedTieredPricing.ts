@@ -1,4 +1,5 @@
 import NumberOfSubscriptionsNotAllowed from "./NumberOfSubscriptionsNotAllowed";
+import Tier from "./Tier";
 
 export default class GraduatedTieredPricing {
   priceFor(subscriptions: number): number {
@@ -6,63 +7,20 @@ export default class GraduatedTieredPricing {
       throw new NumberOfSubscriptionsNotAllowed();
     }
 
-    const step1Price = 299;
-    const step2Price = 239;
-    const step3Price = 219;
-    const step4Price = 199;
-    const step5Price = 149;
+    const tiers = [
+      new Tier(1, 2, 299),
+      new Tier(3, 10, 239),
+      new Tier(11, 25, 219),
+      new Tier(26, 50, 199),
+      new Tier(51, Number.MAX_SAFE_INTEGER, 149),
+    ];
 
-    const step1Boundary = 2;
-    const step2Boundary = 10;
-    const step3Boundary = 25;
-    const step4Boundary = 50;
-
-    const numberOfSubscriptionsInStep1 = 2;
-    const numberOfSubscriptionsInStep2 = step2Boundary - step1Boundary; // 8
-    const numberOfSubscriptionsInStep3 = step3Boundary - step2Boundary; // 15
-    const numberOfSubscriptionsInStep4 = step4Boundary - step3Boundary; // 25
-
-    if (subscriptions <= step1Boundary) {
-      return subscriptions * step1Price;
-    }
-    if (subscriptions <= step2Boundary) {
-      return (
-        numberOfSubscriptionsInStep1 * step1Price +
-        (subscriptions - numberOfSubscriptionsInStep1) * step2Price
-      );
-    }
-    if (subscriptions <= step3Boundary) {
-      return (
-        numberOfSubscriptionsInStep1 * step1Price +
-        numberOfSubscriptionsInStep2 * step2Price +
-        (subscriptions -
-          (numberOfSubscriptionsInStep1 + numberOfSubscriptionsInStep2)) *
-          step3Price
-      );
-    }
-    if (subscriptions <= step4Boundary) {
-      return (
-        numberOfSubscriptionsInStep1 * step1Price +
-        numberOfSubscriptionsInStep2 * step2Price +
-        numberOfSubscriptionsInStep3 * step3Price +
-        (subscriptions -
-          (numberOfSubscriptionsInStep1 +
-            numberOfSubscriptionsInStep2 +
-            numberOfSubscriptionsInStep3)) *
-          step4Price
-      );
-    }
     return (
-      numberOfSubscriptionsInStep1 * step1Price +
-      numberOfSubscriptionsInStep2 * step2Price +
-      numberOfSubscriptionsInStep3 * step3Price +
-      numberOfSubscriptionsInStep4 * step4Price +
-      (subscriptions -
-        (numberOfSubscriptionsInStep1 +
-          numberOfSubscriptionsInStep2 +
-          numberOfSubscriptionsInStep3 +
-          numberOfSubscriptionsInStep4)) *
-        step5Price
+      tiers[0].totalFor(subscriptions) +
+      tiers[1].totalFor(subscriptions) +
+      tiers[2].totalFor(subscriptions) +
+      tiers[3].totalFor(subscriptions) +
+      tiers[4].totalFor(subscriptions)
     );
   }
 }
