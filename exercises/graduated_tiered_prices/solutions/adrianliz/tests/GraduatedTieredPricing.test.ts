@@ -2,11 +2,14 @@ import each from "jest-each";
 
 import GraduatedTieredPricing from "../src/GraduatedTieredPricing";
 import NumberOfSubscriptionsNotAllowed from "../src/NumberOfSubscriptionsNotAllowed";
+import Subscriptions from "../src/Subscriptions";
 
 describe("Graduated tiered pricing should", () => {
-  it("calculate the price for 0 subscriptions", () => {
+  it("throw number of subscriptions not allowed for 0 subscriptions", () => {
     const pricing = new GraduatedTieredPricing();
-    expect(() => pricing.priceFor(0)).toThrow(NumberOfSubscriptionsNotAllowed);
+    expect(() => pricing.priceFor2(new Subscriptions(0))).toThrow(
+      NumberOfSubscriptionsNotAllowed
+    );
   });
 
   each([
@@ -21,7 +24,9 @@ describe("Graduated tiered pricing should", () => {
     "calculate the price for %i subscriptions",
     (subscriptions: number, expectedPrice: number) => {
       const pricing = new GraduatedTieredPricing();
-      expect(pricing.priceFor(subscriptions)).toBe(expectedPrice);
+      expect(pricing.priceFor2(new Subscriptions(subscriptions))).toBe(
+        expectedPrice
+      );
     }
   );
 });

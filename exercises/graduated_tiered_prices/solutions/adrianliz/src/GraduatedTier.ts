@@ -1,4 +1,4 @@
-export default class Tier {
+export default class GraduatedTier {
   constructor(
     private readonly from: number,
     private readonly to: number,
