@@ -19,19 +19,15 @@ export default class GraduatedTier {
     return subscriptions >= this.to;
   }
 
-  totalFor(subscriptions: number): number {
-    if (this.covers(subscriptions)) {
-      return this.total();
-    }
-
-    if (subscriptions < this.from) {
-      return 0;
-    }
-
-    return (subscriptions - this.from + 1) * this.price;
+  reaches(subscriptions: number): boolean {
+    return subscriptions >= this.from;
   }
 
-  totalFor2(subscriptions: Subscriptions): number {
+  numberOfSubscriptionsInside(subscriptions: number): number {
+    return subscriptions - this.from + 1;
+  }
+
+  totalFor(subscriptions: Subscriptions): number {
     if (subscriptions.covers(this)) {
       return this.total();
     }

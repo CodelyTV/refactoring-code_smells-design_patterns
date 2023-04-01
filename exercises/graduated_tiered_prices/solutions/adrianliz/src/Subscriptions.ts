@@ -9,23 +9,18 @@ export default class Subscriptions {
   }
 
   priceFor(tiers: GraduatedTier[]): number {
-    // return tiers.reduce(
-    //   (total, tier) => total + tier.totalFor(this.subscriptions),
-    //   0
-    // );
-
-    return tiers.reduce((total, tier) => total + tier.totalFor2(this), 0);
+    return tiers.reduce((total, tier) => total + tier.totalFor(this), 0);
   }
 
   covers(tier: GraduatedTier): boolean {
-    return false;
+    return tier.covers(this.subscriptions);
   }
 
   reaches(tier: GraduatedTier): boolean {
-    return false;
+    return tier.reaches(this.subscriptions);
   }
 
   numberOfSubscriptionsInTier(tier: GraduatedTier): number {
-    return 0;
+    return tier.numberOfSubscriptionsInside(this.subscriptions);
   }
 }
