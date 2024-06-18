@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "elwazy-python"
+version = "0.1.0"
+description = "Tiered Pricing Exercise with TDD"
+authors = ["ElWazy"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.12"
+
+[tool.poetry.group.test.dependencies]
+pytest = "^8.2.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
