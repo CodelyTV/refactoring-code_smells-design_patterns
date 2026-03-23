@@ -36,7 +36,7 @@ Start completely from scratch without having to delete this bootstrap project Gi
 3. Move to the project directory: `cd your-project-name`
 4. Run all the checks: `composer test`. This will do some checks that you can perform with isolated commands: 
     1. [PHP Parallel Lint](https://github.com/JakubOnderka/PHP-Parallel-Lint): `composer lint`.
-    2. [PHP Style Check](https://github.com/squizlabs/PHP_CodeSniffer): `composer style`. If you want to fix style issues automatically: `composer fix-style`.
+    2. [PHP Style Check](https://github.com/PHPCSStandards/PHP_CodeSniffer): `composer style`. If you want to fix style issues automatically: `composer fix-style`.
     3. [PHP Unit](https://phpunit.de/): `composer phpunit`.
 5. Create your own repository:
     1. Initialize your own Git repository: `git init`
@@ -56,7 +56,7 @@ Just in case you prefer to avoid dealing with `composer create-project`, you can
 4. If you don't have it already, [install Composer](https://getcomposer.org/download/).
 5. Install the project dependencies: `composer install`
 6. Run all the checks: `composer test`. This will do some checks that you can perform with isolated commands: 
-    1. [PHP Style Check](https://github.com/squizlabs/PHP_CodeSniffer): `composer style`. If you want to fix style issues automatically: `composer fix-style`.
+    1. [PHP Style Check](https://github.com/PHPCSStandards/PHP_CodeSniffer): `composer style`. If you want to fix style issues automatically: `composer fix-style`.
     2. [PHP Unit](https://phpunit.de/): `composer phpunit`.
 7. Start coding!
 

@@ -36,7 +36,7 @@ Start completely from scratch without having to delete this bootstrap project Gi
 3. Move to the project directory: `cd your-project-name`
 4. Run all the checks: `composer test`. This will do some checks that you can perform with isolated commands: 
     1. [PHP Parallel Lint](https://github.com/JakubOnderka/PHP-Parallel-Lint): `composer lint`.
-    2. [PHP Style Check](https://github.com/squizlabs/PHP_CodeSniffer): `composer style`. If you want to fix style issues automatically: `composer fix-style`.
+    2. [PHP Style Check](https://github.com/PHPCSStandards/PHP_CodeSniffer): `composer style`. If you want to fix style issues automatically: `composer fix-style`.
     3. [PHP Unit](https://phpunit.de/): `composer phpunit`.
 5. Create your own repository:
     1. Initialize your own Git repository: `git init`
@@ -56,7 +56,7 @@ Just in case you prefer to avoid dealing with `composer create-project`, you can
 4. Install the project dependencies: `composer install`
 5. Run all the checks: `composer test`. This will do some checks that you can perform with isolated commands: 
     1. [PHP Parallel Lint](https://github.com/JakubOnderka/PHP-Parallel-Lint): `composer lint`.
-    2. [PHP Style Check](https://github.com/squizlabs/PHP_CodeSniffer): `composer style`. If you want to fix style issues automatically: `composer fix-style`.
+    2. [PHP Style Check](https://github.com/PHPCSStandards/PHP_CodeSniffer): `composer style`. If you want to fix style issues automatically: `composer fix-style`.
     3. [PHP Unit](https://phpunit.de/): `composer phpunit`.
 6. Create your own repository cleaning the bootstrap project history:
     1. Remove previous Git history in order to do not add the bootstrap repo noise in your project: `rm -rf .git`
