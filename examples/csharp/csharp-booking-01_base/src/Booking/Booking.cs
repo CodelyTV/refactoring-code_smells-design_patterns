@@ -2,46 +2,52 @@
 
 namespace CodelyTv.Booking
 {
-    public sealed class Booking
-    {
-        private readonly BookingId id;
-        private readonly DateTime startDate;
-        private readonly DateTime endDate;
-        private readonly CustomerId customerId;
-        private readonly CustomerName customerName;
-        private readonly EmailAddress customerEmail;
-        private readonly BookingType bookingType;
-        private readonly DiscountType discountType;
-        private readonly DiscountValue discountValue;
-        private readonly TaxType taxType;
-        private readonly TaxValue taxValue;
+    public class BookingDetails
+{
+    public BookingId Id { get; }
+    public DateTime StartDate { get; }
+    public DateTime EndDate { get; }
+    public CustomerId CustomerId { get; }
+    public CustomerName CustomerName { get; }
+    public EmailAddress CustomerEmail { get; }
+    public BookingType BookingType { get; }
+    public DiscountType DiscountType { get; }
+    public DiscountValue DiscountValue { get; }
+    public TaxType TaxType { get; }
+    public TaxValue TaxValue { get; }
 
-        public Booking(
-            BookingId id,
-            DateTime startDate,
-            DateTime endDate,
-            CustomerId customerId,
-            CustomerName customerName,
-            EmailAddress customerEmail,
-            BookingType bookingType,
-            DiscountType discountType,
-            DiscountValue discountValue,
-            TaxType taxType,
-            TaxValue taxValue
-        )
-        {
-            this.id = id;
-            this.startDate = startDate;
-            this.endDate = endDate;
-            this.customerId = customerId;
-            this.customerName = customerName;
-            this.customerEmail = customerEmail;
-            this.bookingType = bookingType;
-            this.discountType = discountType;
-            this.discountValue = discountValue;
-            this.taxType = taxType;
-            this.taxValue = taxValue;
-        }
+    public BookingDetails(
+        BookingId id, DateTime startDate, DateTime endDate, CustomerId customerId,
+        CustomerName customerName, EmailAddress customerEmail, BookingType bookingType,
+        DiscountType discountType, DiscountValue discountValue, TaxType taxType, TaxValue taxValue)
+    {
+        Id = id;
+        StartDate = startDate;
+        EndDate = endDate;
+        CustomerId = customerId;
+        CustomerName = customerName;
+        CustomerEmail = customerEmail;
+        BookingType = bookingType;
+        DiscountType = discountType;
+        DiscountValue = discountValue;
+        TaxType = taxType;
+        TaxValue = taxValue;
+    }
+
+    public Booking(BookingDetails details)
+    {
+        this.id = details.Id;
+        this.startDate = details.StartDate;
+        this.endDate = details.EndDate;
+        this.customerId = details.CustomerId;
+        this.customerName = details.CustomerName;
+        this.customerEmail = details.CustomerEmail;
+        this.bookingType = details.BookingType;
+        this.discountType = details.DiscountType;
+        this.discountValue = details.DiscountValue;
+        this.taxType = details.TaxType;
+        this.taxValue = details.TaxValue;
+    }
 
         public BookingStatus StatusFor(DateTime date)
         {
