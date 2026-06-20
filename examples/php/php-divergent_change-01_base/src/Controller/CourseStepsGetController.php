@@ -8,6 +8,13 @@ use CodelyTv\DivergentChange\Platform;
 
 final class CourseStepsGetController
 {
+    private const VIDEO_TYPE = 'video';
+    private const QUIZ_TYPE = 'quiz';
+    private const DURATION_VIDEO_MINUTES = 1.1;
+    private const DURATION_QUIZ_MINUTES = 0.5;
+    private const VIDEO_POINTS_PER_MINUTE = 100;
+    private const QUIZ_POINTS_PER_MINUTE = 10;
+
     private Platform $platform;
 
     public function __construct(Platform $platform)
@@ -18,59 +25,55 @@ final class CourseStepsGetController
     public function get(string $courseId): string
     {
         $csv = $this->platform->findCourseSteps($courseId);
+        $steps = $this->parseSteps($csv);
+        return $this->serializeSteps($steps);
+    }
 
-        $results = '[';
-
-        $csvLines = explode(PHP_EOL, $csv);
-
-        foreach ($csvLines as $index => $row) {
-            $row = str_getcsv($row);
-
-            if (empty($csv)) {
-                continue;
-            }
-
-            $type     = $row[1];
-            $duration = 0;
-            $points   = 0;
-
-            if ($type === 'video') {
-                $duration = $row[3] * 1.1; // 1.1 = due to video pauses
-            }
-
-            if ($type === 'quiz') {
-                $duration = $row[2] * 0.5; // 0.5 = time in minutes per question
-            }
-
-            if ($type !== 'video' && $type !== 'quiz') {
-                continue;
-            }
-
-            if ($type === 'video') {
-                $points = $row[3] * 1.1 * 100;
-            }
-
-            if ($type === 'quiz') {
-                $points = $row[2] * 0.5 * 10;
-            }
-
-            $results .= json_encode(
-                [
-                    'id' => $row[0],
-                    'type' => $row[1],
-                    'duration' => $duration,
-                    'points' => $points
-                ],
-                JSON_THROW_ON_ERROR
-            );
-
-            if ($index !== count($csvLines) - 1) {
-                $results .= ',';
-            }
+    private function serializeSteps(array $steps): string
+    {
+        $results = [];
+        foreach ($steps as $step) {
+            $results[] = json_encode($step, JSON_THROW_ON_ERROR);
         }
+        return '[' . implode(',', $results) . ']';
+    }
 
-        $results .= ']';
+    private function parseSteps(string $csv): array
+    {
+        $csvLines = explode(PHP_EOL, $csv);
+        $steps = [];
+        foreach ($csvLines as $row) {
+            $row = str_getcsv($row);
+            $type = $row[1];
+            if (in_array($type, [self::VIDEO_TYPE, self::QUIZ_TYPE], true)) {
+                continue;
+            }
 
-        return $results;
+            $durationInitialVideo = $row[3];
+            $durationInitialQuiz = $row[2];
+            $steps[] = [
+                'id' => $row[0],
+                'type' => $type,
+                'duration' => $this->duration($type, $durationInitialVideo, $durationInitialQuiz),
+                'points' => $this->points($type, $durationInitialVideo, $durationInitialQuiz)
+            ];
+        }
+        return $steps;
+    }
+
+    private function duration(string $type, float $durationVideo, float $durationQuiz): float
+    {
+        if ($type === self::VIDEO_TYPE) {
+            return $durationVideo * self::DURATION_VIDEO_MINUTES;
+        }
+        return $durationQuiz * self::DURATION_QUIZ_MINUTES;
+    }
+
+    private function points(string $type, float $durationVideo, float $durationQuiz): float
+    {
+        if ($type === self::VIDEO_TYPE) {
+            return $durationVideo * self::DURATION_VIDEO_MINUTES * self::VIDEO_POINTS_PER_MINUTE;
+        }
+        return $durationQuiz * self::DURATION_QUIZ_MINUTES * self::QUIZ_POINTS_PER_MINUTE;
     }
 }
