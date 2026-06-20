@@ -2,33 +2,25 @@
 
 namespace CodelyTv.Booking
 {
-    public sealed class Booking
+    public class BookingPricing
     {
-        private readonly BookingId id;
-        private readonly DateTime startDate;
-        private readonly DateTime endDate;
-        private readonly CustomerId customerId;
-        private readonly CustomerName customerName;
-        private readonly EmailAddress customerEmail;
-        private readonly BookingType bookingType;
-        private readonly DiscountType discountType;
-        private readonly DiscountValue discountValue;
-        private readonly TaxType taxType;
-        private readonly TaxValue taxValue;
+        public DiscountType DiscountType { get; }
+        public DiscountValue DiscountValue { get; }
+        public TaxType TaxType { get; }
+        public TaxValue TaxValue { get; }
 
-        public Booking(
-            BookingId id,
-            DateTime startDate,
-            DateTime endDate,
-            CustomerId customerId,
-            CustomerName customerName,
-            EmailAddress customerEmail,
-            BookingType bookingType,
-            DiscountType discountType,
-            DiscountValue discountValue,
-            TaxType taxType,
-            TaxValue taxValue
-        )
+        public BookingPricing(DiscountType discountType, DiscountValue discountValue, TaxType taxType, TaxValue taxValue)
+        {
+            DiscountType = discountType;
+            DiscountValue = discountValue;
+            TaxType = taxType;
+            TaxValue = taxValue;
+        }
+
+        private readonly BookingPricing pricing;
+
+        public Booking(BookingId id, DateTime startDate, DateTime endDate, CustomerId customerId,
+            CustomerName customerName, EmailAddress customerEmail, BookingType bookingType, BookingPricing pricing)
         {
             this.id = id;
             this.startDate = startDate;
@@ -37,24 +29,13 @@ namespace CodelyTv.Booking
             this.customerName = customerName;
             this.customerEmail = customerEmail;
             this.bookingType = bookingType;
-            this.discountType = discountType;
-            this.discountValue = discountValue;
-            this.taxType = taxType;
-            this.taxValue = taxValue;
+            this.pricing = pricing;
         }
 
         public BookingStatus StatusFor(DateTime date)
         {
-            if (date < startDate)
-            {
-                return BookingStatus.NOT_STARTED;
-            }
-
-            if (date > startDate && date < endDate)
-            {
-                return BookingStatus.ACTIVE;
-            }
-
+            if (date < startDate) return BookingStatus.NOT_STARTED;
+            if (date >= startDate && date <= endDate) return BookingStatus.ACTIVE;
             return BookingStatus.FINISHED;
         }
     }
