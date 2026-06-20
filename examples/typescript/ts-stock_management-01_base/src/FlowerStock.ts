@@ -31,7 +31,7 @@ export class FlowerStock extends AggregateRoot {
 
         const flowerId = this.flowers.shift()
 
-        if (currentStock >= 50 && this.flowers.length < 50) {
+        if (this.hasStock(currentStock)) {
             this.record(new LowStock('low flower stock'))
         }
 
@@ -47,7 +47,7 @@ export class FlowerStock extends AggregateRoot {
 
         const flowerIds: Array<string> = this.flowers.splice(0, amount)
 
-        if (currentStock >= 50 && this.flowers.length < 50) {
+        if (this.hasStock(currentStock)) {
             this.record(new LowStock(`low flower stock produced by high demand: ${amount}`))
         }
 
@@ -59,8 +59,12 @@ export class FlowerStock extends AggregateRoot {
 
         this.flowers = this.flowers.filter(flowerId => !deadFlowers.includes(flowerId))
 
-        if (currentStock >= 50 && this.flowers.length < 50) {
+        if (this.hasStock(currentStock)) {
             this.record(new LowStock(`low flower stock produced by ${deadFlowers.length} dead flowers`))
         }
+    }
+
+    private hasStock(currentStock: number): boolean {
+        return currentStock >= 50 && this.flowers.length < 50;
     }
 }
